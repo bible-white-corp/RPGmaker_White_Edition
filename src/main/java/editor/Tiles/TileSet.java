@@ -1,9 +1,13 @@
 package editor.Tiles;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.InvalidPathException;
 import java.util.Vector;
 
 
@@ -26,20 +30,46 @@ public class TileSet {
     }
 
     /**
+     * Load TileSet from path
+     * @param path the path given by the user to found the save
+     * @return the built TileSet
+     * @throws FileNotFoundException if path leads to nothing
+     */
+    public static TileSet importSet(String path)
+            throws FileNotFoundException {
+        FileReader f = new FileReader(path);
+        Gson gson = new Gson();
+        JsonReader jsonReader = new JsonReader(f);
+        return gson.fromJson(jsonReader, TileSet.class);
+    }
+
+    /**
+     * Save the TileSet to a json file named with path
+     * @param path the path and name given by the user to the save
+     * @throws IOException if file cannot be opened
+     */
+    public void exportSet(String path) throws IOException {
+        Gson gson = new Gson();
+        FileWriter fileWriter = new FileWriter(path);
+        JsonWriter jsonWriter = new JsonWriter(fileWriter);
+        gson.toJson(this, fileWriter);
+    }
+
+    /**
      * This function is used to crate a new set of tiles from path
      * @param path path to the tiles file
      * @param x height of the tiles
      * @param y width pf the tiles
      * @return a custom TileSet
      * @throws IOException id IO error append
-     * @throws IllegalArgumentException if path given is wrong
+     * @throws InvalidPathException if path given is wrong
      */
     public static TileSet create(String path, int x, int y)
-            throws IOException, IllegalArgumentException {
+            throws IOException, InvalidPathException {
 
         File file = new File(path);
         if (!file.canRead()){
-            throw new IllegalArgumentException("Corrupted file or unreadable file");
+            throw new InvalidPathException(path, "cannot open and read at this path");
         }
 
         TileSet ts = new TileSet(x, y);
