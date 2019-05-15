@@ -98,7 +98,7 @@ public class TileSet {
      */
     public Tile get(int x, int y)
             throws IndexOutOfBoundsException{
-        if (x >= width || y >= height)
+        if (x >= width || y >= height || x < 0 || y < 0)
             throw new IndexOutOfBoundsException();
         int index = (y / tile_y_size) * tiles_per_line + x / tile_x_size;
         return vector.get(index);

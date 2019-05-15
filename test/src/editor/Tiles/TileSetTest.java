@@ -14,13 +14,13 @@ class TileSetTest {
         Tile t = new Tile(0);
         assert t.getIndex() == 0;
 
-        assert t.isWalkable() == true;
+        assert t.isWalkable();
         t.setWalkable(false);
-        assert t.isWalkable() == false;
+        assertFalse(t.isWalkable());
 
-        assert t.is_tile() == true;
+        assert t.is_tile() ;
         t.set_isTile(false);
-        assert t.is_tile() == false;
+        assertFalse(t.is_tile());
 
         assert t.getLayer() == 0;
         t.setLayer(1);
@@ -30,8 +30,7 @@ class TileSetTest {
         assert t.getName().equals("test");
 
         Tile t2 = new Tile(1);
-        assert t.equals(t);
-        assertFalse(t.equals(t2));
+        assertNotEquals(t,t2);
     }
 
     @Test
@@ -64,13 +63,13 @@ class TileSetTest {
         Tile t1 = ts.get(0);
         assert t1.equals(new Tile(0));
         try {
-            t1 = ts.get(-1);
+            ts.get(-1);
             assert false;
         } catch (IndexOutOfBoundsException e) {
             assert true;
         }
         try {
-            t1 = ts.get(30000);
+            ts.get(30000);
             assert false;
         } catch (IndexOutOfBoundsException e) {
             assert true;
@@ -90,19 +89,19 @@ class TileSetTest {
         Tile t1 = ts.get(0, 0);
         assert t1.equals(new Tile(0));
         try {
-            t1 = ts.get(-1,-1);
+            ts.get(-1,-1);
             assert false;
         } catch (IndexOutOfBoundsException e) {
             assert true;
         }
         try {
-            t1 = ts.get(30000,30000);
+            ts.get(30000,30000);
             assert false;
         } catch (IndexOutOfBoundsException e) {
             assert true;
         }
         t1 = ts.get(50,50);
-        assert t1.equals(new Tile(50));
+        assert t1.equals(new Tile(150));
     }
 
     @Test
