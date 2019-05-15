@@ -1,11 +1,12 @@
 package editor;
 
-import editor.forms.EditorForm;
+import editor.forms.EditFrame;
 
 public class Editor {
 
     public static void main(String[] args) {
 
-        EditorForm.createFrame();
+        EditFrame frame = new EditFrame();
+        frame.setVisible(true);
     }
 }
