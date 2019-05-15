@@ -113,7 +113,7 @@ public class TileSet {
      */
     public Tile get(int index)
         throws IndexOutOfBoundsException{
-        if (index >= nb_tiles)
+        if (index >= nb_tiles || index < 0)
             throw new IndexOutOfBoundsException();
         return vector.get(index);
     }

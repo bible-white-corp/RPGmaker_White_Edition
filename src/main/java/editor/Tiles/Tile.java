@@ -42,7 +42,11 @@ public class Tile {
 
     @Override
     public boolean equals(Object obj) {
-            return obj instanceof Tile && ((Tile) obj).name.equals(name);
+            return obj instanceof Tile && ((Tile) obj).index == index;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public Tile(int index) {
