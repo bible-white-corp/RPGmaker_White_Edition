@@ -1,0 +1,7 @@
+image: maven:latest
+stages:
+    - test
+java:
+    stage: test
+    script:
+    - mvn test
