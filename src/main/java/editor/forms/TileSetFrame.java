@@ -1,12 +1,13 @@
 package editor.forms;
 
-import javax.imageio.ImageIO;
+import editor.Editor;
+import editor.Tiles.Tile;
+import editor.Tiles.TileSet;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class TileSetFrame extends JScrollPane {
@@ -21,18 +22,15 @@ public class TileSetFrame extends JScrollPane {
 
 class TileSetDisplay extends JPanel {
 
-    private BufferedImage bgImage;
+    TileSet tileSet;
 
-    private int x;
-    private int y;
-    private int width = 32;
-    private int height = 32;
+    Point select = new Point(0,0);
 
     public TileSetDisplay(String path) {
 
         try
         {
-            bgImage = ImageIO.read(new File(path));
+            tileSet = TileSet.create(path, 32 , 32);
         }
         catch (IOException e)
         {
@@ -45,8 +43,9 @@ class TileSetDisplay extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
-                x = mouseEvent.getPoint().x;
-                y = mouseEvent.getPoint().y;
+
+                select = mouseEvent.getPoint();
+                Editor.setSelectedTile(tileSet.get(select.x,select.y), tileSet);
 
                 parent.repaint();
             }
@@ -58,11 +57,12 @@ class TileSetDisplay extends JPanel {
 
         super.paintComponent(g);
 
-        g.drawImage(bgImage, 0, 0, null);
-        g.fillRect(x - x % width,y - y % height,width,height);
+        g.drawImage(tileSet.getSprites(), 0, 0, null);
+        g.fillRect(select.x - select.x % tileSet.getTile_x_size(),select.y - select.y % tileSet.getTile_y_size(),
+                tileSet.getTile_x_size(),tileSet.getTile_y_size());
     }
 
     public Dimension getPreferredSize() {
-        return new Dimension(bgImage.getWidth(), bgImage.getHeight());
+        return new Dimension(tileSet.getSprites().getWidth(), tileSet.getSprites().getHeight());
     }
 }
