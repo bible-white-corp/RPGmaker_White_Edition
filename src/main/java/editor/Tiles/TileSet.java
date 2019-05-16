@@ -32,6 +32,7 @@ public class TileSet {
         this.tile_y_size = tile_y_size;
     }
 
+
     /**
      * Load TileSet from path
      * @param path the path given by the user to found the save
@@ -46,6 +47,8 @@ public class TileSet {
         TileSet res = gson.fromJson(jsonReader, TileSet.class);
 
         res.sprites = ImageIO.read(new File(path + "/sprites.png"));
+        for (Tile t : res.vector)
+            t.setParent(res);
         return res;
     }
 
@@ -115,7 +118,7 @@ public class TileSet {
 
         ts.vector = new Vector<>(ts.nb_tiles + 1);
         for (int i = 0; i < ts.nb_tiles; i++) {
-            ts.vector.add(new Tile(i));
+            ts.vector.add(new Tile(i, ts));
         }
 
         return ts;

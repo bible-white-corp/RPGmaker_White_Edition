@@ -6,6 +6,15 @@ public class Tile {
     private String name;
     private long layer = 0;
     private int index;
+    private transient TileSet parent;
+
+    public TileSet getParent() {
+        return parent;
+    }
+
+    public void setParent(TileSet parent) {
+        this.parent = parent;
+    }
 
     public boolean is_tile() {
         return is_tile;
@@ -49,7 +58,8 @@ public class Tile {
         return index;
     }
 
-    public Tile(int index) {
+    public Tile(int index, TileSet tileSet) {
         this.index = index;
+        this.parent = tileSet;
     }
 }
