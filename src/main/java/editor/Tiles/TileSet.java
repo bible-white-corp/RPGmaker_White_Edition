@@ -20,11 +20,12 @@ public class TileSet {
     private int width;
     private int height;
 
+    private transient String name;
     private int nb_tiles;
     private int tiles_per_line;
     private int nb_lines;
     private Vector<Tile> vector;
-    private BufferedImage sprites;// Pour info le 0,0 est en haut a gauche dans une buffered image
+    private transient BufferedImage sprites;// Pour info le 0,0 est en haut a gauche dans une buffered image
 
     private TileSet(int tile_x_size, int tile_y_size) {
         this.tile_x_size = tile_x_size;
@@ -38,23 +39,49 @@ public class TileSet {
      * @throws FileNotFoundException if path leads to nothing
      */
     public static TileSet importSet(String path)
-            throws FileNotFoundException {
-        FileReader f = new FileReader(path);
+            throws IOException {
+        FileReader f = new FileReader(path + "/config.json");
         Gson gson = new Gson();
         JsonReader jsonReader = new JsonReader(f);
-        return gson.fromJson(jsonReader, TileSet.class);
+        TileSet res = gson.fromJson(jsonReader, TileSet.class);
+
+        res.sprites = ImageIO.read(new File(path + "/sprites.png"));
+        return res;
+    }
+
+    public int getNb_tiles() {
+        return nb_tiles;
     }
 
     /**
      * Save the TileSet to a json file named with path
-     * @param path the path and name given by the user to the save
-     * @throws IOException if file cannot be opened
+     * @param path the path given by the user to the save, must be DIR
      */
-    public void exportSet(String path) throws IOException {
+    public boolean exportSet(String path) {
+        String location = path + name + "_Save";
+        File f = new File(location);
+        if (!f.mkdirs())
+            return false;
+
         Gson gson = new Gson();
-        FileWriter fileWriter = new FileWriter(path);
+        FileWriter fileWriter;
+        try {
+            fileWriter = new FileWriter(location + "/config.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
         gson.toJson(this, fileWriter);
+
+        File outImage = new File(location + "/sprites.png");
+        try {
+            ImageIO.write(sprites, "png", outImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -75,6 +102,7 @@ public class TileSet {
         }
 
         TileSet ts = new TileSet(x, y);
+        ts.name = file.getName();
         ts.sprites = ImageIO.read(file);
         ts.width = ts.sprites.getWidth();
         ts.height = ts.sprites.getHeight();

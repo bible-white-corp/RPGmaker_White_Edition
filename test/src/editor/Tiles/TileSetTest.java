@@ -2,9 +2,11 @@ package editor.Tiles;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class TileSetTest {
 
@@ -46,10 +48,47 @@ class TileSetTest {
 
     @Test
     void importSet() {
+        TileSet ts;
+        try {
+            ts = TileSet.create(getClass().getResource("tiles.jpg").getPath(), 16, 16);
+        } catch (IOException e) {
+            assert false;
+            return;
+        }
+        assert ts.exportSet(".");
+        TileSet t2 = null;
+        try {
+            t2 = TileSet.importSet(".tiles.jpg_Save");
+        } catch (IOException e) {
+            e.printStackTrace();
+            assert false;
+        }
+        assert ts.getNb_tiles() == t2.getNb_tiles();
+        assert ts.getSprites() == t2.getSprites();
+
+        File f = new File(".tiles.jpg_Save");
+        for (File c : f.listFiles()) {
+            c.delete();
+        }
+        f.delete();
     }
 
     @Test
     void exportSet() {
+        TileSet ts = null;
+        try {
+            ts = TileSet.create(getClass().getResource("tiles.jpg").getPath(), 16, 16);
+        } catch (IOException e) {
+            assert false;
+            return;
+        }
+        assert ts.exportSet(".");
+
+        File f = new File(".tiles.jpg_Save");
+        for (File c : f.listFiles()) {
+            c.delete();
+        }
+        f.delete();
     }
 
     @Test
