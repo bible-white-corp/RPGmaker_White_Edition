@@ -20,10 +20,17 @@ public class GameFrame extends JPanel {
 
         GameFrame game = this;
 
-         addMouseListener(new MouseAdapter() {
+        addMouseMotionListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
+
+                maps.addTile(mouseEvent.getPoint().x, mouseEvent.getPoint().y, Editor.getSelected_tile().tile);
+                game.repaint();
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent mouseEvent) {
 
                 maps.addTile(mouseEvent.getPoint().x, mouseEvent.getPoint().y, Editor.getSelected_tile().tile);
                 game.repaint();
