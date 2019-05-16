@@ -55,12 +55,12 @@ public class EditFrame extends JFrame {
         tabbedPane.add(new ObjectFrame());
 
         side_window.add(tabbedPane, get_c(0,0,1,1));
-        side_window.add(new HierachyFrame(),get_c(0,1,1,0));
+        side_window.add(new HierachyFrame(),get_c(0,1,1,0.5));
 
         pan.add(side_window, get_c(0,0,0,1));
     }
 
-    public static GridBagConstraints get_c(int gx, int gy, int wx, int wy) {
+    public static GridBagConstraints get_c(int gx, int gy, double wx, double wy) {
 
         GridBagConstraints c = new GridBagConstraints();
 

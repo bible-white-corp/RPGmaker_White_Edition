@@ -1,7 +1,6 @@
 package editor.forms;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
