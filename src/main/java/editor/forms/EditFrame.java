@@ -39,8 +39,13 @@ public class EditFrame extends JFrame {
 
         pan.add(tabbedPane, get_c(1,0,1,1));
 
-        tabbedPane.add(new GameFrame());
-        tabbedPane.add(new InspectorFrame());
+        tabbedPane.add("Game", new GameFrame());
+        tabbedPane.add("Story", new StoryFrame());
+
+        JTabbedPane tabbedPane1 = new JTabbedPane();
+        pan.add(tabbedPane1, get_c(2,0,0,1));
+
+        tabbedPane1.add("Inspector", new InspectorFrame());
     }
 
     private void createSideWindow() {
@@ -51,8 +56,8 @@ public class EditFrame extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.add(new TileSetFrame());
-        tabbedPane.add(new ObjectFrame());
+        tabbedPane.add("TileSet", new TileSetFrame());
+        tabbedPane.add("Objects", new ObjectFrame());
 
         side_window.add(tabbedPane, get_c(0,0,1,1));
         side_window.add(new HierachyFrame(),get_c(0,1,1,0.5));

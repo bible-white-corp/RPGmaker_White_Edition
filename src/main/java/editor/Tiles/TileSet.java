@@ -185,6 +185,14 @@ public class TileSet {
         return sprites;
     }
 
+    public int getTile_x_size() {
+        return tile_x_size;
+    }
+
+    public int getTile_y_size() {
+        return tile_y_size;
+    }
+
     /**
      * draw the selected tile at the coordinates x,y on the graph
      *
@@ -195,10 +203,11 @@ public class TileSet {
      */
     public void drawtile(Tile t, int x, int y, Graphics graph) {
         int tile_y = (t.getIndex() / tiles_per_line) * tile_y_size;
-        int tile_x = ((t.getIndex() - 1) % tiles_per_line) * tile_x_size;
+        int tile_x = (t.getIndex() % tiles_per_line) * tile_x_size;
+
         graph.drawImage(sprites,
                 x, y, x + tile_x_size, y + tile_y_size,
-                tile_x, tile_x + tile_x_size, tile_y, tile_y + tile_y_size,
+                tile_x, tile_y,tile_x +  tile_x_size, tile_y + tile_y_size,
                 null);
     }
 
