@@ -1,32 +1,50 @@
 package editor.forms;
 
-import javax.imageio.ImageIO;
+import editor.Editor;
+import editor.Maps.Maps;
+import editor.Tiles.Tile;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GameFrame extends JPanel {
 
-    private BufferedImage bgImage;
+    Maps maps;
 
     public GameFrame() {
 
-        try
-        {
-            bgImage = ImageIO.read(new File("src/main/resources/images/test.jpg"));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        maps = new Maps(100,100,32,32);
+        Editor.setCurrent_map(maps);
+
+        GameFrame game = this;
+
+         addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+
+                maps.addTile(mouseEvent.getPoint().x, mouseEvent.getPoint().y, Editor.getSelected_tile().tile);
+                game.repaint();
+            }
+        });
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-
         super.paintComponent(g);
-            g.drawImage(bgImage, 0, 0, null);
+
+        g.setColor(Color.GRAY);
+        g.fillRect(0,0, maps.width * 32, maps.height * 32);
+
+        for(int y = 0; y < maps.height; ++y)
+            for(int x = 0; x < maps.width; ++x)
+            {
+                Tile tile = maps.get(x, y );
+
+                if (tile != null)
+                    tile.getParent().drawtile(tile, x * 32, y * 32, g);
+            }
     }
 }
