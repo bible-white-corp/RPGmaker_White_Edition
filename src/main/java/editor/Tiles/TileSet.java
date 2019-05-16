@@ -5,9 +5,11 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.InvalidPathException;
+import java.util.List;
 import java.util.Vector;
 
 
@@ -131,8 +133,7 @@ public class TileSet {
         for (; y < height && y < y_len; y += tile_y_size){
             for (; x < width && x < x_len; x += tile_x_size){
                 Tile t = get(x, y);
-                if (t.is_tile())
-                    res.add(t);
+                res.add(t);
             }
         }
         return res;
@@ -140,5 +141,48 @@ public class TileSet {
 
     public BufferedImage getSprites() {
         return sprites;
+    }
+
+    /**
+     * draw the selected tile at the coordinates x,y on the graph
+     *
+     * @param t     the tile to be printed
+     * @param x     the x position on the graph
+     * @param y     the y position on the graph
+     * @param graph where to print
+     */
+    public void drawtile(Tile t, int x, int y, Graphics graph) {
+        int tile_y = (t.getIndex() / tiles_per_line) * tile_y_size;
+        int tile_x = ((t.getIndex() - 1) % tiles_per_line) * tile_x_size;
+        graph.drawImage(sprites,
+                x, y, x + tile_x_size, y + tile_y_size,
+                tile_x, tile_x + tile_x_size, tile_y, tile_y + tile_y_size,
+                null);
+    }
+
+    /**
+     * draw the selected tiles at the x,y coordinates on the graph
+     *
+     * @param ts    the list of tiles, MUST be sorted ascendingly
+     * @param x     the starting x coordinate
+     * @param y     the starting y coordinate
+     * @param graph where to print
+     * @warning The size of the graph is not checked! Watchout for bounds yourself!
+     */
+    public void drawselection(List<Tile> ts, int x, int y, Graphics graph) {
+        int selection_width = 1;
+        int prev = ts.get(0).getIndex();
+        for (int index = 1; index < ts.size(); index++) {
+            if (ts.get(index).getIndex() == prev + 1) {
+                selection_width++;
+                prev = ts.get(index).getIndex();
+            }
+        }
+        int selection_height = ts.size() / selection_width;
+        for (int i = 0; i < selection_height; i++) {
+            for (int j = 0; j < selection_width; j++) {
+                drawtile(ts.get(i + j), x + j, y + i, graph);
+            }
+        }
     }
 }

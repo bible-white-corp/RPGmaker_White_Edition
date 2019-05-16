@@ -1,7 +1,7 @@
 package editor.Tiles;
 
 public class Tile {
-    private boolean is_tile = true;
+    private boolean is_tile = false;
     private boolean is_walkable = true;
     private String name;
     private long layer = 0;
