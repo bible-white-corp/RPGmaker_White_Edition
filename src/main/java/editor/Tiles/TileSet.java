@@ -81,6 +81,9 @@ public class TileSet {
             e.printStackTrace();
             return false;
         }
+        try {
+            jsonWriter.close();
+        } catch (java.io.IOException ioException) { }
         return true;
     }
 
@@ -132,6 +135,17 @@ public class TileSet {
             throw new IndexOutOfBoundsException();
         int index = (y / tile_y_size) * tiles_per_line + x / tile_x_size;
         return vector.get(index);
+    }
+
+    /**
+     * the purpose of this function is to be a getter to the private vector<Tile>
+     * @warning return also when is_tile = false
+     * @return the indexed tile
+     * @throws IndexOutOfBoundsException if index out of range
+     */
+    public Tile get()
+        throws IndexOutOfBoundsException {
+        return get();
     }
 
     /**

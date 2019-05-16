@@ -64,7 +64,6 @@ class TileSetTest {
             assert false;
         }
         assert ts.getNb_tiles() == t2.getNb_tiles();
-        assert ts.getSprites() == t2.getSprites();
 
         File f = new File(".tiles.jpg_Save");
         for (File c : f.listFiles()) {
@@ -75,7 +74,7 @@ class TileSetTest {
 
     @Test
     void exportSet() {
-        TileSet ts = null;
+        TileSet ts;
         try {
             ts = TileSet.create(getClass().getResource("tiles.jpg").getPath(), 16, 16);
         } catch (IOException e) {
