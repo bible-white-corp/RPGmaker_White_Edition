@@ -53,12 +53,22 @@ public class GameFrame extends JPanel {
         g.fillRect(0,0, maps.getWidth() * 32, maps.getHeight() * 32);
 
         for(int y = 0; y < maps.getHeight(); ++y)
-            for(int x = 0; x < maps.getWidth(); ++x)
-            {
-                Tile tile = maps.getTile(x, y );
+            for(int x = 0; x < maps.getWidth(); ++x) {
+                Tile tile = maps.getTile(x, y);
 
                 if (tile != null)
                     tile.getParent().drawtile(tile, x * 32, y * 32, g);
             }
+
+        int w_pixel = maps.getWidth() * maps.getTileWidth();
+        int h_pixel = maps.getHeight() * maps.getTileHeight();
+
+        g.setColor(Color.WHITE);
+
+        for (int y = 0; y < maps.getHeight(); ++y)
+            g.drawLine(0,y * maps.getTileHeight(), w_pixel, y * maps.getTileHeight());
+
+        for (int x = 0; x < maps.getWidth(); ++x)
+            g.drawLine(x * maps.getTileWidth(),0, x * maps.getTileWidth(), h_pixel);
     }
 }

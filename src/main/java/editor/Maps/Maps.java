@@ -85,16 +85,11 @@ public class Maps {
 
     public void addSelection(Selection selection, int x_pixel, int y_pixel)
     {
-        int tile_width = selection.getTiles().get(0).getParent().getTile_x_size();
-        int tile_height = selection.getTiles().get(0).getParent().getTile_y_size();
-
-        System.out.println("X : " + selection.getDimension().width + " H : " + selection.getDimension().height);
-
         for (int i = 0; i < selection.getDimension().width; ++i)
             for (int j = 0; j < selection.getDimension().height; ++j)
                 setTilePixel(
                         selection.getTiles().get(i + j * selection.getDimension().width),
-                        x_pixel + i * tile_width, y_pixel + j * tile_height);
+                        x_pixel + i * tileWidth, y_pixel + j * tileHeight);
     }
 
     public int getWidth() {
@@ -103,6 +98,14 @@ public class Maps {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getTileHeight() {
+        return tileHeight;
+    }
+
+    public int getTileWidth() {
+        return tileWidth;
     }
 
     public void addMapsListener(MapsListener listener)
