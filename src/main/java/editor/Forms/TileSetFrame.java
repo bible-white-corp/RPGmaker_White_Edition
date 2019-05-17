@@ -1,14 +1,19 @@
 package editor.Forms;
 
+import editor.Maps.World;
+
 import javax.swing.*;
 
 public class TileSetFrame extends JScrollPane {
 
-    TileSetDisplay display = new TileSetDisplay("src/main/resources/images/tileset_rpg.png");
+    World world;
+    TileSetDisplay display;
 
-    public TileSetFrame()
+    public TileSetFrame(World world)
     {
+        display = new TileSetDisplay(world);
         setViewportView(display);
+        this.world = world;
     }
 }
 

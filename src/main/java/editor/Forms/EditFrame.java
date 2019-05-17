@@ -1,18 +1,22 @@
 package editor.Forms;
 
+import editor.Maps.World;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class EditFrame extends JFrame {
 
     JPanel pan = new JPanel();
+    World world;
 
     JMenuBar menuBar = new MenuFrame();
     JToolBar toolBar = new ToolsFrame();
     JPanel footer = new FooterFrame();
 
-    public EditFrame() {
+    public EditFrame(World w) {
 
+        this.world = w;
         createMainFrame();
 
         setTitle("RpgEditor");
@@ -39,7 +43,7 @@ public class EditFrame extends JFrame {
 
         pan.add(tabbedPane, get_c(1,0,1,1));
 
-        tabbedPane.add("Game", new GameFrame());
+        tabbedPane.add("Game", new GameFrame(world));
         tabbedPane.add("Story", new StoryFrame());
 
         JTabbedPane tabbedPane1 = new JTabbedPane();
@@ -56,7 +60,7 @@ public class EditFrame extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.add("TileSet", new TileSetFrame());
+        tabbedPane.add("TileSet", new TileSetFrame(world));
         tabbedPane.add("Objects", new ObjectFrame());
 
         side_window.add(tabbedPane, get_c(0,0,1,1));

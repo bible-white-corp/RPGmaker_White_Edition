@@ -2,6 +2,7 @@ package editor.Forms;
 
 import editor.Editor;
 import editor.Maps.Maps;
+import editor.Maps.World;
 import editor.Tiles.Tile;
 
 import javax.swing.*;
@@ -11,11 +12,13 @@ import java.awt.event.MouseEvent;
 
 public class GameFrame extends JPanel {
 
+    World w;
     Maps maps;
 
-    public GameFrame() {
+    public GameFrame(World w) {
 
-        loadMap("");
+        this.w = w;
+        maps = w.mapsList.get(0);
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
 
@@ -32,13 +35,6 @@ public class GameFrame extends JPanel {
         maps.addMapsListener(() -> GameFrame.this.repaint());
     }
 
-    private void loadMap(String path)
-    {
-        if (path == null || path == "") {
-
-            maps = new Maps(100,100,32,32);
-        }
-    }
 
     public void paintSelection(MouseEvent mouseEvent)
     {

@@ -15,7 +15,6 @@ public class Objects {
     Map<String, Animation> animations;
 
     public Objects(String path, int x, int y) throws IOException {
-        ts = TileSet.create(path, x, y);
         objs = new TreeMap<>();
     }
 

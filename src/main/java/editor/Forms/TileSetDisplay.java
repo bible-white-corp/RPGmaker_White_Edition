@@ -1,6 +1,7 @@
 package editor.Forms;
 
 import editor.Editor;
+import editor.Maps.World;
 import editor.Tiles.Tile;
 import editor.Tiles.TileSet;
 
@@ -15,13 +16,15 @@ import java.util.List;
 public class TileSetDisplay extends JPanel {
 
     TileSet tileSet;
+    World w;
 
     Point first = new Point(0,0);
     Point second = new Point(0,0);
 
-    public TileSetDisplay(String path) {
+    public TileSetDisplay(World w) {
 
-        loadTileSet(path);
+        this.w = w;
+        tileSet = w.tileSetList.get(0);
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
 
@@ -71,18 +74,6 @@ public class TileSetDisplay extends JPanel {
 
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
-    }
-
-    private void loadTileSet(String path)
-    {
-        try
-        {
-            tileSet = TileSet.create(path, 32 , 32);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     @Override

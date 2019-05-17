@@ -21,6 +21,7 @@ public class TileSet {
     private int height;
 
     private transient String name;
+    int number;//index of the TileSet in the TileSet[] of the world
     private int nb_tiles;
     private int tiles_per_line;
     private int nb_lines;
@@ -34,6 +35,10 @@ public class TileSet {
 
     public int getWidth() {
         return width;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getHeight() {
@@ -67,30 +72,22 @@ public class TileSet {
      * Save the TileSet to a json file named with path
      * @param path the path given by the user to the save, must be DIR
      */
-    public boolean exportSet(String path) {
+    public boolean exportSet(String path) throws IOException {
         String location = path + name + "_Save";
         File f = new File(location);
-        if (!f.mkdirs())
-            return false;
+        f.mkdirs();
 
         Gson gson = new Gson();
         FileWriter fileWriter;
-        try {
-            fileWriter = new FileWriter(location + "/config.json");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        fileWriter = new FileWriter(location + "/config.json");
+
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
         gson.toJson(this, fileWriter);
 
         File outImage = new File(location + "/sprites.png");
-        try {
-            ImageIO.write(sprites, "png", outImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+
+        ImageIO.write(sprites, "png", outImage);
+
         try {
             jsonWriter.close();
         } catch (java.io.IOException ioException) { }
@@ -106,7 +103,7 @@ public class TileSet {
      * @throws IOException id IO error append
      * @throws InvalidPathException if path given is wrong
      */
-    public static TileSet create(String path, int x, int y)
+    public static TileSet create(String path, int x, int y, int count)
             throws IOException, InvalidPathException {
 
         File file = new File(path);
@@ -120,6 +117,7 @@ public class TileSet {
         ts.width = ts.sprites.getWidth();
         ts.height = ts.sprites.getHeight();
         ts.tiles_per_line = ts.width / x;
+        ts.number = count;
         ts.nb_lines = ts.height / y;
         ts.nb_tiles = ts.nb_lines * ts.tiles_per_line;
 

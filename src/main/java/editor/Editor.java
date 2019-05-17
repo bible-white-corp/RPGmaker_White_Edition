@@ -1,6 +1,7 @@
 package editor;
 
 import editor.Forms.EditFrame;
+import editor.Maps.World;
 import editor.Tools.Selection;
 
 public class Editor {
@@ -12,8 +13,10 @@ public class Editor {
     }
 
     public static void main(String[] args) {
-
-        EditFrame frame = new EditFrame();
+        World w = new World();
+        w.addMap(100,100,32,32, "MyMap");
+        w.createTileSet("src/main/resources/images/tileset_rpg.png", 32, 32);
+        EditFrame frame = new EditFrame(w);
         frame.setVisible(true);
     }
 }

@@ -1,11 +1,18 @@
 package editor.Maps;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import editor.Tiles.Tile;
+import editor.Tiles.TileSet;
 import editor.Tools.Selection;
 
+import javax.imageio.ImageIO;
 import javax.swing.event.EventListenerList;
 import java.awt.*;
+import java.io.*;
 import java.util.EventListener;
+import java.util.List;
 import java.util.Vector;
 
 public class Maps {
@@ -14,10 +21,11 @@ public class Maps {
 
     private int width, height;
     private int tileHeight, tileWidth;
+    private String name;
 
     private transient final EventListenerList listeners = new EventListenerList();
 
-    public Maps(int height, int width, int tileHeight, int tileWidth) {
+    public Maps(int height, int width, int tileHeight, int tileWidth, String name) {
 
         this.width = width;
         this.height = height;
@@ -30,6 +38,14 @@ public class Maps {
 
         for (int i = 0; i < nb_tiles; ++i)
             map.add(null);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Vector<Tile> getMap() {
+        return map;
     }
 
     private int getIndex(int x, int y) {

@@ -7,6 +7,7 @@ public class Tile {
     private long layer = 0;
     private int index;
     private transient TileSet parent;
+    public int parent_index;
 
     public TileSet getParent() {
         return parent;
@@ -61,5 +62,6 @@ public class Tile {
     public Tile(int index, TileSet tileSet) {
         this.index = index;
         this.parent = tileSet;
+        this.parent_index = tileSet.number;
     }
 }
