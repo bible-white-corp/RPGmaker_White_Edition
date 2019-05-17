@@ -1,6 +1,7 @@
 package editor.Maps;
 
 import editor.Tiles.Tile;
+import editor.Tools.Selection;
 
 import javax.swing.event.EventListenerList;
 import java.awt.*;
@@ -80,6 +81,20 @@ public class Maps {
     public void setTilePixel(Tile t, int x_pixel, int y_pixel){
 
         setFromIndex(t, getIndexPixel(x_pixel, y_pixel));
+    }
+
+    public void addSelection(Selection selection, int x_pixel, int y_pixel)
+    {
+        int tile_width = selection.getTiles().get(0).getParent().getTile_x_size();
+        int tile_height = selection.getTiles().get(0).getParent().getTile_y_size();
+
+        System.out.println("X : " + selection.getDimension().width + " H : " + selection.getDimension().height);
+
+        for (int i = 0; i < selection.getDimension().width; ++i)
+            for (int j = 0; j < selection.getDimension().height; ++j)
+                setTilePixel(
+                        selection.getTiles().get(i + j * selection.getDimension().width),
+                        x_pixel + i * tile_width, y_pixel + j * tile_height);
     }
 
     public int getWidth() {

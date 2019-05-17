@@ -3,24 +3,32 @@ package editor.Tools;
 import editor.Tiles.Tile;
 
 import javax.swing.event.EventListenerList;
+import java.awt.*;
 import java.util.EventListener;
+import java.util.List;
 
 public class Selection{
 
-    private Tile tile = null;
+    private List<Tile> tiles = null;
+    private Dimension dimension;
 
     private final EventListenerList listeners = new EventListenerList();
 
-    public Tile getTile() {
-        return tile;
+    public List<Tile> getTiles() {
+        return tiles;
     }
 
-    public void setTile(Tile tile) {
+    public void setSelection(List<Tile> tiles, Dimension dimension) {
 
-        this.tile = tile;
+        this.tiles = tiles;
+        this.dimension = dimension;
 
         for (SelectionListener listener : listeners.getListeners(SelectionListener.class))
             listener.selectionChange();
+    }
+
+    public Dimension getDimension() {
+        return dimension;
     }
 
     public void addSelectionListener(SelectionListener listener)

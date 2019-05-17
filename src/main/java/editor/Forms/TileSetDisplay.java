@@ -1,6 +1,7 @@
 package editor.Forms;
 
 import editor.Editor;
+import editor.Tiles.Tile;
 import editor.Tiles.TileSet;
 
 import javax.swing.*;
@@ -8,15 +9,72 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileSetDisplay extends JPanel {
 
     TileSet tileSet;
 
-    Point select = new Point(0,0);
+    Point first = new Point(0,0);
+    Point second = new Point(0,0);
 
     public TileSetDisplay(String path) {
 
+        loadTileSet(path);
+
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+
+                first = mouseEvent.getPoint();
+                second = mouseEvent.getPoint();
+
+                List<Tile> list = new ArrayList<>();
+
+                list.add(tileSet.get(first.x, first.y));
+
+                Editor.getSelection().setSelection(list, new Dimension(1,1));
+
+                TileSetDisplay.this.repaint();
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+
+                second = e.getPoint();
+
+                List<Tile> list = new ArrayList<>();
+
+                int x1 = Math.min(first.x, second.x);
+                int x2 = Math.max(first.x, second.x);
+                int y1 = Math.min(first.y, second.y);
+                int y2 = Math.max(first.y, second.y);
+
+                x1 = x1 - x1 % tileSet.getTile_x_size();
+                x2 = x2 - x2 % tileSet.getTile_x_size();
+
+                y1 = y1 - y1 % tileSet.getTile_y_size();
+                y2 = y2 - y2 % tileSet.getTile_y_size();
+
+                for (int y = y1; y <= y2; y += tileSet.getTile_y_size())
+                    for (int x = x1; x <= x2; x += tileSet.getTile_x_size())
+                        list.add(tileSet.get(x,y));
+
+                Editor.getSelection().setSelection(list,
+                        new Dimension((x2-x1) / tileSet.getTile_x_size() + 1 , (y2-y1) / tileSet.getTile_y_size() + 1));
+
+                TileSetDisplay.this.repaint();
+            }
+        };
+
+        addMouseListener(mouseAdapter);
+        addMouseMotionListener(mouseAdapter);
+    }
+
+    private void loadTileSet(String path)
+    {
         try
         {
             tileSet = TileSet.create(path, 32 , 32);
@@ -25,20 +83,6 @@ public class TileSetDisplay extends JPanel {
         {
             e.printStackTrace();
         }
-
-        TileSetDisplay parent = this;
-
-        addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-
-                select = mouseEvent.getPoint();
-                Editor.getSelection().setTile(tileSet.get(select.x,select.y));
-
-                parent.repaint();
-            }
-        });
     }
 
     @Override
@@ -47,8 +91,20 @@ public class TileSetDisplay extends JPanel {
         super.paintComponent(g);
 
         g.drawImage(tileSet.getSprites(), 0, 0, null);
-        g.fillRect(select.x - select.x % tileSet.getTile_x_size(),select.y - select.y % tileSet.getTile_y_size(),
-                tileSet.getTile_x_size(),tileSet.getTile_y_size());
+
+        int x1 = Math.min(first.x, second.x);
+        int x2 = Math.max(first.x, second.x);
+        int y1 = Math.min(first.y, second.y);
+        int y2 = Math.max(first.y, second.y);
+
+        x1 = x1 - x1 % tileSet.getTile_x_size();
+        x2 = x2 - x2 % tileSet.getTile_x_size();
+
+        y1 = y1 - y1 % tileSet.getTile_y_size();
+        y2 = y2 - y2 % tileSet.getTile_y_size();
+
+        g.setColor(new Color(0.5f,0.5f,0.5f,0.7f));
+        g.fillRect(x1, y1, x2 + tileSet.getTile_x_size() - x1, y2 + tileSet.getTile_y_size() - y1);
     }
 
     public Dimension getPreferredSize() {

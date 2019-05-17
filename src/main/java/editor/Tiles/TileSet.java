@@ -32,6 +32,13 @@ public class TileSet {
         this.tile_y_size = tile_y_size;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 
     /**
      * Load TileSet from path
@@ -235,7 +242,7 @@ public class TileSet {
         int selection_height = ts.size() / selection_width;
         for (int i = 0; i < selection_height; i++) {
             for (int j = 0; j < selection_width; j++) {
-                drawtile(ts.get(i + j), x + j, y + i, graph);
+                drawtile(ts.get(i * selection_width + j), x + j * tile_x_size, y + i * tile_y_size, graph);
             }
         }
     }

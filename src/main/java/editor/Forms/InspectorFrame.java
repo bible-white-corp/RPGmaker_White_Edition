@@ -6,6 +6,7 @@ import editor.Tools.Selection;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class InspectorFrame extends JPanel {
 
@@ -38,10 +39,10 @@ public class InspectorFrame extends JPanel {
 
             super.paintComponent(g);
 
-            Tile select_tile = selection.getTile();
+            List<Tile> tiles = selection.getTiles();
 
-            if (select_tile != null)
-                select_tile.getParent().drawtile(select_tile,0,0, g);
+            if (tiles != null)
+                tiles.get(0).getParent().drawselection(tiles,0,0, g);
         }
     }
 }

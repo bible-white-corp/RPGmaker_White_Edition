@@ -42,7 +42,7 @@ public class GameFrame extends JPanel {
 
     public void paintSelection(MouseEvent mouseEvent)
     {
-        maps.setTilePixel(Editor.getSelection().getTile(), mouseEvent.getPoint().x, mouseEvent.getPoint().y);
+        maps.addSelection(Editor.getSelection(), mouseEvent.getPoint().x, mouseEvent.getPoint().y);
     }
 
     @Override

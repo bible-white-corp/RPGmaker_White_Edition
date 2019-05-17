@@ -1,13 +1,6 @@
 package editor.Forms;
 
-import editor.Editor;
-import editor.Tiles.TileSet;
-
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 public class TileSetFrame extends JScrollPane {
 
