@@ -1,11 +1,17 @@
 package editor.Forms;
 
+import editor.Maps.World;
+import editor.Maps.saveWorldAction;
+
 import javax.swing.*;
 
 public class MenuFrame extends JMenuBar{
 
-    public MenuFrame()
+    World world;
+
+    public MenuFrame(World w)
     {
+        world = w;
         JMenu menu = new JMenu("File");
         add(menu);
 
@@ -20,7 +26,7 @@ public class MenuFrame extends JMenuBar{
         menuItem = new JMenuItem("Settings");
         menu.add(menuItem);
 
-        menuItem = new JMenuItem("Save All");
+        menuItem = new JMenuItem(new saveWorldAction(w));
         menu.add(menuItem);
 
         menu.addSeparator();

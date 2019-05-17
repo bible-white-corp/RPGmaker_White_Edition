@@ -17,7 +17,7 @@ import java.util.Vector;
 
 public class Maps {
 
-    private Vector<Tile> map;
+    private List<Tile> map;
 
     private int width, height;
     private int tileHeight, tileWidth;
@@ -44,7 +44,7 @@ public class Maps {
         return name;
     }
 
-    public Vector<Tile> getMap() {
+    public List<Tile> getMap() {
         return map;
     }
 

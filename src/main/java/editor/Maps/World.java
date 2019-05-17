@@ -3,6 +3,7 @@ package editor.Maps;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import editor.Forms.GameFrame;
 import editor.Tiles.Tile;
 import editor.Tiles.TileSet;
 
@@ -15,8 +16,11 @@ public class World {
     public List<Maps> mapsList;
     public transient List<TileSet> tileSetList;
     public List<String> tsNames;
+    public GameFrame mainFrame;
+    public String projectName;
 
-    public World(){
+    public World(String projectName){
+        this.projectName = projectName;
         this.mapsList = new Vector<>();
         this.tileSetList = new Vector<>();
     }
@@ -50,8 +54,8 @@ public class World {
         return true;
     }
 
-    public boolean exportMap(String path, String saveName) throws IOException {
-        String location = path + "/" + saveName;
+    public boolean exportMap(String path) throws IOException {
+        String location = path + "/" + projectName;
         File f = new File(location);
         f.mkdirs();
 
@@ -67,16 +71,18 @@ public class World {
             e.printStackTrace();
             return false;
         }
+
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
         gson.toJson(this, fileWriter);
+
+        try {
+            jsonWriter.close();
+            fileWriter.close();
+        } catch (java.io.IOException ioException) { }
 
         for (TileSet ts : tileSetList) {
             ts.exportSet(location);
         }
-
-        try {
-            jsonWriter.close();
-        } catch (java.io.IOException ioException) { }
 
         return true;
     }

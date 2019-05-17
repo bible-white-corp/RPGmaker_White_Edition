@@ -13,7 +13,7 @@ public class Editor {
     }
 
     public static void main(String[] args) {
-        World w = new World();
+        World w = new World("Hello");
         w.addMap(100,100,32,32, "MyMap");
         w.createTileSet("src/main/resources/images/tileset_rpg.png", 32, 32);
         EditFrame frame = new EditFrame(w);

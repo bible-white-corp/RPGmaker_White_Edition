@@ -19,6 +19,7 @@ public class GameFrame extends JPanel {
 
         this.w = w;
         maps = w.mapsList.get(0);
+        w.mainFrame = this;
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
 

@@ -10,13 +10,16 @@ public class EditFrame extends JFrame {
     JPanel pan = new JPanel();
     World world;
 
-    JMenuBar menuBar = new MenuFrame();
-    JToolBar toolBar = new ToolsFrame();
-    JPanel footer = new FooterFrame();
+    JMenuBar menuBar;
+    JToolBar toolBar;
+    JPanel footer;
 
     public EditFrame(World w) {
 
         this.world = w;
+        menuBar = new MenuFrame(w);
+        toolBar = new ToolsFrame();
+        footer = new FooterFrame();
         createMainFrame();
 
         setTitle("RpgEditor");
