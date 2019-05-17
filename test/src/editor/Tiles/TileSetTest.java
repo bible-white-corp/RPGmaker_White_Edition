@@ -13,7 +13,7 @@ class TileSetTest {
     @Test
     void Tiles()
     {
-        Tile t = new Tile(0);
+        Tile t = new Tile(0, null);
         assert t.getIndex() == 0;
 
         assert t.isWalkable();
@@ -31,7 +31,7 @@ class TileSetTest {
         t.setName("test");
         assert t.getName().equals("test");
 
-        Tile t2 = new Tile(1);
+        Tile t2 = new Tile(1, null);
         assertNotEquals(t,t2);
     }
 
@@ -99,7 +99,7 @@ class TileSetTest {
             assert(false);
         }
         Tile t1 = ts.get(0);
-        assert t1.equals(new Tile(0));
+        assert t1.equals(new Tile(0, null));
         try {
             ts.get(-1);
             assert false;
@@ -113,7 +113,7 @@ class TileSetTest {
             assert true;
         }
         t1 = ts.get(50);
-        assert t1.equals(new Tile(50));
+        assert t1.equals(new Tile(50, null));
     }
 
     @Test
@@ -125,7 +125,7 @@ class TileSetTest {
             assert(false);
         }
         Tile t1 = ts.get(0, 0);
-        assert t1.equals(new Tile(0));
+        assert t1.equals(new Tile(0, null));
         try {
             ts.get(-1,-1);
             assert false;
@@ -139,7 +139,7 @@ class TileSetTest {
             assert true;
         }
         t1 = ts.get(50,50);
-        assert t1.equals(new Tile(150));
+        assert t1.equals(new Tile(150, null));
     }
 
     @Test
