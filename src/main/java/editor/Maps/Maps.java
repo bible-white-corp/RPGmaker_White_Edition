@@ -2,7 +2,9 @@ package editor.Maps;
 
 import editor.Tiles.Tile;
 
+import javax.swing.event.EventListenerList;
 import java.awt.*;
+import java.util.EventListener;
 import java.util.Vector;
 
 public class Maps {
@@ -11,6 +13,8 @@ public class Maps {
 
     private int width, height;
     private int tileHeight, tileWidth;
+
+    private transient final EventListenerList listeners = new EventListenerList();
 
     public Maps(int height, int width, int tileHeight, int tileWidth) {
 
@@ -45,24 +49,37 @@ public class Maps {
         return getIndex(x_pixel / tileWidth, y_pixel / tileHeight);
     }
 
+    private Tile getFromIndex(int index)
+    {
+        return map.get(index);
+    }
+
+    private void setFromIndex(Tile t, int index) {
+
+        map.set(index, t);
+
+        for (MapsListener listener : listeners.getListeners(MapsListener.class))
+            listener.mapsChangee();
+    }
+
     public Tile getTile(int x, int y){
 
-        return map.get(getIndex(x, y));
+        return getFromIndex(getIndex(x, y));
     }
 
     public void setTile(Tile t, int x, int y){
 
-        map.set(getIndex(x, y), t);
+        setFromIndex(t, getIndex(x, y));
     }
 
     public Tile getTilePixel(int x_pixel, int y_pixel){
 
-        return map.get(getIndexPixel(x_pixel, y_pixel));
+        return getFromIndex(getIndexPixel(x_pixel, y_pixel));
     }
 
     public void setTilePixel(Tile t, int x_pixel, int y_pixel){
 
-        map.set(getIndex(x_pixel, y_pixel), t);
+        setFromIndex(t, getIndexPixel(x_pixel, y_pixel));
     }
 
     public int getWidth() {
@@ -71,5 +88,20 @@ public class Maps {
 
     public int getHeight() {
         return height;
+    }
+
+    public void addMapsListener(MapsListener listener)
+    {
+        listeners.add(MapsListener.class, listener);
+    }
+
+    public void removeMapsListener(MapsListener listener)
+    {
+        listeners.remove(MapsListener.class, listener);
+    }
+
+    public interface MapsListener extends EventListener {
+
+        void mapsChangee();
     }
 }

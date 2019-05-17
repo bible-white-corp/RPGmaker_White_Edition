@@ -1,7 +1,6 @@
-package editor.forms;
+package editor.Forms;
 
 import editor.Editor;
-import editor.Tiles.Tile;
 import editor.Tiles.TileSet;
 
 import javax.swing.*;
@@ -45,7 +44,7 @@ class TileSetDisplay extends JPanel {
             public void mousePressed(MouseEvent mouseEvent) {
 
                 select = mouseEvent.getPoint();
-                Editor.setSelectedTile(tileSet.get(select.x,select.y), tileSet);
+                Editor.getSelection().setTile(tileSet.get(select.x,select.y));
 
                 parent.repaint();
             }
