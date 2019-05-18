@@ -26,22 +26,28 @@ public class GameFrame extends JPanel {
         MouseAdapter mouseAdapter = new MouseAdapter() {
 
             @Override
-            public void mouseClicked(MouseEvent mouseEvent) { GameFrame.this.paintSelection(mouseEvent);}
+            public void mousePressed(MouseEvent mouseEvent)
+            {
+               Editor.getBrush().Clicked(level, Editor.getSelection(), mouseEvent.getX(), mouseEvent.getY());
+            }
 
             @Override
-            public void mouseDragged(MouseEvent mouseEvent) { GameFrame.this.paintSelection(mouseEvent);}
+            public void mouseDragged(MouseEvent mouseEvent)
+            {
+                Editor.getBrush().Dragged(level, Editor.getSelection(), mouseEvent.getX(), mouseEvent.getY());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent)
+            {
+                Editor.getBrush().Released();
+            }
         };
 
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
 
         level.addMapsListener(() -> GameFrame.this.repaint());
-    }
-
-
-    public void paintSelection(MouseEvent mouseEvent)
-    {
-        level.addSelection(Editor.getSelection(), mouseEvent.getPoint().x, mouseEvent.getPoint().y);
     }
 
     @Override

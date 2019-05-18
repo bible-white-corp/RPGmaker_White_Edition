@@ -3,13 +3,21 @@ package editor;
 import editor.Forms.EditFrame;
 import editor.Forms.GameFrame;
 import editor.Maps.World;
+import editor.Tools.Brush;
+import editor.Tools.Brushes.Pencil;
 import editor.Tools.Selection;
 
 public class Editor {
 
     private static Selection selection = new Selection();
+    private static Brush brush = new Pencil();
+
     public static World world;
     public static GameFrame mainFrame;
+
+    public static Brush getBrush() {
+        return brush;
+    }
 
     public static Selection getSelection() {
         return selection;
