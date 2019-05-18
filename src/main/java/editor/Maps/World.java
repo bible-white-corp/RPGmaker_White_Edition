@@ -18,6 +18,7 @@ public class World {
     public transient List<TileSet> tileSetList;
     public List<String> tsNames;
     public String projectName;
+    transient String savePath;
 
     public World(String projectName) {
         this.projectName = projectName;
@@ -54,6 +55,14 @@ public class World {
         return true;
     }
 
+    public boolean quick_export(){
+        return exportMap(savePath);
+    }
+
+    public boolean has_quickPath(){
+        return savePath != null && !savePath.isEmpty();
+    }
+
     public boolean exportMap(String path) {
         String location = path + "/" + projectName;
         File f = new File(location);
@@ -85,13 +94,14 @@ public class World {
                         e.printStackTrace();
                     }
                 }
-            }.start();
+            }.start();//#TODO recuperer les booleans de statut.
         }
 
         try {
             fileWriter.close();
         } catch (IOException e) {
         }
+        savePath = path;
 
         return true;
     }
@@ -119,6 +129,7 @@ public class World {
         try {
             f.close();
         } catch (IOException e) { }
+        res.savePath = path;
         return res;
     }
 

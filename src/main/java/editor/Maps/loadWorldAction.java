@@ -12,6 +12,7 @@ public class loadWorldAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         JFileChooser fileChooser = new JFileChooser(".");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -22,7 +23,7 @@ public class loadWorldAction extends AbstractAction {
                 Editor.mainFrame.setLevel(w.levelList.get(0));
                 Editor.mainFrame.repaint();
             } catch (Exception excep) {
-                JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the saved",
+                JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the import",
                         "IO error", JOptionPane.ERROR_MESSAGE);
                 return;
             }

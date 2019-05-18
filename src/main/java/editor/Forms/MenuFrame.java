@@ -5,6 +5,7 @@ import editor.Maps.loadWorldAction;
 import editor.Maps.saveWorldAction;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 
 public class MenuFrame extends JMenuBar{
 
@@ -27,9 +28,18 @@ public class MenuFrame extends JMenuBar{
         menu.add(menuItem);
 
 
+        Action quick_load = new loadWorldAction();
+        quick_load.putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
         menuItem = new JMenuItem(new loadWorldAction());
+        menuItem.setAction(quick_load);
         menu.add(menuItem);
-        menuItem = new JMenuItem(new saveWorldAction());
+
+        Action quick_save = new saveWorldAction();
+        quick_save.putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+        menuItem = new JMenuItem(quick_save);
+        menuItem.setAction(quick_save);
         menu.add(menuItem);
 
         menu.addSeparator();
@@ -58,4 +68,5 @@ public class MenuFrame extends JMenuBar{
         menuItem = new JMenuItem("Paste");
         menu.add(menuItem);
     }
+
 }
