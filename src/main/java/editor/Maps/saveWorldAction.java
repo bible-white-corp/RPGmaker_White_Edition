@@ -7,7 +7,7 @@ import editor.Editor;
 public class saveWorldAction extends AbstractAction {
 
     public saveWorldAction(){
-        super("Import project");
+        super("Save project");
     }
 
     @Override
@@ -17,10 +17,9 @@ public class saveWorldAction extends AbstractAction {
         JFileChooser fileChooser = new JFileChooser(".");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-        if (fileChooser.showOpenDialog(Editor.mainFrame) == JFileChooser.APPROVE_OPTION){
+        if (fileChooser.showSaveDialog(Editor.mainFrame) == JFileChooser.APPROVE_OPTION){
             try {
-                World w = World.importWorld(fileChooser.getSelectedFile().getPath());
-                Editor.world = w;
+                Editor.world.exportMap(fileChooser.getSelectedFile().getPath());
             } catch (Exception excep) {
                 JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the import",
                         "IO error", JOptionPane.ERROR_MESSAGE);

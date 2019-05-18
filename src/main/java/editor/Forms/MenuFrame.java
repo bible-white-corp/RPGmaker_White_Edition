@@ -1,6 +1,7 @@
 package editor.Forms;
 
 import editor.Maps.World;
+import editor.Maps.loadWorldAction;
 import editor.Maps.saveWorldAction;
 
 import javax.swing.*;
@@ -25,6 +26,9 @@ public class MenuFrame extends JMenuBar{
         menuItem = new JMenuItem("Settings");
         menu.add(menuItem);
 
+
+        menuItem = new JMenuItem(new loadWorldAction());
+        menu.add(menuItem);
         menuItem = new JMenuItem(new saveWorldAction());
         menu.add(menuItem);
 
