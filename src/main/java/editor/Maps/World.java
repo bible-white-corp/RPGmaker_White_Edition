@@ -88,6 +88,8 @@ public class World {
             }.start();
         }
 
+        fileWriter.close();
+
         return true;
     }
 
