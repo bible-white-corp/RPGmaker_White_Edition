@@ -7,6 +7,7 @@ import editor.Forms.GameFrame;
 import editor.Tiles.Tile;
 import editor.Tiles.TileSet;
 
+import java.awt.*;
 import java.io.*;
 import java.util.List;
 import java.util.Vector;
@@ -53,7 +54,7 @@ public class World {
         return true;
     }
 
-    public boolean exportMap(String path) throws IOException {
+    public boolean exportMap(String path) {
         String location = path + "/" + projectName;
         File f = new File(location);
         f.mkdirs();
@@ -82,28 +83,29 @@ public class World {
                         ts.exportSet(location);
                     } catch (IOException e) {
                         e.printStackTrace();
-                        return;
                     }
                 }
             }.start();
         }
 
-        fileWriter.close();
+        try {
+            fileWriter.close();
+        } catch (IOException e) {
+        }
 
         return true;
     }
 
-    public static World importWorld(String path) throws IOException {
+    public static World importWorld(String path, GameFrame mainFrame) throws IOException {
         FileReader f = new FileReader(path + "/world.json");
         Gson gson = new Gson();
         JsonReader jsonReader = new JsonReader(f);
         World res = gson.fromJson(jsonReader, World.class);
-        try {
-            f.close();
-        } catch (IOException e) {
-        }
+
+
 
         res.tileSetList = new Vector<>();
+        res.mainFrame = mainFrame;
 
         for (String str : res.tsNames) {
             res.tileSetList.add(TileSet.importSet(path + "/" + str + "_Save"));
@@ -117,6 +119,9 @@ public class World {
             }
         }
 
+        try {
+            f.close();
+        } catch (IOException e) { }
         return res;
     }
 
