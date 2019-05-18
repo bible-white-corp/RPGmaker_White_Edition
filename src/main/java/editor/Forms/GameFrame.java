@@ -1,7 +1,7 @@
 package editor.Forms;
 
 import editor.Editor;
-import editor.Maps.Maps;
+import editor.Maps.Level;
 import editor.Maps.World;
 import editor.Tiles.Tile;
 
@@ -13,12 +13,12 @@ import java.awt.event.MouseEvent;
 public class GameFrame extends JPanel {
 
     World w;
-    Maps maps;
+    Level level;
 
     public GameFrame(World w) {
 
         this.w = w;
-        maps = w.mapsList.get(0);
+        level = w.levelList.get(0);
         w.mainFrame = this;
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
@@ -33,13 +33,13 @@ public class GameFrame extends JPanel {
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
 
-        maps.addMapsListener(() -> GameFrame.this.repaint());
+        level.addMapsListener(() -> GameFrame.this.repaint());
     }
 
 
     public void paintSelection(MouseEvent mouseEvent)
     {
-        maps.addSelection(Editor.getSelection(), mouseEvent.getPoint().x, mouseEvent.getPoint().y);
+        level.addSelection(Editor.getSelection(), mouseEvent.getPoint().x, mouseEvent.getPoint().y);
     }
 
     @Override
@@ -47,25 +47,25 @@ public class GameFrame extends JPanel {
         super.paintComponent(g);
 
         g.setColor(Color.GRAY);
-        g.fillRect(0,0, maps.getWidth() * 32, maps.getHeight() * 32);
+        g.fillRect(0,0, level.getWidth() * 32, level.getHeight() * 32);
 
-        for(int y = 0; y < maps.getHeight(); ++y)
-            for(int x = 0; x < maps.getWidth(); ++x) {
-                Tile tile = maps.getTile(x, y);
+        for(int y = 0; y < level.getHeight(); ++y)
+            for(int x = 0; x < level.getWidth(); ++x) {
+                Tile tile = level.getTile(x, y);
 
                 if (tile != null)
                     tile.getParent().drawtile(tile, x * 32, y * 32, g);
             }
 
-        int w_pixel = maps.getWidth() * maps.getTileWidth();
-        int h_pixel = maps.getHeight() * maps.getTileHeight();
+        int w_pixel = level.getWidth() * level.getTileWidth();
+        int h_pixel = level.getHeight() * level.getTileHeight();
 
         g.setColor(Color.WHITE);
 
-        for (int y = 0; y < maps.getHeight(); ++y)
-            g.drawLine(0,y * maps.getTileHeight(), w_pixel, y * maps.getTileHeight());
+        for (int y = 0; y < level.getHeight(); ++y)
+            g.drawLine(0,y * level.getTileHeight(), w_pixel, y * level.getTileHeight());
 
-        for (int x = 0; x < maps.getWidth(); ++x)
-            g.drawLine(x * maps.getTileWidth(),0, x * maps.getTileWidth(), h_pixel);
+        for (int x = 0; x < level.getWidth(); ++x)
+            g.drawLine(x * level.getTileWidth(),0, x * level.getTileWidth(), h_pixel);
     }
 }

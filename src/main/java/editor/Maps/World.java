@@ -7,21 +7,20 @@ import editor.Forms.GameFrame;
 import editor.Tiles.Tile;
 import editor.Tiles.TileSet;
 
-import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.List;
 import java.util.Vector;
 
 public class World {
-    public List<Maps> mapsList;
+    public List<Level> levelList;
     public transient List<TileSet> tileSetList;
     public List<String> tsNames;
-    public GameFrame mainFrame;
+    public transient GameFrame mainFrame;
     public String projectName;
 
-    public World(String projectName){
+    public World(String projectName) {
         this.projectName = projectName;
-        this.mapsList = new Vector<>();
+        this.levelList = new Vector<>();
         this.tileSetList = new Vector<>();
     }
 
@@ -29,7 +28,7 @@ public class World {
         return tsNames;
     }
 
-    public boolean createTileSet(String path, int x, int y){
+    public boolean createTileSet(String path, int x, int y) {
         try {
             tileSetList.add(TileSet.create(path, x, y, tileSetList.size()));
         } catch (IOException e) {
@@ -39,12 +38,12 @@ public class World {
         return true;
     }
 
-    public boolean addMap(int height, int width, int tileHeight, int tileWidth, String name){
-        mapsList.add(new Maps(height, width, tileHeight, tileWidth, name));
+    public boolean addMap(int height, int width, int tileHeight, int tileWidth, String name) {
+        levelList.add(new Level(height, width, tileHeight, tileWidth, name));
         return true;
     }
 
-    public boolean importTileSet(String path){
+    public boolean importTileSet(String path) {
         try {
             tileSetList.add(TileSet.importSet(path));
         } catch (IOException e) {
@@ -65,23 +64,28 @@ public class World {
 
         Gson gson = new Gson();
         FileWriter fileWriter;
+
         try {
             fileWriter = new FileWriter(location + "/world.json");
         } catch (IOException e) {
+
             e.printStackTrace();
             return false;
         }
 
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
         gson.toJson(this, fileWriter);
-
-        try {
-            jsonWriter.close();
-            fileWriter.close();
-        } catch (java.io.IOException ioException) { }
-
         for (TileSet ts : tileSetList) {
-            ts.exportSet(location);
+            new Thread() {
+                public void run() {
+                    try {
+                        ts.exportSet(location);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                }
+            }.start();
         }
 
         return true;
@@ -94,17 +98,18 @@ public class World {
         World res = gson.fromJson(jsonReader, World.class);
         try {
             f.close();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
 
         res.tileSetList = new Vector<>();
 
-        for (String str : res.tsNames){
+        for (String str : res.tsNames) {
             res.tileSetList.add(TileSet.importSet(path + "/" + str + "_Save"));
         }
 
-        for (Maps w : res.mapsList){
-            for (Tile t : w.getMap()){
-                if (t != null){
+        for (Level w : res.levelList) {
+            for (Tile t : w.getMap()) {
+                if (t != null) {
                     t.setParent(res.tileSetList.get(t.parent_index));
                 }
             }

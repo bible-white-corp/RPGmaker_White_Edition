@@ -1,10 +1,7 @@
 package editor.Maps;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
 
 public class saveWorldAction extends AbstractAction {
 
@@ -17,13 +14,12 @@ public class saveWorldAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (w.mapsList.size() == 0)
+        if (w.levelList.size() == 0)
             return;
         JFileChooser fileChooser = new JFileChooser(".");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        fileChooser.showSaveDialog(w.mainFrame);
 
-        if (fileChooser.showOpenDialog(w.mainFrame) == JFileChooser.APPROVE_OPTION){
+        if (fileChooser.showSaveDialog(w.mainFrame) == JFileChooser.APPROVE_OPTION){
             try {
                 w.exportMap(fileChooser.getSelectedFile().getPath());
             } catch (Exception excep) {

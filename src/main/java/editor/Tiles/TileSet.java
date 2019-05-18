@@ -73,7 +73,7 @@ public class TileSet {
      * @param path the path given by the user to the save, must be DIR
      */
     public boolean exportSet(String path) throws IOException {
-        String location = path + name + "_Save";
+        String location = path + "/" + name + "_Save";
         File f = new File(location);
         f.mkdirs();
 

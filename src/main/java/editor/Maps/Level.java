@@ -15,7 +15,7 @@ import java.util.EventListener;
 import java.util.List;
 import java.util.Vector;
 
-public class Maps {
+public class Level {
 
     private List<Tile> map;
 
@@ -23,10 +23,11 @@ public class Maps {
     private int tileHeight, tileWidth;
     private String name;
 
-    private transient final EventListenerList listeners = new EventListenerList();
+    private transient final EventListenerList listeners;
 
-    public Maps(int height, int width, int tileHeight, int tileWidth, String name) {
+    public Level(int height, int width, int tileHeight, int tileWidth, String name) {
 
+        listeners = new EventListenerList();
         this.width = width;
         this.height = height;
         this.tileWidth = tileWidth;
