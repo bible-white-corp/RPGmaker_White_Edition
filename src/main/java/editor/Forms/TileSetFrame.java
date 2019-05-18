@@ -6,14 +6,12 @@ import javax.swing.*;
 
 public class TileSetFrame extends JScrollPane {
 
-    World world;
     TileSetDisplay display;
 
-    public TileSetFrame(World world)
+    public TileSetFrame()
     {
-        display = new TileSetDisplay(world);
+        display = new TileSetDisplay();
         setViewportView(display);
-        this.world = world;
     }
 }
 

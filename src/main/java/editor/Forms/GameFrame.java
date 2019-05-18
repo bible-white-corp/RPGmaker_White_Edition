@@ -12,14 +12,12 @@ import java.awt.event.MouseEvent;
 
 public class GameFrame extends JPanel {
 
-    World w;
     Level level;
 
-    public GameFrame(World w) {
+    public GameFrame() {
 
-        this.w = w;
-        level = w.levelList.get(0);
-        w.mainFrame = this;
+        level = Editor.world.levelList.get(0);
+        Editor.mainFrame = this;
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
 

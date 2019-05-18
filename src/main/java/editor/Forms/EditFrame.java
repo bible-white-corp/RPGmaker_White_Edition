@@ -14,10 +14,9 @@ public class EditFrame extends JFrame {
     JToolBar toolBar;
     JPanel footer;
 
-    public EditFrame(World w) {
+    public EditFrame() {
 
-        this.world = w;
-        menuBar = new MenuFrame(w);
+        menuBar = new MenuFrame();
         toolBar = new ToolsFrame();
         footer = new FooterFrame();
         createMainFrame();
@@ -46,7 +45,7 @@ public class EditFrame extends JFrame {
 
         pan.add(tabbedPane, get_c(1,0,1,1));
 
-        tabbedPane.add("Game", new GameFrame(world));
+        tabbedPane.add("Game", new GameFrame());
         tabbedPane.add("Story", new StoryFrame());
 
         JTabbedPane tabbedPane1 = new JTabbedPane();
@@ -63,7 +62,7 @@ public class EditFrame extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.add("TileSet", new TileSetFrame(world));
+        tabbedPane.add("TileSet", new TileSetFrame());
         tabbedPane.add("Objects", new ObjectFrame());
 
         side_window.add(tabbedPane, get_c(0,0,1,1));

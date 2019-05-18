@@ -3,6 +3,7 @@ package editor.Maps;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import editor.Editor;
 import editor.Forms.GameFrame;
 import editor.Tiles.Tile;
 import editor.Tiles.TileSet;
@@ -16,7 +17,6 @@ public class World {
     public List<Level> levelList;
     public transient List<TileSet> tileSetList;
     public List<String> tsNames;
-    public transient GameFrame mainFrame;
     public String projectName;
 
     public World(String projectName) {
@@ -96,16 +96,13 @@ public class World {
         return true;
     }
 
-    public static World importWorld(String path, GameFrame mainFrame) throws IOException {
+    public static World importWorld(String path) throws IOException {
         FileReader f = new FileReader(path + "/world.json");
         Gson gson = new Gson();
         JsonReader jsonReader = new JsonReader(f);
         World res = gson.fromJson(jsonReader, World.class);
 
-
-
         res.tileSetList = new Vector<>();
-        res.mainFrame = mainFrame;
 
         for (String str : res.tsNames) {
             res.tileSetList.add(TileSet.importSet(path + "/" + str + "_Save"));

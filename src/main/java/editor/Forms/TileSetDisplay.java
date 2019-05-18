@@ -21,10 +21,9 @@ public class TileSetDisplay extends JPanel {
     Point first = new Point(0,0);
     Point second = new Point(0,0);
 
-    public TileSetDisplay(World w) {
+    public TileSetDisplay() {
 
-        this.w = w;
-        tileSet = w.tileSetList.get(0);
+        tileSet = Editor.world.tileSetList.get(0);
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
 

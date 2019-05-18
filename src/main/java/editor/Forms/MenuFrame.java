@@ -9,9 +9,8 @@ public class MenuFrame extends JMenuBar{
 
     World world;
 
-    public MenuFrame(World w)
+    public MenuFrame()
     {
-        world = w;
         JMenu menu = new JMenu("File");
         add(menu);
 
@@ -26,7 +25,7 @@ public class MenuFrame extends JMenuBar{
         menuItem = new JMenuItem("Settings");
         menu.add(menuItem);
 
-        menuItem = new JMenuItem(new saveWorldAction(w));
+        menuItem = new JMenuItem(new saveWorldAction());
         menu.add(menuItem);
 
         menu.addSeparator();
