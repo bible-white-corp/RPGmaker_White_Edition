@@ -5,7 +5,9 @@ import editor.Maps.loadWorldAction;
 import editor.Maps.saveWorldAction;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import static java.lang.System.exit;
 
 public class MenuFrame extends JMenuBar{
 
@@ -48,7 +50,16 @@ public class MenuFrame extends JMenuBar{
 
         menu.addSeparator();
 
-        menuItem = new JMenuItem("Exit");
+        Action quick_exit = new AbstractAction("Exit") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit(0);
+            }
+        };
+        quick_exit.putValue(Action.ACCELERATOR_KEY,
+            KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
+        menuItem = new JMenuItem();
+        menuItem.setAction(quick_exit);
         menu.add(menuItem);
 
         //Build Edit Menu
