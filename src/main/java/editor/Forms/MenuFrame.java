@@ -35,11 +35,15 @@ public class MenuFrame extends JMenuBar{
         menuItem.setAction(quick_load);
         menu.add(menuItem);
 
-        Action quick_save = new saveWorldAction();
+        Action quick_save = new saveWorldAction("Save project", true);
         quick_save.putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
         menuItem = new JMenuItem(quick_save);
         menuItem.setAction(quick_save);
+        menu.add(menuItem);
+
+        Action save_as = new saveWorldAction("Save project as...", false);
+        menuItem = new JMenuItem(save_as);
         menu.add(menuItem);
 
         menu.addSeparator();

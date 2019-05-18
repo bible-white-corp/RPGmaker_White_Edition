@@ -8,8 +8,11 @@ import editor.Editor;
 
 public class saveWorldAction extends AbstractAction {
 
-    public saveWorldAction(){
-        super("Save project");
+    private boolean quick;
+
+    public saveWorldAction(String buttonName, boolean is_quick){
+        super(buttonName);
+        this.quick = is_quick;
     }
 
     @Override
@@ -18,7 +21,7 @@ public class saveWorldAction extends AbstractAction {
             return;
 
         Boolean success = true;
-        if (Editor.world.has_quickPath()){
+        if (Editor.world.has_quickPath() && quick){
             success = Editor.world.quick_export();
         }
         else {
