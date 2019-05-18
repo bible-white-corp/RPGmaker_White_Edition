@@ -19,12 +19,14 @@ public class loadWorldAction extends AbstractAction {
             try {
                 World w = World.importWorld(fileChooser.getSelectedFile().getPath());
                 Editor.world = w;
+                Editor.mainFrame.setLevel(w.levelList.get(0));
+                Editor.mainFrame.repaint();
             } catch (Exception excep) {
                 JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the saved",
                         "IO error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the saved",
-                    "IO error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(Editor.mainFrame, "Loading Complete!", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

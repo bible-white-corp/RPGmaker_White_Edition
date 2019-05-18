@@ -14,6 +14,10 @@ public class GameFrame extends JPanel {
 
     Level level;
 
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
     public GameFrame() {
 
         level = Editor.world.levelList.get(0);
