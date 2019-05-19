@@ -15,12 +15,16 @@ public class GameFrame extends JPanel {
     Level level;
 
     public void setLevel(Level level) {
+
         this.level = level;
+
+        if (level != null)
+            this.level.addMapsListener(() -> GameFrame.this.repaint());
     }
 
     public GameFrame() {
 
-        level = Editor.world.levelList.get(0);
+        setLevel(Editor.world.levelList.get(0));
         Editor.mainFrame = this;
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
@@ -46,8 +50,6 @@ public class GameFrame extends JPanel {
 
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
-
-        level.addMapsListener(() -> GameFrame.this.repaint());
     }
 
     @Override

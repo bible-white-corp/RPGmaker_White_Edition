@@ -23,11 +23,12 @@ public class Level {
     private int tileHeight, tileWidth;
     private String name;
 
-    private transient final EventListenerList listeners;
+    private transient EventListenerList listeners;
 
     public Level(int height, int width, int tileHeight, int tileWidth, String name) {
 
         listeners = new EventListenerList();
+
         this.width = width;
         this.height = height;
         this.tileWidth = tileWidth;
@@ -40,6 +41,8 @@ public class Level {
         for (int i = 0; i < nb_tiles; ++i)
             map.add(null);
     }
+
+
 
     public String getName() {
         return name;
@@ -133,6 +136,11 @@ public class Level {
     public void removeMapsListener(MapsListener listener)
     {
         listeners.remove(MapsListener.class, listener);
+    }
+
+    public void initializeListener()
+    {
+        listeners = new EventListenerList();
     }
 
     public interface MapsListener extends EventListener {

@@ -20,9 +20,13 @@ public class loadWorldAction extends AbstractAction {
             try {
                 World w = World.importWorld(fileChooser.getSelectedFile().getPath());
                 Editor.world = w;
-                Editor.mainFrame.setLevel(w.levelList.get(0));//#TODO sale
+                Editor.mainFrame.setLevel(w.levelList.get(0));
                 Editor.mainFrame.repaint();
+
             } catch (Exception excep) {
+
+                excep.printStackTrace();
+
                 JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the import",
                         "IO error", JOptionPane.ERROR_MESSAGE);
                 return;

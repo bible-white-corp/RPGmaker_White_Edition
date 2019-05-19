@@ -29,6 +29,8 @@ public class BucketFill extends Brush {
 
             try {
 
+                System.out.println("Nb : " + points.size());
+
                 if (level.getTilePixel(cur.x, cur.y) == background) {
                     level.setTilePixel(selection.getTiles().get(0), cur.x, cur.y);
 
