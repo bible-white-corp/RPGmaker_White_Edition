@@ -3,6 +3,7 @@ package editor.Tools.Brushes;
 import editor.Editor;
 import editor.Maps.Level;
 import editor.Tiles.Tile;
+import editor.Tiles.TilePair;
 import editor.Tools.Brush;
 import editor.Tools.Selection;
 
@@ -15,7 +16,7 @@ public class SelectBrush extends Brush {
     @Override
     public void clicked(Level level, Selection selection, int x_pixel, int y_pixel) {
 
-        List<Tile> list = new ArrayList<>();
+        List<TilePair> list = new ArrayList<>();
 
         list.add(level.getTilePixel(first.x, first.y));
 
@@ -42,7 +43,7 @@ public class SelectBrush extends Brush {
     @Override
     public void dragged(Level level, Selection selection, int x_pixel, int y_pixel) {
 
-        List<Tile> list = new ArrayList<>();
+        List<TilePair> list = new ArrayList<>();
 
         int x1 = Math.min(first.x, last.x);
         int x2 = Math.max(first.x, last.x);

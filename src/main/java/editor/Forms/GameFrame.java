@@ -4,6 +4,7 @@ import editor.Editor;
 import editor.Maps.Level;
 import editor.Maps.World;
 import editor.Tiles.Tile;
+import editor.Tiles.TilePair;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,10 +62,10 @@ public class GameFrame extends JPanel {
 
         for(int y = 0; y < level.getHeight(); ++y)
             for(int x = 0; x < level.getWidth(); ++x) {
-                Tile tile = level.getTile(x, y);
+                TilePair tile = level.getTile(x, y);
 
                 if (tile != null)
-                    tile.getParent().drawtile(tile, x * 32, y * 32, g);
+                    tile.getTileSet().drawtile(tile, x * 32, y * 32, g);
             }
 
         int w_pixel = level.getWidth() * level.getTileWidth();

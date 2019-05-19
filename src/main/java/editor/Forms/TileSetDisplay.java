@@ -3,6 +3,7 @@ package editor.Forms;
 import editor.Editor;
 import editor.Maps.World;
 import editor.Tiles.Tile;
+import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
 
 import javax.swing.*;
@@ -33,9 +34,9 @@ public class TileSetDisplay extends JPanel {
                 first = mouseEvent.getPoint();
                 second = mouseEvent.getPoint();
 
-                List<Tile> list = new ArrayList<>();
+                List<TilePair> list = new ArrayList<>();
 
-                list.add(tileSet.get(first.x, first.y));
+                list.add(new TilePair(tileSet.get(first.x, first.y)));
 
                 Editor.getSelection().setSelection(list, new Dimension(1,1));
 
@@ -47,7 +48,7 @@ public class TileSetDisplay extends JPanel {
 
                 second = e.getPoint();
 
-                List<Tile> list = new ArrayList<>();
+                List<TilePair> list = new ArrayList<>();
 
                 int x1 = Math.min(first.x, second.x);
                 int x2 = Math.max(first.x, second.x);
@@ -62,7 +63,7 @@ public class TileSetDisplay extends JPanel {
 
                 for (int y = y1; y <= y2; y += tileSet.getTile_y_size())
                     for (int x = x1; x <= x2; x += tileSet.getTile_x_size())
-                        list.add(tileSet.get(x,y));
+                        list.add(new TilePair(tileSet.get(x,y)));
 
                 Editor.getSelection().setSelection(list,
                         new Dimension((x2-x1) / tileSet.getTile_x_size() + 1 , (y2-y1) / tileSet.getTile_y_size() + 1));

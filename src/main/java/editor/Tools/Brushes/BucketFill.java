@@ -2,6 +2,7 @@ package editor.Tools.Brushes;
 
 import editor.Maps.Level;
 import editor.Tiles.Tile;
+import editor.Tiles.TilePair;
 import editor.Tools.Brush;
 import editor.Tools.Selection;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 
 public class BucketFill extends Brush {
 
-    private Tile background;
+    private TilePair background;
 
     @Override
     public void clicked(Level level, Selection selection, int x_pixel, int y_pixel) {

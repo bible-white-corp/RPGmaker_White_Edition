@@ -60,8 +60,7 @@ public class TileSet {
         TileSet res = gson.fromJson(jsonReader, TileSet.class);
 
         res.sprites = ImageIO.read(new File(path + "/sprites.png"));
-        for (Tile t : res.vector)
-            t.setParent(res);
+
         return res;
     }
 
@@ -211,13 +210,13 @@ public class TileSet {
      * @param y     the y position on the graph
      * @param graph where to print
      */
-    public void drawtile(Tile t, int x, int y, Graphics graph) {
+    public void drawtile(TilePair t, int x, int y, Graphics graph) {
 
         if( t == null)
             return;
 
-        int tile_y = (t.getIndex() / tiles_per_line) * tile_y_size;
-        int tile_x = (t.getIndex() % tiles_per_line) * tile_x_size;
+        int tile_y = (t.tileIndex / tiles_per_line) * tile_y_size;
+        int tile_x = (t.tileIndex % tiles_per_line) * tile_x_size;
 
         graph.drawImage(sprites,
                 x, y, x + tile_x_size, y + tile_y_size,

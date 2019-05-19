@@ -121,12 +121,6 @@ public class World {
         for (Level w : res.levelList) {
 
             w.initializeListener();
-
-            for (Tile t : w.getMap()) {
-                if (t != null) {
-                    t.setParent(res.tileSetList.get(t.parent_index));
-                }
-            }
         }
 
         try {

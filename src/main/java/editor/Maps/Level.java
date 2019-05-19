@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import editor.Tiles.Tile;
+import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
 import editor.Tools.Selection;
 
@@ -17,7 +18,7 @@ import java.util.Vector;
 
 public class Level {
 
-    private List<Tile> map;
+    private List<TilePair> map;
 
     private int width, height;
     private int tileHeight, tileWidth;
@@ -48,7 +49,7 @@ public class Level {
         return name;
     }
 
-    public List<Tile> getMap() {
+    public List<TilePair> getMap() {
         return map;
     }
 
@@ -70,12 +71,12 @@ public class Level {
         return getIndex(x_pixel / tileWidth, y_pixel / tileHeight);
     }
 
-    private Tile getFromIndex(int index)
+    private TilePair getFromIndex(int index)
     {
         return map.get(index);
     }
 
-    private void setFromIndex(Tile t, int index) {
+    private void setFromIndex(TilePair t, int index) {
 
         map.set(index, t);
 
@@ -83,22 +84,22 @@ public class Level {
             listener.mapsChangee();
     }
 
-    public Tile getTile(int x, int y){
+    public TilePair getTile(int x, int y){
 
         return getFromIndex(getIndex(x, y));
     }
 
-    public void setTile(Tile t, int x, int y){
+    public void setTile(TilePair t, int x, int y){
 
         setFromIndex(t, getIndex(x, y));
     }
 
-    public Tile getTilePixel(int x_pixel, int y_pixel){
+    public TilePair getTilePixel(int x_pixel, int y_pixel){
 
         return getFromIndex(getIndexPixel(x_pixel, y_pixel));
     }
 
-    public void setTilePixel(Tile t, int x_pixel, int y_pixel){
+    public void setTilePixel(TilePair t, int x_pixel, int y_pixel){
 
         setFromIndex(t, getIndexPixel(x_pixel, y_pixel));
     }

@@ -1,6 +1,7 @@
 package editor.Tools;
 
 import editor.Tiles.Tile;
+import editor.Tiles.TilePair;
 
 import javax.swing.event.EventListenerList;
 import java.awt.*;
@@ -9,16 +10,16 @@ import java.util.List;
 
 public class Selection{
 
-    private List<Tile> tiles = null;
+    private List<TilePair> tiles = null;
     private Dimension dimension;
 
     private final EventListenerList listeners = new EventListenerList();
 
-    public List<Tile> getTiles() {
+    public List<TilePair> getTiles() {
         return tiles;
     }
 
-    public void setSelection(List<Tile> tiles, Dimension dimension) {
+    public void setSelection(List<TilePair> tiles, Dimension dimension) {
 
         this.tiles = tiles;
         this.dimension = dimension;

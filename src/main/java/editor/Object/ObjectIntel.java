@@ -7,7 +7,7 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 public class ObjectIntel {
-    private List<Integer> animations;
+    private List<Integer> animations;///index of object's animation in objects list
 
     public ObjectIntel() {
         animations = new Vector<>();

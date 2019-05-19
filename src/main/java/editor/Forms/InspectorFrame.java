@@ -2,6 +2,7 @@ package editor.Forms;
 
 import editor.Editor;
 import editor.Tiles.Tile;
+import editor.Tiles.TilePair;
 import editor.Tools.Selection;
 
 import javax.swing.*;
@@ -39,10 +40,10 @@ public class InspectorFrame extends JPanel {
 
             super.paintComponent(g);
 
-            List<Tile> tiles = selection.getTiles();
+            List<TilePair> tiles = selection.getTiles();
 
             if (tiles != null)
-                tiles.get(0).getParent().drawselection(selection,0,0, g);
+                tiles.get(0).getTileSet().drawselection(selection, 0, 0, g);
         }
     }
 }
