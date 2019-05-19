@@ -28,8 +28,8 @@ public abstract class Brush {
         if (last == null || Math.abs(last.x - current.x) >= level.getTileWidth() * selection.getDimension().width ||
                 Math.abs(last.y - current.y) >= level.getTileHeight() * selection.getDimension().height)
         {
-            dragged(level, selection, x_pixel, y_pixel);
             last = current;
+            dragged(level, selection, x_pixel, y_pixel);
         }
     }
 
