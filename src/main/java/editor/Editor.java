@@ -4,13 +4,14 @@ import editor.Forms.EditFrame;
 import editor.Forms.GameFrame;
 import editor.Maps.World;
 import editor.Tools.Brush;
+import editor.Tools.Brushes.BucketFill;
 import editor.Tools.Brushes.Pencil;
 import editor.Tools.Selection;
 
 public class Editor {
 
     private static Selection selection = new Selection();
-    private static Brush brush = new Pencil();
+    private static Brush brush = new BucketFill();
 
     public static World world;
     public static GameFrame mainFrame;
