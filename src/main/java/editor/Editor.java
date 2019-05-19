@@ -4,16 +4,22 @@ import editor.Forms.EditFrame;
 import editor.Maps.World;
 import editor.Tools.Brush;
 import editor.Tools.Brushes.BucketFill;
+import editor.Tools.Brushes.LineBrush;
+import editor.Tools.Brushes.PaintBrush;
 import editor.Tools.Brushes.Pencil;
 import editor.Tools.Selection;
 
 public class Editor {
 
     private static Selection selection = new Selection();
-    private static Brush brush = new BucketFill();
+    private static Brush brush = new Pencil();
 
     public static Brush getBrush() {
         return brush;
+    }
+
+    public static void setBrush(Brush brush) {
+        Editor.brush = brush;
     }
 
     public static Selection getSelection() {
