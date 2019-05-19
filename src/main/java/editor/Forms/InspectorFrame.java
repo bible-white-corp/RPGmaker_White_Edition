@@ -42,7 +42,7 @@ public class InspectorFrame extends JPanel {
             List<Tile> tiles = selection.getTiles();
 
             if (tiles != null)
-                tiles.get(0).getParent().drawselection(tiles,0,0, g);
+                tiles.get(0).getParent().drawselection(selection,0,0, g);
         }
     }
 }
