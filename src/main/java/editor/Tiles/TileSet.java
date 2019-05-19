@@ -211,6 +211,10 @@ public class TileSet {
      * @param graph where to print
      */
     public void drawtile(Tile t, int x, int y, Graphics graph) {
+
+        if( t == null)
+            return;
+
         int tile_y = (t.getIndex() / tiles_per_line) * tile_y_size;
         int tile_x = (t.getIndex() % tiles_per_line) * tile_x_size;
 
