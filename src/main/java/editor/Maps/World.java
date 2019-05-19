@@ -47,12 +47,11 @@ public class World {
 
     public boolean importTileSet(String path) {
         try {
-            tileSetList.add(TileSet.importSet(path));
+            return tileSetList.add(TileSet.importSet(path));
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
-        return true;
     }
 
     public boolean quick_export(){

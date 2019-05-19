@@ -20,7 +20,7 @@ public class TileSet {
     private int width;
     private int height;
 
-    private transient String name;
+    private String name;
     int number;//index of the TileSet in the TileSet[] of the world
     private int nb_tiles;
     private int tiles_per_line;
@@ -153,7 +153,7 @@ public class TileSet {
      */
     public Tile get()
         throws IndexOutOfBoundsException {
-        return get();
+        return get();//#TODO c'est quoi cette merde @Fife
     }
 
     /**
