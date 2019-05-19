@@ -54,6 +54,6 @@ public class SelectBrush extends Brush {
                 list.add(level.getTilePixel(x,y));
 
         Editor.getSelection().setSelection(list,
-                new Dimension((x2-x1) / level.getTileWidth(), (y2-y1) / level.getTileHeight()));
+                new Dimension((x2-x1) / level.getTileWidth() + 1, (y2-y1) / level.getTileHeight() + 1));
     }
 }

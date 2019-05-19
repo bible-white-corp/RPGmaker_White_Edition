@@ -3,6 +3,7 @@ package editor.Tiles;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import editor.Tools.Selection;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -222,25 +223,18 @@ public class TileSet {
     /**
      * draw the selected tiles at the x,y coordinates on the graph
      *
-     * @param ts    the list of tiles, MUST be sorted ascendingly
+     * @param selection    the selection
      * @param x     the starting x coordinate
      * @param y     the starting y coordinate
      * @param graph where to print
      * @warning The size of the graph is not checked! Watchout for bounds yourself!
      */
-    public void drawselection(List<Tile> ts, int x, int y, Graphics graph) {
-        int selection_width = 1;
-        int prev = ts.get(0).getIndex();
-        for (int index = 1; index < ts.size(); index++) {
-            if (ts.get(index).getIndex() == prev + 1) {
-                selection_width++;
-                prev = ts.get(index).getIndex();
-            }
-        }
-        int selection_height = ts.size() / selection_width;
-        for (int i = 0; i < selection_height; i++) {
-            for (int j = 0; j < selection_width; j++) {
-                drawtile(ts.get(i * selection_width + j), x + j * tile_x_size, y + i * tile_y_size, graph);
+    public void drawselection(Selection selection, int x, int y, Graphics graph) {
+
+        for (int i = 0; i < selection.getDimension().height; i++) {
+            for (int j = 0; j < selection.getDimension().width; j++) {
+                drawtile(selection.getTiles().get(j + i * selection.getDimension().width),
+                        x + j * tile_x_size, y + i * tile_y_size, graph);
             }
         }
     }
