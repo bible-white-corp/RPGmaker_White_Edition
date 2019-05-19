@@ -5,6 +5,10 @@ import editor.Tiles.Tile;
 import editor.Tools.Brush;
 import editor.Tools.Selection;
 
+import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
+
 public class BucketFill extends Brush {
 
     private Tile background;
@@ -14,25 +18,30 @@ public class BucketFill extends Brush {
 
         background = level.getTilePixel(x_pixel, y_pixel);
 
-        fill(level, selection, x_pixel, y_pixel);
-    }
+        Set<Point> points = new HashSet<>();
 
-    private void fill(Level level, Selection selection, int x_pixel, int y_pixel)
-    {
-        try {
+        points.add(new Point(x_pixel, y_pixel));
 
-            if (level.getTilePixel(x_pixel, y_pixel) == background) {
-                level.setTilePixel(selection.getTiles().get(0), x_pixel, y_pixel);
-
-                fill(level, selection, x_pixel + level.getTileWidth(), y_pixel);
-                fill(level, selection, x_pixel - level.getTileWidth(), y_pixel);
-                fill(level, selection, x_pixel, y_pixel + level.getTileHeight());
-                fill(level, selection, x_pixel, y_pixel - level.getTileHeight());
-            }
-        }
-        catch (Exception e)
+        while(points.size() > 0)
         {
+            Point cur = points.iterator().next();
+            points.remove(cur);
 
+            try {
+
+                if (level.getTilePixel(cur.x, cur.y) == background) {
+                    level.setTilePixel(selection.getTiles().get(0), cur.x, cur.y);
+
+                    points.add(new Point(cur.x + level.getTileWidth(), cur.y));
+                    points.add(new Point(cur.x - level.getTileWidth(), cur.y));
+                    points.add(new Point(cur.x, cur.y + level.getTileHeight()));
+                    points.add(new Point(cur.x, cur.y - level.getTileHeight()));
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
         }
     }
 
