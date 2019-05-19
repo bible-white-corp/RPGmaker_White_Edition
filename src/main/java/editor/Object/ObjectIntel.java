@@ -17,4 +17,9 @@ public class ObjectIntel {
 
         animations.add(index);
     }
+    public void removeAnimation(int index){
+        if (index < 0 || index >= animations.size())
+            throw new IndexOutOfBoundsException();
+        animations.remove(index);
+    }
 }

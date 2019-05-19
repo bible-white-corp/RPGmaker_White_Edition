@@ -147,6 +147,7 @@ public class TileSet {
     }
 
     /**
+     *
      * the purpose of this function is to be a getter to the private vector<Tile>
      * @warning return also when is_tile = false
      * @return the indexed tile

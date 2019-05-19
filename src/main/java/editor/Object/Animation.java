@@ -2,6 +2,7 @@ package editor.Object;
 
 import editor.Tiles.Tile;
 
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Vector;
  */
 public class Animation {
     private String name;
-    private Vector<Tile> sprites;
+    private List<Tile> sprites;
     private int cur = 0;
 
     /**
@@ -22,7 +23,7 @@ public class Animation {
         return res;
     }
 
-    public Vector<Tile> getSprites() {
+    public List<Tile> getSprites() {
         return sprites;
     }
 
@@ -38,7 +39,7 @@ public class Animation {
         this.name = name;
     }
 
-    public Animation(String name, Vector<Tile> sprites) {
+    public Animation(String name, List<Tile> sprites) {
         this.name = name;
         this.sprites = sprites;
     }

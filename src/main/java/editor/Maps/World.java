@@ -5,6 +5,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import editor.Editor;
 import editor.Forms.GameFrame;
+import editor.Object.GameObjects;
 import editor.Tiles.Tile;
 import editor.Tiles.TileSet;
 
@@ -18,12 +19,14 @@ public class World {
     public transient List<TileSet> tileSetList;
     public List<String> tsNames;
     public String projectName;
+    public GameObjects worldObjects;
     transient String savePath;
 
     public World(String projectName) {
         this.projectName = projectName;
         this.levelList = new Vector<>();
         this.tileSetList = new Vector<>();
+        this.worldObjects = new GameObjects();
     }
 
     public List<String> getTsNames() {
@@ -85,15 +88,13 @@ public class World {
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
         gson.toJson(this, fileWriter);
         for (TileSet ts : tileSetList) {
-            new Thread() {
-                public void run() {
-                    try {
-                        ts.exportSet(location);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            new Thread(() -> {
+                try {
+                    ts.exportSet(location);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }.start();//#TODO recuperer les booleans de statut.
+            }).start();//#TODO recuperer les booleans de statut.
         }
 
         try {

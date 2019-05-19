@@ -9,18 +9,22 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Vector;
 
-public class Objects {
-    TileSet ts;
+public class GameObjects {
     Map<String, ObjectIntel> objs;
     Map<String, Animation> animations;
 
-    public Objects(String path, int x, int y) throws IOException {
+    public GameObjects() {
         objs = new TreeMap<>();
+        animations = new TreeMap<>();
     }
 
     public void addObject(String name){
 
         objs.put(name, new ObjectIntel());
+    }
+
+    public void addAnimation(String animationName, List<Tile> sprites){
+        animations.put(animationName, new Animation(animationName, sprites));
     }
 
     /*public void addAnimation(String objName, String animationName){
