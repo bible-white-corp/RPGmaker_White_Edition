@@ -4,6 +4,7 @@ import editor.Maps.World;
 import editor.Maps.loadWorldAction;
 import editor.Maps.newWorldAction;
 import editor.Maps.saveWorldAction;
+import editor.Tiles.loadTileSetAction;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -31,8 +32,15 @@ public class MenuFrame extends JMenuBar{
 
         menu.addSeparator();
 
-        menuItem = new JMenuItem("Settings");
+        Action quick_export_ts = new loadTileSetAction();
+        menuItem = new JMenuItem("Import tiles");
+        menuItem.setAction(quick_export_ts);
         menu.add(menuItem);
+
+        menuItem = new JMenuItem("Export tiles");
+        menu.add(menuItem);
+
+        menu.addSeparator();
 
 
         Action quick_load = new loadWorldAction();
@@ -55,6 +63,11 @@ public class MenuFrame extends JMenuBar{
 
         menu.addSeparator();
 
+        menuItem = new JMenuItem("Settings");
+        menu.add(menuItem);
+
+        menu.addSeparator();
+
         Action quick_exit = new AbstractAction("Exit") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,6 +79,7 @@ public class MenuFrame extends JMenuBar{
         menuItem = new JMenuItem();
         menuItem.setAction(quick_exit);
         menu.add(menuItem);
+
 
         //Build Edit Menu
         menu = new JMenu("Edit");
