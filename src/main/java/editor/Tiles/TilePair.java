@@ -18,4 +18,10 @@ public class TilePair {
     public TileSet getTileSet(){
         return Editor.world.tileSetList.get(tileSetIndex);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof TilePair && ((TilePair) obj).tileIndex == tileIndex &&
+                ((TilePair) obj).tileSetIndex == tileSetIndex;
+    }
 }
