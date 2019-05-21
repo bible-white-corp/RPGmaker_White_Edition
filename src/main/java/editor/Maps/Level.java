@@ -13,16 +13,18 @@ import javax.imageio.ImageIO;
 import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
 import java.util.Vector;
 
 public class Level {
 
-    private List<TilePair> map;
+    private List<Layer> layers;
 
     private int width, height;
     private int tileHeight, tileWidth;
+
     private String name;
 
     private transient EventListenerList listeners;
@@ -30,6 +32,7 @@ public class Level {
     public Level(int height, int width, int tileHeight, int tileWidth, String name) {
 
         listeners = new EventListenerList();
+        layers = new ArrayList<>();
 
         this.width = width;
         this.height = height;
@@ -39,20 +42,12 @@ public class Level {
 
         int nb_tiles = width * height;
 
-        map = new Vector<>(nb_tiles);
-
-        for (int i = 0; i < nb_tiles; ++i)
-            map.add(null);
+        for (int i = 0; i < 10; ++i)
+            layers.add(new Layer(nb_tiles));
     }
-
-
 
     public String getName() {
         return name;
-    }
-
-    public List<TilePair> getMap() {
-        return map;
     }
 
     private int getIndex(int x, int y) {
@@ -62,7 +57,7 @@ public class Level {
 
         int index = y * width + x;
 
-        if (index < 0 || index >= map.size())
+        if (index < 0 || index >= width * height)
             throw new IndexOutOfBoundsException();
 
         return index;
@@ -73,14 +68,17 @@ public class Level {
         return getIndex(x_pixel / tileWidth, y_pixel / tileHeight);
     }
 
-    private TilePair getFromIndex(int index)
+    private TilePair getFromIndex(int index, int layer)
     {
-        return map.get(index);
+        return layers.get(layer).getFromIndex(index);
     }
 
     private void setFromIndex(TilePair t, int index) {
 
-        map.set(index, t);
+        if (t == null)
+            layers.get(Editor.getLayer_index()).setFromIndex(null, index);
+        else
+            layers.get(Editor.world.getTileFromPair(t).getLayer()).setFromIndex(t, index);
 
         for (MapsListener listener : listeners.getListeners(MapsListener.class))
             listener.mapsChangee();
@@ -88,7 +86,12 @@ public class Level {
 
     public TilePair getTile(int x, int y){
 
-        return getFromIndex(getIndex(x, y));
+        return getFromIndex(getIndex(x, y), Editor.getLayer_index());
+    }
+
+    public TilePair getTile(int x, int y, int layer){
+
+        return getFromIndex(getIndex(x, y), layer);
     }
 
     public void setTile(TilePair t, int x, int y){
@@ -98,7 +101,7 @@ public class Level {
 
     public TilePair getTilePixel(int x_pixel, int y_pixel){
 
-        return getFromIndex(getIndexPixel(x_pixel, y_pixel));
+        return getFromIndex(getIndexPixel(x_pixel, y_pixel), Editor.getLayer_index());
     }
 
     public void setTilePixel(TilePair t, int x_pixel, int y_pixel){
@@ -106,8 +109,8 @@ public class Level {
         setFromIndex(t, getIndexPixel(x_pixel, y_pixel));
     }
 
-    public void addSelection(Selection selection, int x_pixel, int y_pixel)
-    {
+    public void addSelection(Selection selection, int x_pixel, int y_pixel) {
+
         for (int i = 0; i < selection.getDimension().width; ++i)
             for (int j = 0; j < selection.getDimension().height; ++j)
                 setTilePixel(

@@ -4,7 +4,7 @@ public class Tile {
     private boolean is_tile = false;
     private boolean is_walkable = true;
     private String name;
-    private long layer = 0;
+    private int layer = 0;
     private int index;
     public int parent_index;
 
@@ -33,11 +33,11 @@ public class Tile {
         this.name = name;
     }
 
-    public long getLayer() {
+    public int getLayer() {
         return layer;
     }
 
-    public void setLayer(long layer) {
+    public void setLayer(int layer) {
         this.layer = layer;
     }
 

@@ -60,13 +60,14 @@ public class GameFrame extends JPanel {
         g.setColor(Color.GRAY);
         g.fillRect(0,0, level.getWidth() * 32, level.getHeight() * 32);
 
-        for(int y = 0; y < level.getHeight(); ++y)
-            for(int x = 0; x < level.getWidth(); ++x) {
-                TilePair tile = level.getTile(x, y);
+        for (int l = 0; l < 10; ++l)
+            for(int y = 0; y < level.getHeight(); ++y)
+                for(int x = 0; x < level.getWidth(); ++x) {
+                    TilePair tile = level.getTile(x, y, l);
 
-                if (tile != null)
-                    tile.getTileSet().drawtile(tile, x * 32, y * 32, g);
-            }
+                    if (tile != null)
+                        tile.getTileSet().drawtile(tile, x * 32, y * 32, g);
+                }
 
         int w_pixel = level.getWidth() * level.getTileWidth();
         int h_pixel = level.getHeight() * level.getTileHeight();

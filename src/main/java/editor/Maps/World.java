@@ -8,6 +8,7 @@ import editor.Forms.GameFrame;
 import editor.Object.GameObjects;
 import editor.ProjectTree.PTree;
 import editor.Tiles.Tile;
+import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
 
 import java.awt.*;
@@ -139,4 +140,8 @@ public class World {
         return res;
     }
 
+    public Tile getTileFromPair(TilePair pair)
+    {
+        return tileSetList.get(pair.tileSetIndex).get(pair.tileIndex);
+    }
 }

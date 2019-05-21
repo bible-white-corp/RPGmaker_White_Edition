@@ -19,6 +19,8 @@ public class Editor {
     public static World world;
     public static GameFrame mainFrame;
 
+    private static int layer_index = 0;
+
     public static Brush getBrush() {
         return brush;
     }
@@ -29,6 +31,21 @@ public class Editor {
 
     public static Selection getSelection() {
         return selection;
+    }
+
+    public static int getLayer_index() {
+        return layer_index;
+    }
+
+    public static void setLayer_index(int layer_index) {
+
+        if (layer_index < 0)
+            layer_index = 0;
+
+        if (layer_index > 10)
+            layer_index = 10;
+
+        Editor.layer_index = layer_index;
     }
 
     public static void main(String[] args) {

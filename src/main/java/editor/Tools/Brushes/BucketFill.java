@@ -19,6 +19,9 @@ public class BucketFill extends Brush {
 
         background = level.getTilePixel(x_pixel, y_pixel);
 
+        if (background != null && background.equals(selection.getTiles().get(0)))
+            return;
+
         Set<Point> points = new HashSet<>();
 
         points.add(new Point(x_pixel, y_pixel));
@@ -30,9 +33,9 @@ public class BucketFill extends Brush {
 
             try {
 
-                System.out.println("Nb : " + points.size());
+                TilePair tile = level.getTilePixel(cur.x, cur.y);
 
-                if (level.getTilePixel(cur.x, cur.y).equals(background)) {
+                if ((tile == null && background == null) || tile.equals(background)) {
                     level.setTilePixel(selection.getTiles().get(0), cur.x, cur.y);
 
                     points.add(new Point(cur.x + level.getTileWidth(), cur.y));
