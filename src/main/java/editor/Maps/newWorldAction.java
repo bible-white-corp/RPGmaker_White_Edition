@@ -20,12 +20,12 @@ public class newWorldAction extends AbstractAction {
             return;
 
         levelPaneMultiInput pane = new levelPaneMultiInput();
-        while (pane.getHeightField() <= 0 || pane.getWidthField() <= 0 ||
-                pane.getTileHeightField() <= 0 || pane.getTileWidthField() <= 0)
+        while (pane.getHeightField() <= 48 || pane.getWidthField() <= 48 ||
+                pane.getTileHeightField() <= 15 || pane.getTileWidthField() <= 15)
         {
             if (pane.getResult() != JOptionPane.OK_OPTION)
                 return;
-            JOptionPane.showMessageDialog(Editor.mainFrame, "Min value is 1",
+            JOptionPane.showMessageDialog(Editor.mainFrame, "Min values are 48 x 48 and 16 x 16",
                     "Prompt error", JOptionPane.ERROR_MESSAGE);
             pane = new levelPaneMultiInput();
         }
@@ -33,15 +33,13 @@ public class newWorldAction extends AbstractAction {
         if (pane.getResult() != JOptionPane.OK_OPTION)
             return;
 
-        World w = new World(projectName);
-        Editor.world = w;
-        Editor.world.projectTree.reload();
-        Editor.editFrame.tileSetFrame.display.changeTileSet(0);
+        Editor.world.reset(projectName);
 
-        w.addMap(pane.getHeightField(), pane.getWidthField(),
+        Editor.world.addMap(pane.getHeightField(), pane.getWidthField(),
                 pane.getTileHeightField(), pane.getTileWidthField(), pane.getLevelNameField());
 
         Editor.mainFrame.setLevel(0);
+        Editor.editFrame.tileSetFrame.display.changeTileSet(0);
         Editor.mainFrame.repaint();
     }
 }

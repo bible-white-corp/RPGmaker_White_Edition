@@ -77,12 +77,11 @@ public class TileSetDisplay extends JPanel {
 
     public void changeTileSet(int index){
         if (index >= Editor.world.tileSetList.size()) {
-            this.setVisible(false);
+            tileSet = null;
             this.repaint();
             return;
         }
         tileSet = Editor.world.tileSetList.get(index);
-        this.setVisible(true);
         this.repaint();
     }
 

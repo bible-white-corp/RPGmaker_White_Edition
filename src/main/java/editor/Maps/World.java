@@ -139,4 +139,16 @@ public class World {
         return res;
     }
 
+    public void reset(String name){
+        this.projectName = name;
+        this.levelList = new Vector<>();
+        this.tileSetList = new Vector<>();
+        this.worldObjects = new GameObjects();
+        this.projectTree.reload();
+        this.savePath = null;
+    }
+    //#TODO new map broken
+    //#TODO imports objects
+    //#TODO switch on maps/tileSet
+    //#TODO load in inspector objects
 }
