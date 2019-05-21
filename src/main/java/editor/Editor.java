@@ -3,6 +3,7 @@ package editor;
 import editor.Forms.EditFrame;
 import editor.Forms.GameFrame;
 import editor.Maps.World;
+import editor.ProjectTree.PTree;
 import editor.Tools.Brush;
 import editor.Tools.Brushes.BucketFill;
 import editor.Tools.Brushes.LineBrush;
@@ -32,10 +33,8 @@ public class Editor {
 
     public static void main(String[] args) {
         world = new World("Hello");
-
         world.addMap(100,100,32,32, "MyMap");
         world.createTileSet("src/main/resources/images/tileset_rpg.png", 32, 32);
-
         EditFrame frame = new EditFrame();
         frame.setVisible(true);
     }

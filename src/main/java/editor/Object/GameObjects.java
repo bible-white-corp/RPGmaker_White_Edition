@@ -22,9 +22,17 @@ public class GameObjects {
         animations = new TreeMap<>();
     }
 
+    public Map<String, ObjectIntel> getObjs() {
+        return objs;
+    }
+
+    public Map<String, Animation> getAnimations() {
+        return animations;
+    }
+
     public void addObject(String name){
 
-        objs.put(name, new ObjectIntel());
+        objs.put(name, new ObjectIntel(name));
     }
 
     public void addAnimation(String animationName, List<TilePair> sprites){

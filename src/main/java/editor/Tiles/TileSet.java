@@ -3,6 +3,7 @@ package editor.Tiles;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import editor.Editor;
 import editor.Tools.Selection;
 
 import javax.imageio.ImageIO;
@@ -60,7 +61,7 @@ public class TileSet {
         TileSet res = gson.fromJson(jsonReader, TileSet.class);
 
         res.sprites = ImageIO.read(new File(path + "/sprites.png"));
-
+        Editor.world.projectTree.addNewTileSet(res);
         return res;
     }
 
@@ -125,6 +126,7 @@ public class TileSet {
         for (int i = 0; i < ts.nb_tiles; i++) {
             ts.vector.add(new Tile(i, ts));
         }
+        Editor.world.projectTree.addNewTileSet(ts);
 
         return ts;
     }
@@ -241,5 +243,10 @@ public class TileSet {
                         x + j * tile_x_size, y + i * tile_y_size, graph);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

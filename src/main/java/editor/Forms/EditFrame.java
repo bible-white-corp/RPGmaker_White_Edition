@@ -1,7 +1,9 @@
 package editor.Forms;
 
+import editor.Editor;
 import editor.Maps.World;
 import editor.Maps.saveWorldAction;
+import editor.ProjectTree.PTree;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,7 +70,7 @@ public class EditFrame extends JFrame {
         tabbedPane.add("Objects", new ObjectFrame());
 
         side_window.add(tabbedPane, get_c(0,0,1,1));
-        side_window.add(new HierachyFrame(),get_c(0,1,1,0.5));
+        side_window.add(new JScrollPane(Editor.world.projectTree.myTree),get_c(0,1,1,0.5));
 
         pan.add(side_window, get_c(0,0,0,1));
     }

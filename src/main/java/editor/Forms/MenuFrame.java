@@ -4,6 +4,7 @@ import editor.Maps.World;
 import editor.Maps.loadWorldAction;
 import editor.Maps.newWorldAction;
 import editor.Maps.saveWorldAction;
+import editor.Tiles.createTileSetAction;
 import editor.Tiles.loadTileSetAction;
 import editor.Tiles.saveTileSetAction;
 
@@ -32,6 +33,11 @@ public class MenuFrame extends JMenuBar{
         menu.add(menuItem);
 
         menu.addSeparator();
+
+        Action construct_ts = new createTileSetAction();
+        menuItem = new JMenuItem();
+        menuItem.setAction(construct_ts);
+        menu.add(menuItem);
 
         Action quick_import_ts = new loadTileSetAction();
         menuItem = new JMenuItem();

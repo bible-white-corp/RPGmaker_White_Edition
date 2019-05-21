@@ -3,6 +3,7 @@ package editor.Maps;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import editor.Editor;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
@@ -34,6 +35,7 @@ public class Level {
         this.height = height;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
+        this.name = name;
 
         int nb_tiles = width * height;
 
@@ -41,6 +43,8 @@ public class Level {
 
         for (int i = 0; i < nb_tiles; ++i)
             map.add(null);
+
+        Editor.world.projectTree.addNewLevel(this);
     }
 
 
@@ -147,5 +151,10 @@ public class Level {
     public interface MapsListener extends EventListener {
 
         void mapsChangee();
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
