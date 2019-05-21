@@ -22,7 +22,7 @@ public class World {
     public String projectName;
     public GameObjects worldObjects;
     transient String savePath;
-    public PTree projectTree;
+    transient public PTree projectTree;
 
     public World(String projectName) {
         this.projectName = projectName;
@@ -38,7 +38,9 @@ public class World {
 
     public boolean createTileSet(String path, int x, int y) {
         try {
-            tileSetList.add(TileSet.create(path, x, y, tileSetList.size()));
+            TileSet tmp = TileSet.create(path, x, y, tileSetList.size());
+            Editor.world.projectTree.addNewTileSet(tmp, tileSetList.size());
+            tileSetList.add(tmp);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -47,13 +49,16 @@ public class World {
     }
 
     public boolean addMap(int height, int width, int tileHeight, int tileWidth, String name) {
-        levelList.add(new Level(height, width, tileHeight, tileWidth, name));
-        return true;
+        Level tmp = new Level(height, width, tileHeight, tileWidth, name);
+        Editor.world.projectTree.addNewLevel(tmp, levelList.size());
+        return levelList.add(tmp);
     }
 
     public boolean importTileSet(String path) {
         try {
-            return tileSetList.add(TileSet.importSet(path));
+            TileSet tmp = TileSet.importSet(path);
+            Editor.world.projectTree.addNewTileSet(tmp, tileSetList.size());
+            return tileSetList.add(tmp);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -130,6 +135,7 @@ public class World {
             f.close();
         } catch (IOException e) { }
         res.savePath = path;
+        res.projectTree = Editor.world.projectTree;
         return res;
     }
 

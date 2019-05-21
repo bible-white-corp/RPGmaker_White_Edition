@@ -34,6 +34,7 @@ public class newWorldAction extends AbstractAction {
 
         World w = new World(projectName);
         Editor.world = w;
+        Editor.world.projectTree.reload();
 
         w.addMap(pane.getHeightField(), pane.getWidthField(),
                 pane.getTileHeightField(), pane.getTileWidthField(), pane.getLevelNameField());

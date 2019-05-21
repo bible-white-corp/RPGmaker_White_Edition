@@ -61,7 +61,6 @@ public class TileSet {
         TileSet res = gson.fromJson(jsonReader, TileSet.class);
 
         res.sprites = ImageIO.read(new File(path + "/sprites.png"));
-        Editor.world.projectTree.addNewTileSet(res);
         return res;
     }
 
@@ -126,8 +125,6 @@ public class TileSet {
         for (int i = 0; i < ts.nb_tiles; i++) {
             ts.vector.add(new Tile(i, ts));
         }
-        Editor.world.projectTree.addNewTileSet(ts);
-
         return ts;
     }
 

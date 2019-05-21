@@ -12,6 +12,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
 import java.util.Map;
+import java.util.Set;
 
 public class PTree {
     public PTree(String pName) {
@@ -34,16 +35,53 @@ public class PTree {
         myTree.setPreferredSize(new Dimension(0,250));
     }
 
-    public void addNewLevel(Level level){
-        levels.add(new DefaultMutableTreeNode(level));
+    public void addNewLevel(Level level, int index){
+        levels.add(new DefaultMutableTreeNode(new pair(index, level.getName())));
         myTree.updateUI();
     }
+
     public void addNewObject(ObjectIntel obj){
-        objects.add(new DefaultMutableTreeNode(obj));
+        objects.add(new DefaultMutableTreeNode(obj.name));
         myTree.updateUI();
     }
-    public void addNewTileSet(TileSet ts){
-        tileSets.add(new DefaultMutableTreeNode(ts));
+
+    public void addNewTileSet(TileSet ts, int index){
+        tileSets.add(new DefaultMutableTreeNode(new pair(index, ts.getName())));
+        myTree.updateUI();
+    }
+    private class pair{
+        public pair(int index, String name) {
+            this.index = index;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        public int index;
+        public String name;
+    }
+
+    public void reload(){
+        objects.removeAllChildren();
+        tileSets.removeAllChildren();
+        levels.removeAllChildren();
+
+        for (int i = 0; i < Editor.world.levelList.size(); i++){
+            levels.add(new DefaultMutableTreeNode(new pair(i,
+                    Editor.world.levelList.get(i).getName())));
+        }
+
+        for (int i = 0; i < Editor.world.tileSetList.size(); i++) {
+            tileSets.add(new DefaultMutableTreeNode(new pair(i,
+                    Editor.world.tileSetList.get(i).getName())));
+        }
+
+        for (Map.Entry<String, ObjectIntel> obj : Editor.world.worldObjects.getObjs().entrySet()){
+            objects.add(new DefaultMutableTreeNode(obj.getKey()));
+        }
         myTree.updateUI();
     }
 

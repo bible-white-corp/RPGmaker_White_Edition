@@ -43,8 +43,6 @@ public class Level {
 
         for (int i = 0; i < nb_tiles; ++i)
             map.add(null);
-
-        Editor.world.projectTree.addNewLevel(this);
     }
 
 
