@@ -1,6 +1,7 @@
 package editor.Maps;
 
 import editor.Editor;
+import editor.Forms.EditFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -35,11 +36,12 @@ public class newWorldAction extends AbstractAction {
         World w = new World(projectName);
         Editor.world = w;
         Editor.world.projectTree.reload();
+        Editor.editFrame.tileSetFrame.display.changeTileSet(0);
 
         w.addMap(pane.getHeightField(), pane.getWidthField(),
                 pane.getTileHeightField(), pane.getTileWidthField(), pane.getLevelNameField());
 
-        Editor.mainFrame.setLevel(w.levelList.get(0));//#Todo sale
+        Editor.mainFrame.setLevel(0);
         Editor.mainFrame.repaint();
     }
 }

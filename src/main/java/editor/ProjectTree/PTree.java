@@ -83,6 +83,7 @@ public class PTree {
             objects.add(new DefaultMutableTreeNode(obj.getKey()));
         }
         myTree.updateUI();
+        myTree.treeDidChange();
     }
 
 

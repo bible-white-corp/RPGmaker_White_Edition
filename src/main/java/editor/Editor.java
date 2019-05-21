@@ -18,6 +18,7 @@ public class Editor {
 
     public static World world;
     public static GameFrame mainFrame;
+    public static EditFrame editFrame;
 
     public static Brush getBrush() {
         return brush;
@@ -35,7 +36,7 @@ public class Editor {
         world = new World("Hello");
         world.addMap(100,100,32,32, "MyMap");
         world.createTileSet("src/main/resources/images/tileset_rpg.png", 32, 32);
-        EditFrame frame = new EditFrame();
-        frame.setVisible(true);
+        editFrame = new EditFrame();
+        editFrame.setVisible(true);
     }
 }

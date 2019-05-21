@@ -17,14 +17,13 @@ import java.util.List;
 public class TileSetDisplay extends JPanel {
 
     TileSet tileSet;
-    World w;
 
     Point first = new Point(0,0);
     Point second = new Point(0,0);
 
-    public TileSetDisplay() {
+    public TileSetDisplay(int index) {
 
-        tileSet = Editor.world.tileSetList.get(0);
+        tileSet = Editor.world.tileSetList.get(index);
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
 
@@ -74,6 +73,17 @@ public class TileSetDisplay extends JPanel {
 
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
+    }
+
+    public void changeTileSet(int index){
+        if (index >= Editor.world.tileSetList.size()) {
+            this.setVisible(false);
+            this.repaint();
+            return;
+        }
+        tileSet = Editor.world.tileSetList.get(index);
+        this.setVisible(true);
+        this.repaint();
     }
 
     @Override
