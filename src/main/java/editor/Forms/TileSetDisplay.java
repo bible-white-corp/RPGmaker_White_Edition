@@ -90,6 +90,9 @@ public class TileSetDisplay extends JPanel {
 
         super.paintComponent(g);
 
+        if (tileSet == null)
+            return;
+
         g.drawImage(tileSet.getSprites(), 0, 0, null);
 
         int x1 = Math.min(first.x, second.x);
@@ -107,7 +110,12 @@ public class TileSetDisplay extends JPanel {
         g.fillRect(x1, y1, x2 + tileSet.getTile_x_size() - x1, y2 + tileSet.getTile_y_size() - y1);
     }
 
+    @Override
     public Dimension getPreferredSize() {
+
+        if (tileSet == null)
+            return new Dimension(0,0);
+
         return new Dimension(tileSet.getSprites().getWidth(), tileSet.getSprites().getHeight());
     }
 }

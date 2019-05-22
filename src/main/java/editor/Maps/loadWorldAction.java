@@ -20,6 +20,7 @@ public class loadWorldAction extends AbstractAction {
             try {
                 World w = World.importWorld(fileChooser.getSelectedFile().getPath());
                 Editor.world = w;
+                Editor.editFrame.tileSetFrame.display.changeTileSet(0);
                 Editor.mainFrame.setLevel(0);
                 Editor.mainFrame.repaint();
                 Editor.world.projectTree.reload();
