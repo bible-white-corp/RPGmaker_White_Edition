@@ -74,11 +74,14 @@ public class GameFrame extends JPanel {
 
         g.setColor(Color.WHITE);
 
-        for (int y = 0; y < level.getHeight(); ++y)
-            g.drawLine(0,y * level.getTileHeight(), w_pixel, y * level.getTileHeight());
+        if (Editor.isShow_grid()) {
 
-        for (int x = 0; x < level.getWidth(); ++x)
-            g.drawLine(x * level.getTileWidth(),0, x * level.getTileWidth(), h_pixel);
+            for (int y = 0; y < level.getHeight(); ++y)
+                g.drawLine(0, y * level.getTileHeight(), w_pixel, y * level.getTileHeight());
+
+            for (int x = 0; x < level.getWidth(); ++x)
+                g.drawLine(x * level.getTileWidth(), 0, x * level.getTileWidth(), h_pixel);
+        }
     }
 
     @Override

@@ -20,8 +20,20 @@ public class Editor {
     public static GameFrame mainFrame;
     public static EditFrame editFrame;
 
+    private static boolean show_grid = true;
+
     private static int brush_size = 2;
     private static int layer_index = 0;
+
+    public static boolean isShow_grid() {
+        return show_grid;
+    }
+
+    public static void setShow_grid(boolean show_grid) {
+        Editor.show_grid = show_grid;
+
+        mainFrame.repaint();
+    }
 
     public static Brush getBrush() {
         return brush;

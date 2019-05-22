@@ -49,6 +49,12 @@ public class ToolsFrame extends JToolBar {
         layer_select.setMaximumSize(new Dimension(50,25));
         add(layer_select);
 
+        add(new JLabel("Show Grid "));
+        JCheckBox checkBox = new JCheckBox();
+        checkBox.setSelected(true);
+        add(checkBox);
+        checkBox.addChangeListener(changeEvent -> Editor.setShow_grid(checkBox.isSelected()));
+
     }
 
     private static ImageIcon getIcon(String str)
