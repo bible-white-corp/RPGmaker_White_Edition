@@ -1,5 +1,6 @@
 package editor.Object;
 
+import editor.Editor;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 
@@ -11,24 +12,24 @@ import java.util.Vector;
  */
 public class Animation {
     private String name;
-    private List<TilePair> sprites;
+    private List<Integer> sprites;
     private int cur = 0;
 
     /**
      * @return the next frame for the animation
      */
-    public TilePair getNext(){
-        TilePair res = sprites.get(cur++);
+    public Sprite getNext(){
+        Sprite res = Editor.world.worldObjects.spriteList.get(cur++);
         if (cur == sprites.size())
             cur = 0;
         return res;
     }
 
-    public List<TilePair> getSprites() {
+    public List<Integer> getSprites() {
         return sprites;
     }
 
-    public void setSprites(List<TilePair> sprites) {
+    public void setSprites(List<Integer> sprites) {
         this.sprites = sprites;
     }
 
@@ -40,7 +41,7 @@ public class Animation {
         this.name = name;
     }
 
-    public Animation(String name, List<TilePair> sprites) {
+    public Animation(String name, List<Integer> sprites) {
         this.name = name;
         this.sprites = sprites;
     }

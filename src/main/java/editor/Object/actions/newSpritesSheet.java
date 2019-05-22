@@ -1,29 +1,23 @@
-package editor.Maps;
+package editor.Object.actions;
 
 import editor.Editor;
+import editor.Maps.World;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class loadWorldAction extends AbstractAction {
-
-    public loadWorldAction(){
+public class newSpritesSheet extends AbstractAction {
+    public newSpritesSheet(){
         super("Import project");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         JFileChooser fileChooser = new JFileChooser(".");
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         if (fileChooser.showOpenDialog(Editor.mainFrame) == JFileChooser.APPROVE_OPTION){
             try {
-                World w = World.importWorld(fileChooser.getSelectedFile().getPath());
-                Editor.world = w;
-                Editor.editFrame.tileSetFrame.display.changeTileSet(0);
-                Editor.mainFrame.setLevel(0);
-                Editor.mainFrame.repaint();
-                Editor.world.projectTree.reload();
+                Editor.world.worldObjects.addSpriteSheet(fileChooser.getSelectedFile().getPath());
 
             } catch (Exception excep) {
 

@@ -111,6 +111,7 @@ public class World {
         } catch (IOException e) {
         }
         savePath = path;
+        worldObjects.export(savePath);//to export spritesSheets
 
         return true;
     }
@@ -137,6 +138,7 @@ public class World {
         } catch (IOException e) { }
         res.savePath = path;
         res.projectTree = Editor.world.projectTree;
+        res.worldObjects.importSprites(path);
         return res;
     }
 
