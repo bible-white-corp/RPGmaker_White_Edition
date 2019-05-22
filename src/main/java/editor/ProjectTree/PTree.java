@@ -68,6 +68,8 @@ public class PTree {
         objects.removeAllChildren();
         tileSets.removeAllChildren();
         levels.removeAllChildren();
+        myTree.treeDidChange();
+        myTree.updateUI();
 
         for (int i = 0; i < Editor.world.levelList.size(); i++){
             levels.add(new DefaultMutableTreeNode(new pair(i,
@@ -82,6 +84,7 @@ public class PTree {
         for (Map.Entry<String, ObjectIntel> obj : Editor.world.worldObjects.getObjs().entrySet()){
             objects.add(new DefaultMutableTreeNode(obj.getKey()));
         }
+        myTree.getModel();
         myTree.updateUI();
     }
 

@@ -15,17 +15,16 @@ public class GameFrame extends JPanel {
 
     Level level;
 
-    public void setLevel(Level level) {
+    public void setLevel(int index) {
 
-        this.level = level;
-
+        this.level = Editor.world.levelList.get(index);
         if (level != null)
             this.level.addMapsListener(() -> GameFrame.this.repaint());
     }
 
     public GameFrame() {
 
-        setLevel(Editor.world.levelList.get(0));
+        setLevel(0);
         Editor.mainFrame = this;
 
         MouseAdapter mouseAdapter = new MouseAdapter() {

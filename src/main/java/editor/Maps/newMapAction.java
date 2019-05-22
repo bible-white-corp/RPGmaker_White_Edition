@@ -1,24 +1,18 @@
 package editor.Maps;
 
 import editor.Editor;
-import editor.Forms.EditFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class newWorldAction extends AbstractAction {
+public class newMapAction extends AbstractAction {
 
-    public newWorldAction(){
-        super("New project");
+    public newMapAction(){
+        super("Add map");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String projectName = JOptionPane.showInputDialog(Editor.mainFrame,
-                "Name the new project:", "New project", JOptionPane.INFORMATION_MESSAGE);
-        if (projectName == null)
-            return;
-
         levelPaneMultiInput pane = new levelPaneMultiInput();
         while (pane.getHeightField() <= 48 || pane.getWidthField() <= 48 ||
                 pane.getTileHeightField() <= 15 || pane.getTileWidthField() <= 15)
@@ -33,13 +27,7 @@ public class newWorldAction extends AbstractAction {
         if (pane.getResult() != JOptionPane.OK_OPTION)
             return;
 
-        Editor.world.reset(projectName);
-
         Editor.world.addMap(pane.getHeightField(), pane.getWidthField(),
                 pane.getTileHeightField(), pane.getTileWidthField(), pane.getLevelNameField());
-
-        Editor.mainFrame.setLevel(0);
-        Editor.editFrame.tileSetFrame.display.changeTileSet(0);
-        Editor.mainFrame.repaint();
     }
 }

@@ -142,6 +142,19 @@ public class World {
 
     public Tile getTileFromPair(TilePair pair)
     {
-        return tileSetList.get(pair.tileSetIndex).get(pair.tileIndex);
+        return tileSetList.get(pair.tileSetIndex).get(pair.tileIndex);//#TODO virer ca
     }
+
+    public void reset(String name){
+        this.projectName = name;
+        this.levelList = new Vector<>();
+        this.tileSetList = new Vector<>();
+        this.worldObjects = new GameObjects();
+        this.projectTree.reload();
+        this.savePath = null;
+    }
+    //#TODO new map broken
+    //#TODO imports objects
+    //#TODO switch on maps/tileSet
+    //#TODO load in inspector objects
 }

@@ -12,11 +12,10 @@ import java.awt.event.KeyEvent;
 public class EditFrame extends JFrame {
 
     JPanel pan = new JPanel();
-    World world;
-
     JMenuBar menuBar;
     JToolBar toolBar;
     JPanel footer;
+    public TileSetFrame tileSetFrame;
 
     public EditFrame() {
 
@@ -66,7 +65,9 @@ public class EditFrame extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.add("TileSet", new TileSetFrame());
+        tileSetFrame = new TileSetFrame();
+
+        tabbedPane.add("TileSet", tileSetFrame);
         tabbedPane.add("Objects", new ObjectFrame());
 
         side_window.add(tabbedPane, get_c(0,0,1,1));
