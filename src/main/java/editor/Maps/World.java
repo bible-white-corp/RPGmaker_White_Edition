@@ -83,6 +83,8 @@ public class World {
         for (TileSet tileSet : tileSetList)
             tsNames.add(tileSet.getName());
 
+        worldObjects.export(location);//to export spritesSheets
+
         Gson gson = new Gson();
         FileWriter fileWriter;
 
@@ -111,8 +113,6 @@ public class World {
         } catch (IOException e) {
         }
         savePath = path;
-        worldObjects.export(savePath);//to export spritesSheets
-
         return true;
     }
 

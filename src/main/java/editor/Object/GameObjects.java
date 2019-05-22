@@ -29,13 +29,13 @@ public class GameObjects {
         animations = new Vector<>();
         instantiations = new Vector<>();
         spriteSheetList = new Vector<>();
+        spritesSheetNames = new Vector<>();
     }
 
     public void export(String path){
         String location = path + "/SpritesSheets_Save";
-        File f = new File(path + "/SpritesSheets_Save");
+        File f = new File(location);
         f.mkdirs();
-        spritesSheetNames = new Vector<>();
 
         for (SpriteSheet sheet : spriteSheetList){
             spritesSheetNames.add(sheet.name);

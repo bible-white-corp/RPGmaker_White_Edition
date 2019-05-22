@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 
 public class newSpritesSheet extends AbstractAction {
     public newSpritesSheet(){
-        super("Import project");
+        super("Import SpriteSheet");
     }
 
     @Override
