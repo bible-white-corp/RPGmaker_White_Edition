@@ -153,7 +153,6 @@ public class World {
         this.projectTree.reload();
         this.savePath = null;
     }
-    //#TODO new map broken
     //#TODO imports objects
     //#TODO switch on maps/tileSet
     //#TODO load in inspector objects

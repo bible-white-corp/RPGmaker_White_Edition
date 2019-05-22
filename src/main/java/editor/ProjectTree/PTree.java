@@ -11,6 +11,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,6 +33,7 @@ public class PTree {
         myTree.setEditable(true);
         myTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         myTree.setShowsRootHandles(true);
+        myTree.addMouseListener(new doubleClick());
 
         myTree.setPreferredSize(new Dimension(0,250));
     }
@@ -86,6 +89,30 @@ public class PTree {
         }
         myTree.getModel();
         myTree.updateUI();
+    }
+
+    private class doubleClick extends MouseAdapter {
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+                        myTree.getLastSelectedPathComponent();
+                if (node == null) return;
+                if (!node.isLeaf())
+                    return;
+                if (node.getParent() == objects)
+                    return;
+                Object tmp = node.getUserObject();
+                if (node.getParent() == tileSets){
+                    if (tmp instanceof pair)
+                        Editor.editFrame.tileSetFrame.display.changeTileSet(((pair) tmp).index);
+                    return;
+                }
+                if (node.getParent() == levels){
+                    if (tmp instanceof pair)
+                        Editor.mainFrame.setLevel(((pair) tmp).index);
+                }
+            }
+        }
     }
 
 
