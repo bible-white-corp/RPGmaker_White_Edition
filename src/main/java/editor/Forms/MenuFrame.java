@@ -1,9 +1,6 @@
 package editor.Forms;
 
-import editor.Maps.World;
-import editor.Maps.loadWorldAction;
-import editor.Maps.newWorldAction;
-import editor.Maps.saveWorldAction;
+import editor.Maps.*;
 import editor.Tiles.createTileSetAction;
 import editor.Tiles.loadTileSetAction;
 import editor.Tiles.saveTileSetAction;
@@ -29,7 +26,9 @@ public class MenuFrame extends JMenuBar{
         menuItem.setAction(quick_new);
         menu.add(menuItem);
 
-        menuItem = new JMenuItem("Open");
+        Action new_map = new newMapAction();
+        menuItem = new JMenuItem("Add map");
+        menuItem.setAction(new_map);
         menu.add(menuItem);
 
         menu.addSeparator();
