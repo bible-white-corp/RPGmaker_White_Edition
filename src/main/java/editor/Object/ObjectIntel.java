@@ -1,14 +1,13 @@
 package editor.Object;
 
 import editor.Editor;
-import editor.Tiles.Tile;
 
 import java.util.List;
-import java.util.TreeMap;
 import java.util.Vector;
 
 public class ObjectIntel {
     private List<Integer> animations;///index of object's animation in objects list
+    private String name;
 
     public ObjectIntel(String objName) {
         name = objName;
@@ -26,10 +25,16 @@ public class ObjectIntel {
         animations.remove(index);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return name;
     }
-
-    public String name;
 }

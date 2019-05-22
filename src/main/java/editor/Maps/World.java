@@ -154,6 +154,5 @@ public class World {
         this.savePath = null;
     }
     //#TODO imports objects
-    //#TODO switch on maps/tileSet
     //#TODO load in inspector objects
 }

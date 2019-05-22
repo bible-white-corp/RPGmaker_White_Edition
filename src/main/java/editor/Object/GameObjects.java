@@ -14,29 +14,35 @@ import java.util.Vector;
  * This class handles world's objects
  */
 public class GameObjects {
-    Map<String, ObjectIntel> objs;///mapping of objects_animations by their given name
-    Map<String, Animation> animations;///mapping of all user's animations
+    List<ObjectIntel> objs;///mapping of objects_animations by their given name
+    List<Animation> animations;///mapping of all user's animations
+    List<ObjectInstantiation> instantiations;//list of all instantiated objects on the map
 
     public GameObjects() {
-        objs = new TreeMap<>();
-        animations = new TreeMap<>();
+        objs = new Vector<>();
+        animations = new Vector<>();
+        instantiations = new Vector<>();
     }
 
-    public Map<String, ObjectIntel> getObjs() {
+    public List<ObjectIntel> getObjs() {
         return objs;
     }
 
-    public Map<String, Animation> getAnimations() {
+    public List<Animation> getAnimations() {
         return animations;
     }
 
     public void addObject(String name){
 
-        objs.put(name, new ObjectIntel(name));
+        objs.add(new ObjectIntel(name));
     }
 
     public void addAnimation(String animationName, List<TilePair> sprites){
-        animations.put(animationName, new Animation(animationName, sprites));
+        animations.add(new Animation(animationName, sprites));
+    }
+
+    public void add_obj(TilePair position, int index, String instanceName){
+        instantiations.add(new ObjectInstantiation(index, instanceName, position));
     }
 
     /*public void addAnimation(String objName, String animationName){

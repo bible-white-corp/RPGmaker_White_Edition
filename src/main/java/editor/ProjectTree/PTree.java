@@ -44,7 +44,7 @@ public class PTree {
     }
 
     public void addNewObject(ObjectIntel obj){
-        objects.add(new DefaultMutableTreeNode(obj.name));
+        objects.add(new DefaultMutableTreeNode(obj));
         myTree.updateUI();
     }
 
@@ -84,8 +84,8 @@ public class PTree {
                     Editor.world.tileSetList.get(i).getName())));
         }
 
-        for (Map.Entry<String, ObjectIntel> obj : Editor.world.worldObjects.getObjs().entrySet()){
-            objects.add(new DefaultMutableTreeNode(obj.getKey()));
+        for (ObjectIntel obj: Editor.world.worldObjects.getObjs()){
+            objects.add(new DefaultMutableTreeNode(obj));
         }
         myTree.getModel();
         myTree.updateUI();
