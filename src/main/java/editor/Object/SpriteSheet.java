@@ -20,8 +20,8 @@ public class SpriteSheet {
         name = file.getName();
     }
 
-    public Graphics getGraphics(){
-        return img.getGraphics();
+    public BufferedImage getImg(){
+        return img;
     }
 
     public void export(String path) throws IOException {

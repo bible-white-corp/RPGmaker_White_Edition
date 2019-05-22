@@ -129,6 +129,11 @@ public class PTree {
                     if (tmp instanceof pair)
                         Editor.mainFrame.setLevel(((pair) tmp).index);
                 }
+                if (node.getParent() == spriteSheets){
+                    if (tmp instanceof pair){
+                        Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
+                    }
+                }
             }
         }
     }

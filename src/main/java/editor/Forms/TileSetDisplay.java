@@ -46,7 +46,6 @@ public class TileSetDisplay extends JPanel {
             public void mouseDragged(MouseEvent e) {
 
                 second = e.getPoint();
-
                 List<TilePair> list = new ArrayList<>();
 
                 int x1 = Math.min(first.x, second.x);
