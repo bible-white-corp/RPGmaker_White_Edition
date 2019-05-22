@@ -83,6 +83,8 @@ public class World {
         for (TileSet tileSet : tileSetList)
             tsNames.add(tileSet.getName());
 
+        worldObjects.export(location);//to export spritesSheets
+
         Gson gson = new Gson();
         FileWriter fileWriter;
 
@@ -111,7 +113,6 @@ public class World {
         } catch (IOException e) {
         }
         savePath = path;
-
         return true;
     }
 
@@ -137,6 +138,7 @@ public class World {
         } catch (IOException e) { }
         res.savePath = path;
         res.projectTree = Editor.world.projectTree;
+        res.worldObjects.importSprites(path);
         return res;
     }
 
@@ -153,8 +155,6 @@ public class World {
         this.projectTree.reload();
         this.savePath = null;
     }
-    //#TODO new map broken
     //#TODO imports objects
-    //#TODO switch on maps/tileSet
     //#TODO load in inspector objects
 }

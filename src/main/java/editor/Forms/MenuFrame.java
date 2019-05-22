@@ -1,6 +1,7 @@
 package editor.Forms;
 
 import editor.Maps.*;
+import editor.Object.actions.newSpritesSheet;
 import editor.Tiles.createTileSetAction;
 import editor.Tiles.loadTileSetAction;
 import editor.Tiles.saveTileSetAction;
@@ -108,6 +109,14 @@ public class MenuFrame extends JMenuBar{
         menu.add(menuItem);
 
         menuItem = new JMenuItem("Paste");
+        menu.add(menuItem);
+
+        menu = new JMenu("Objects");
+        add(menu);
+
+        Action new_ss = new newSpritesSheet();
+        menuItem = new JMenuItem("Add SpritesSheet");
+        menuItem.setAction(new_ss);
         menu.add(menuItem);
     }
 

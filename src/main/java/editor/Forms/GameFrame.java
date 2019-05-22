@@ -18,6 +18,7 @@ public class GameFrame extends JPanel {
     public void setLevel(int index) {
 
         this.level = Editor.world.levelList.get(index);
+        this.repaint();
         if (level != null)
             this.level.addMapsListener(() -> GameFrame.this.repaint());
     }
