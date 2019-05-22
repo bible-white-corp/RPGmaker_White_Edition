@@ -80,4 +80,9 @@ public class GameFrame extends JPanel {
         for (int x = 0; x < level.getWidth(); ++x)
             g.drawLine(x * level.getTileWidth(),0, x * level.getTileWidth(), h_pixel);
     }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(level.getWidth() * level.getTileWidth(), level.getHeight() * level.getTileHeight());
+    }
 }
