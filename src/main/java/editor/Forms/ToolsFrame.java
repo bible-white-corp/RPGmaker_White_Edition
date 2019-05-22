@@ -4,40 +4,55 @@ import editor.Editor;
 import editor.Tools.Brushes.*;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ToolsFrame extends JToolBar {
 
     public ToolsFrame()
     {
 
-        ImageIcon icon = new ImageIcon("src/main/resources/images/toolbar/pencil.png");
-        JButton pencil = new JButton(icon);
+        JButton pencil = new JButton(getIcon("src/main/resources/images/toolbar/pencil.png"));
         add(pencil);
         pencil.addActionListener(actionEvent -> Editor.setBrush(new Pencil()));
 
-        icon = new ImageIcon("src/main/resources/images/toolbar/eraser.png");
-        JButton eraser = new JButton(icon);
+        JButton eraser = new JButton(getIcon("src/main/resources/images/toolbar/eraser.png"));
         add(eraser);
         eraser.addActionListener(actionEvent -> Editor.setBrush(new Eraser()));
 
-        icon = new ImageIcon("src/main/resources/images/toolbar/select.png");
-        JButton select = new JButton(icon);
+        JButton select = new JButton(getIcon("src/main/resources/images/toolbar/select.png"));
         add(select);
         select.addActionListener(actionEvent -> Editor.setBrush(new SelectBrush()));
 
-        icon = new ImageIcon("src/main/resources/images/toolbar/paint_brush.png");
-        JButton paintbrush = new JButton(icon);
+        JButton paintbrush = new JButton(getIcon("src/main/resources/images/toolbar/paint_brush.png"));
         add(paintbrush);
         paintbrush.addActionListener(actionEvent -> Editor.setBrush(new PaintBrush()));
 
-        icon = new ImageIcon("src/main/resources/images/toolbar/bucket.png");
-        JButton bucketfill = new JButton(icon);
+        JButton bucketfill = new JButton(getIcon("src/main/resources/images/toolbar/bucket.png"));
         add(bucketfill);
         bucketfill.addActionListener(actionEvent -> Editor.setBrush(new BucketFill()));
 
-        icon = new ImageIcon("src/main/resources/images/toolbar/line_brush.png");
-        JButton linebrush = new JButton(icon);
+        JButton linebrush = new JButton(getIcon("src/main/resources/images/toolbar/line_brush.png"));
         add(linebrush);
         linebrush.addActionListener(actionEvent -> Editor.setBrush(new LineBrush()));
+
+        add(new JLabel("Brush Size : "));
+
+        JSpinner brushsize = new JSpinner(new SpinnerNumberModel(Editor.getBrush_size(),1,6,1));
+        brushsize.addChangeListener(changeEvent -> Editor.setBrush_size((Integer) brushsize.getValue()));
+        brushsize.setMaximumSize(new Dimension(50,25));
+        add(brushsize);
+
+        add(new JLabel("Current Layer : "));
+
+        JSpinner layer_select = new JSpinner(new SpinnerNumberModel(Editor.getLayer_index(),0,9,1));
+        layer_select.addChangeListener(changeEvent -> Editor.setLayer_index((Integer) layer_select.getValue()));
+        layer_select.setMaximumSize(new Dimension(50,25));
+        add(layer_select);
+
+    }
+
+    private static ImageIcon getIcon(String str)
+    {
+        return new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT));
     }
 }

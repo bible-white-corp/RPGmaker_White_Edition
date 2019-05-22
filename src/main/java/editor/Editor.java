@@ -20,6 +20,7 @@ public class Editor {
     public static GameFrame mainFrame;
     public static EditFrame editFrame;
 
+    private static int brush_size = 2;
     private static int layer_index = 0;
 
     public static Brush getBrush() {
@@ -47,6 +48,14 @@ public class Editor {
             layer_index = 10;
 
         Editor.layer_index = layer_index;
+    }
+
+    public static int getBrush_size() {
+        return brush_size;
+    }
+
+    public static void setBrush_size(int brush_size) {
+        Editor.brush_size = brush_size;
     }
 
     public static void main(String[] args) {

@@ -1,15 +1,16 @@
 package editor.Tools.Brushes;
 
+import editor.Editor;
 import editor.Maps.Level;
 import editor.Tools.Brush;
 import editor.Tools.Selection;
 
 public class PaintBrush extends Brush {
 
-    int brush_size = 3;
-
     @Override
     public void clicked(Level level, Selection selection, int x_pixel, int y_pixel) {
+
+        int brush_size = Editor.getBrush_size();
 
         float r2 = brush_size * brush_size;
 
