@@ -232,14 +232,21 @@ public class TileSet {
      * @param graph where to print
      * @warning The size of the graph is not checked! Watchout for bounds yourself!
      */
-    public void drawselection(Selection selection, int x, int y, Graphics graph) {
+    public void drawselection(Selection selection, int x, int y, int w, int h, Graphics graph) {
+
+        BufferedImage buffer = new BufferedImage(selection.getDimension().width * tile_x_size,
+                selection.getDimension().height * tile_y_size, BufferedImage.TYPE_4BYTE_ABGR);
+
+        Graphics graphics = buffer.createGraphics();
 
         for (int i = 0; i < selection.getDimension().height; i++) {
             for (int j = 0; j < selection.getDimension().width; j++) {
                 drawtile(selection.getTiles().get(j + i * selection.getDimension().width),
-                        x + j * tile_x_size, y + i * tile_y_size, graph);
+                        x + j * tile_x_size, y + i * tile_y_size, graphics);
             }
         }
+
+        graph.drawImage(buffer.getScaledInstance(w,h,Image.SCALE_DEFAULT),0,0, null);
     }
 
     @Override
