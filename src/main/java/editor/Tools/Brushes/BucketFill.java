@@ -1,5 +1,6 @@
 package editor.Tools.Brushes;
 
+import editor.Editor;
 import editor.Maps.Level;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
@@ -17,7 +18,9 @@ public class BucketFill extends Brush {
     @Override
     public void clicked(Level level, Selection selection, int x_pixel, int y_pixel) {
 
-        background = level.getTilePixel(x_pixel, y_pixel);
+        Tile t = Editor.world.getTileFromPair(selection.getTiles().get(0));
+
+        background = level.getTilePixel(x_pixel, y_pixel, t.getLayer());
 
         if (background != null && background.equals(selection.getTiles().get(0)))
             return;
@@ -33,7 +36,7 @@ public class BucketFill extends Brush {
 
             try {
 
-                TilePair tile = level.getTilePixel(cur.x, cur.y);
+                TilePair tile = level.getTilePixel(cur.x, cur.y, t.getLayer());
 
                 if ((tile == null && background == null) || tile.equals(background)) {
                     level.setTilePixel(selection.getTiles().get(0), cur.x, cur.y);

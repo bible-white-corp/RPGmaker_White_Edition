@@ -78,7 +78,9 @@ public class Level {
         if (t == null)
             layers.get(Editor.getLayer_index()).setFromIndex(null, index);
         else
+        {
             layers.get(Editor.world.getTileFromPair(t).getLayer()).setFromIndex(t, index);
+        }
 
         for (MapsListener listener : listeners.getListeners(MapsListener.class))
             listener.mapsChangee();
@@ -147,6 +149,11 @@ public class Level {
     public void initializeListener()
     {
         listeners = new EventListenerList();
+    }
+
+    public TilePair getTilePixel(int x_pixel, int y_pixel, int layer) {
+
+        return getFromIndex(getIndexPixel(x_pixel, y_pixel), layer);
     }
 
     public interface MapsListener extends EventListener {

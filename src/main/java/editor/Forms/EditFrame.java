@@ -53,7 +53,7 @@ public class EditFrame extends JFrame {
         tabbedPane.add("Story", new StoryFrame());
 
         JTabbedPane tabbedPane1 = new JTabbedPane();
-        pan.add(tabbedPane1, get_c(2,0,0,1));
+        pan.add(tabbedPane1, get_c(2,0,0,1));A
 
         tabbedPane1.add("Inspector", new InspectorFrame());
     }
