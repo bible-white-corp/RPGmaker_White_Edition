@@ -19,21 +19,24 @@ import java.util.Map;
 import java.util.Set;
 
 public class PTree {
+
+    public JTree myTree;
+
+    private DefaultMutableTreeNode objects = new DefaultMutableTreeNode("Objects", true);
+    private DefaultMutableTreeNode tileSets = new DefaultMutableTreeNode("TileSets", true);
+    private DefaultMutableTreeNode levels = new DefaultMutableTreeNode("Levels", true);
+    private DefaultMutableTreeNode spriteSheets = new DefaultMutableTreeNode("SpriteSheets", true);
+
     public PTree(String pName) {
+
         DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(pName);
         DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
-
-        objects = new DefaultMutableTreeNode("Objects", true);
-        spriteSheets = new DefaultMutableTreeNode("SpriteSheets", true);
-        tileSets = new DefaultMutableTreeNode("TileSets", true);
-        levels = new DefaultMutableTreeNode("Levels", true);
 
         rootNode.add(objects);
         rootNode.add(spriteSheets);
         rootNode.add(tileSets);
         rootNode.add(levels);
         rootNode.add(spriteSheets);
-
 
         myTree = new JTree(treeModel);
         myTree.setEditable(true);
@@ -45,26 +48,31 @@ public class PTree {
     }
 
     public void addNewLevel(Level level, int index){
+
         levels.add(new DefaultMutableTreeNode(new pair(index, level.getName())));
         myTree.updateUI();
     }
 
     public void addNewObject(ObjectIntel obj){
+
         objects.add(new DefaultMutableTreeNode(obj));
         myTree.updateUI();
     }
 
     public void addNewTileSet(TileSet ts, int index){
+
         tileSets.add(new DefaultMutableTreeNode(new pair(index, ts.getName())));
         myTree.updateUI();
     }
 
     public void addNewSpritesSheet(SpriteSheet sheet, int index){
+
         spriteSheets.add(new DefaultMutableTreeNode(new pair(index, sheet.toString())));
         myTree.updateUI();
     }
 
     private class pair{
+
         public pair(int index, String name) {
             this.index = index;
             this.name = name;
@@ -80,6 +88,7 @@ public class PTree {
     }
 
     public void reload(){
+
         objects.removeAllChildren();
         tileSets.removeAllChildren();
         levels.removeAllChildren();
@@ -110,26 +119,32 @@ public class PTree {
     }
 
     private class doubleClick extends MouseAdapter {
+
         public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2) {
+
+            if (e.getClickCount() >= 2) {
+
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                         myTree.getLastSelectedPathComponent();
-                if (node == null) return;
-                if (!node.isLeaf())
-                    return;
-                if (node.getParent() == objects)
-                    return;
+
+                if (node == null || !node.isLeaf() || node.getParent() == objects) return;
+
                 Object tmp = node.getUserObject();
+
                 if (node.getParent() == tileSets){
+
                     if (tmp instanceof pair)
                         Editor.editFrame.tileSetFrame.display.changeTileSet(((pair) tmp).index);
-                    return;
                 }
-                if (node.getParent() == levels){
+
+                else if (node.getParent() == levels){
+
                     if (tmp instanceof pair)
                         Editor.mainFrame.setLevel(((pair) tmp).index);
                 }
-                if (node.getParent() == spriteSheets){
+
+                else if (node.getParent() == spriteSheets){
+
                     if (tmp instanceof pair){
                         Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
                     }
@@ -137,12 +152,4 @@ public class PTree {
             }
         }
     }
-
-
-    private DefaultMutableTreeNode objects;
-    private DefaultMutableTreeNode tileSets;
-    private DefaultMutableTreeNode levels;
-    private DefaultMutableTreeNode spriteSheets;
-
-    public JTree myTree;
 }

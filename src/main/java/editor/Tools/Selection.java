@@ -1,6 +1,5 @@
 package editor.Tools;
 
-import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 
 import javax.swing.event.EventListenerList;

@@ -21,8 +21,7 @@ public class MenuFrame extends JMenuBar{
         add(menu);
 
         Action quick_new = new newWorldAction();
-        quick_new.putValue(Action.ACCELERATOR_KEY,
-                KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
+        quick_new.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
         JMenuItem menuItem = new JMenuItem(new newWorldAction());
         menuItem.setAction(quick_new);
         menu.add(menuItem);
@@ -53,15 +52,13 @@ public class MenuFrame extends JMenuBar{
 
 
         Action quick_load = new loadWorldAction();
-        quick_load.putValue(Action.ACCELERATOR_KEY,
-                KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+        quick_load.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
         menuItem = new JMenuItem(new loadWorldAction());
         menuItem.setAction(quick_load);
         menu.add(menuItem);
 
         Action quick_save = new saveWorldAction("Save project", true);
-        quick_save.putValue(Action.ACCELERATOR_KEY,
-                KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+        quick_save.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
         menuItem = new JMenuItem(quick_save);
         menuItem.setAction(quick_save);
         menu.add(menuItem);
@@ -83,8 +80,8 @@ public class MenuFrame extends JMenuBar{
                 exit(0);
             }
         };
-        quick_exit.putValue(Action.ACCELERATOR_KEY,
-            KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
+
+        quick_exit.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
         menuItem = new JMenuItem();
         menuItem.setAction(quick_exit);
         menu.add(menuItem);

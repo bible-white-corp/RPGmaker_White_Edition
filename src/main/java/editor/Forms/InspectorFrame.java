@@ -6,7 +6,11 @@ import editor.Tiles.TilePair;
 import editor.Tools.Selection;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,212 +45,117 @@ public class InspectorFrame extends JPanel {
         JCheckBox enableSolid = new JCheckBox();
         JCheckBox enableSpinner = new JCheckBox();
 
-        int state = -1;
+        public TileLayer(Selection selection) {
 
-        public TileLayer(Selection selection)
-        {
             this.selection = selection;
 
             setLayout(new GridBagLayout());
 
-            add(new JLabel("Name"), EditFrame.get_c(0,0,1,0));
-            add(textField, EditFrame.get_c(1,0,1,0));
-            add(enableText, EditFrame.get_c(2,0,1,0));
+            add(new JLabel("Name"), EditFrame.get_c(0, 0, 1, 0));
+            add(textField, EditFrame.get_c(1, 0, 1, 0));
+            add(enableText, EditFrame.get_c(2, 0, 1, 0));
 
-            add(new JLabel("Solid"),EditFrame.get_c(0,1,1,0));
-            add(solid, EditFrame.get_c(1,1,1,0));
-            add(enableSolid, EditFrame.get_c(2,1,1,0));
+            add(new JLabel("Solid"), EditFrame.get_c(0, 1, 1, 0));
+            add(solid, EditFrame.get_c(1, 1, 1, 0));
+            add(enableSolid, EditFrame.get_c(2, 1, 1, 0));
 
-            add(new JLabel("Layer"), EditFrame.get_c(0,2,1,0));
-            add(spinner, EditFrame.get_c(1,2,1,0));
-            add(enableSpinner, EditFrame.get_c(2,2,1,0));
+            add(new JLabel("Layer"), EditFrame.get_c(0, 2, 1, 0));
+            add(spinner, EditFrame.get_c(1, 2, 1, 0));
+            add(enableSpinner, EditFrame.get_c(2, 2, 1, 0));
+
+            selection.addSelectionListener(selectionListener);
+
+            initialize();
+        }
+
+        Selection.SelectionListener selectionListener = () -> {
 
             resetButton();
 
-            selection.addSelectionListener(() -> {
-
-                resetButton();
-
-                if (selection.getTiles().size() == 0)
-                {
-                    TileLayer.this.repaint();
-                    return;
-                }
-
-                Tile t = selection.getTiles().get(0).getTile();
-
-                textField.setText(t.getName());
-                spinner.setValue(t.getLayer());
-                solid.setSelected(!t.isWalkable());
-
-                if (selection.getTiles().size() > 1)
-                {
-                    enableText.setEnabled(true);
-                    enableSolid.setEnabled(true);
-                    enableSpinner.setEnabled(true);
-
-                    String name_v = selection.getTiles().get(0).getTile().getName();
-
-                    selection.getTiles().forEach(tilePair -> {
-
-                        String other = tilePair.getTile().getName();
-
-                        if (!Objects.equals(name_v, other)){
-
-                            enableText.setSelected(true);
-                            return;
-                        }
-                    });
-
-                    boolean solid_v = selection.getTiles().get(0).getTile().isWalkable();
-
-                    selection.getTiles().forEach(tilePair -> {
-
-                        if (solid_v != tilePair.getTile().isWalkable()) {
-                            enableSolid.setSelected(true);
-                            return;
-                        }
-                    });
-
-                    int layer_v = selection.getTiles().get(0).getTile().getLayer();
-
-                    selection.getTiles().forEach(tilePair -> {
-
-                        if (layer_v != tilePair.getTile().getLayer()) {
-                            enableSpinner.setSelected(true);
-                            return;
-                        }
-                    });
-
-                    if (enableText.isSelected())
-                        textField.setEnabled(false);
-
-                    if (enableSolid.isSelected())
-                        solid.setEnabled(false);
-
-                    if (enableSpinner.isSelected())
-                        spinner.setEnabled(false);
-
-
-                }
-
-                state = 0;
-
+            if (selection.getTiles().size() == 0)
+            {
                 TileLayer.this.repaint();
-            });
+                return;
+            }
 
-            enableText.addChangeListener(changeEvent ->  {
+            Tile t = selection.getTiles().get(0).getTile();
 
-                if (state == -1)
-                    return;
+            textField.setText(t.getName());
+            setSliderValue(t.getLayer());
+            solid.setSelected(!t.isWalkable());
 
-                if (enableText.isSelected())
+            if (selection.getTiles().size() > 1)
+            {
+                enableText.setEnabled(true);
+                enableSolid.setEnabled(true);
+                enableSpinner.setEnabled(true);
+
+                enableText.setSelected(selection.getTiles().stream().map(tilePair -> tilePair.getTile().getName()).distinct().limit(2).count() > 1);
+                enableSolid.setSelected(selection.getTiles().stream().map(tilePair -> tilePair.getTile().isWalkable()).distinct().limit(2).count() > 1);
+                enableSpinner.setSelected(selection.getTiles().stream().map(tilePair -> tilePair.getTile().getLayer()).distinct().limit(2).count() > 1);
+
+                textField.setEnabled(!enableText.isSelected());
+                solid.setEnabled(!enableSolid.isSelected());
+                spinner.setEnabled(!enableSpinner.isSelected());
+            }
+
+            TileLayer.this.repaint();
+        };
+
+        public void initialize()
+        {
+            resetButton();
+
+            enableText.addActionListener(changeEvent ->  {
+
+                textField.setEnabled(enableText.isSelected());
+
+                if (!enableText.isSelected())
                 {
-                    textField.setEnabled(false);
-                }
-                else
-                {
-                    textField.setEnabled(true);
                     String v = selection.getTiles().get(0).getTile().getName();
-
-                    textField.setText(v);
-
-                    for (int i = 0; i < selection.getTiles().size(); ++i)
-                    {
-                        Tile t = Editor.world.getTileFromPair(selection.getTiles().get(i));
-                        t.setName(v);
-                    }
+                    selection.getTiles().stream().forEach(tilePair -> tilePair.getTile().setName(v));
                 }
             });
 
-            textField.addActionListener(changeEvent -> {
+            textField.addActionListener(changeEvent -> selection.getTiles().forEach(tilePair -> tilePair.getTile().setName(textField.getName())));
 
-                if (state == -1)
-                    return;
+            enableSolid.addActionListener(changeEvent ->  {
 
-                for (int i = 0; i < selection.getTiles().size(); ++i)
+                solid.setEnabled(!enableSolid.isSelected());
+
+                if (!enableSolid.isSelected())
                 {
-                    Tile t = Editor.world.getTileFromPair(selection.getTiles().get(i));
-                    t.setName(textField.getText());
-                }
-            });
-
-            enableSolid.addChangeListener(changeEvent ->  {
-
-                if (state == -1)
-                    return;
-
-                if (enableSolid.isSelected())
-                {
-                    solid.setEnabled(false);
-                }
-                else
-                {
-                    solid.setEnabled(true);
                     boolean v = selection.getTiles().get(0).getTile().isWalkable();
-
-                    solid.setSelected(!v);
-
-                    for (int i = 0; i < selection.getTiles().size(); ++i)
-                    {
-                        Tile t = Editor.world.getTileFromPair(selection.getTiles().get(i));
-                        t.setWalkable(v);
-                    }
+                    selection.getTiles().forEach(tilePair -> tilePair.getTile().setWalkable(v));
                 }
             });
 
-            solid.addChangeListener(changeEvent -> {
+            solid.addActionListener(changeEvent -> selection.getTiles().forEach(tilePair -> tilePair.getTile().setWalkable(!solid.isSelected())));
 
-                if (state == -1)
-                    return;
+            enableSpinner.addActionListener(changeEvent ->  {
 
-                for (int i = 0; i < selection.getTiles().size(); ++i)
+                spinner.setEnabled(!enableSpinner.isSelected());
+
+                if (!enableSpinner.isSelected())
                 {
-                    Tile t = Editor.world.getTileFromPair(selection.getTiles().get(i));
-                    t.setWalkable(!solid.isSelected());
-                }
-            });
-
-            enableSpinner.addChangeListener(changeEvent ->  {
-
-                if (state == -1)
-                    return;
-
-                if (enableSpinner.isSelected())
-                {
-                    spinner.setEnabled(false);
-                }
-                else
-                {
-                    spinner.setEnabled(true);
                     int v = selection.getTiles().get(0).getTile().getLayer();
-
-                    spinner.setValue(v);
-
-                    for (int i = 0; i < selection.getTiles().size(); ++i)
-                    {
-                        Tile t = Editor.world.getTileFromPair(selection.getTiles().get(i));
-                        t.setLayer(v);
-                    }
+                    selection.getTiles().forEach(tilePair -> tilePair.getTile().setLayer(v));
                 }
             });
 
-            spinner.addChangeListener(changeEvent -> {
+            spinner.addChangeListener(changeEvent -> selection.getTiles().forEach(tilePair -> tilePair.getTile().setLayer((Integer) spinner.getValue())));
+        }
 
-                if (state == -1)
-                    return;
+        private void setSliderValue(int v) {
 
-                for (int i = 0; i < selection.getTiles().size(); ++i)
-                {
-                    Tile t = Editor.world.getTileFromPair(selection.getTiles().get(i));
-                    t.setLayer((Integer) spinner.getValue());
-                }
-            });
+            ChangeListener[] listeners = spinner.getChangeListeners();
+
+            spinner.removeChangeListener(listeners[0]);
+            spinner.setValue(v);
+            spinner.addChangeListener(listeners[0]);
         }
 
         private void resetButton() {
-
-            state = -1;
 
             textField.setEnabled(true);
             spinner.setEnabled(true);
@@ -257,13 +166,12 @@ public class InspectorFrame extends JPanel {
             enableSpinner.setEnabled(false);
 
             textField.setText("");
-            spinner.setValue(0);
+            setSliderValue(0);
             solid.setSelected(false);
 
             enableText.setSelected(false);
             enableSolid.setSelected(false);
             enableSpinner.setSelected(false);
-
         }
     }
 

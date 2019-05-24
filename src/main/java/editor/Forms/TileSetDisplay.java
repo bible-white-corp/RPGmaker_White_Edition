@@ -48,10 +48,10 @@ public class TileSetDisplay extends JPanel {
                 second = e.getPoint();
                 List<TilePair> list = new ArrayList<>();
 
-                int x1 = Math.min(first.x, second.x);
-                int x2 = Math.max(first.x, second.x);
                 int y1 = Math.min(first.y, second.y);
                 int y2 = Math.max(first.y, second.y);
+                int x1 = Math.min(first.x, second.x);
+                int x2 = Math.max(first.x, second.x);
 
                 x1 = x1 - x1 % tileSet.getTile_x_size();
                 x2 = x2 - x2 % tileSet.getTile_x_size();
