@@ -3,6 +3,7 @@ package editor.Object;
 import editor.Editor;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Sprite {
     private int ssIndex;
@@ -40,5 +41,18 @@ public class Sprite {
     @Override
     public String toString() {
         return name;
+    }
+
+    public SpriteSheet getSS(){
+        return Editor.world.worldObjects.spriteSheetList.get(ssIndex);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BufferedImage getImage(){
+        return Editor.world.worldObjects.spriteSheetList.get(ssIndex).img.getSubimage(x, y,
+                dimension.width, dimension.height);
     }
 }

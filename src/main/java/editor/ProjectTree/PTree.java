@@ -9,9 +9,7 @@ import editor.Object.SpriteSheet;
 import editor.Tiles.TileSet;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeSelectionModel;
+import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -44,35 +42,35 @@ public class PTree {
         myTree.setShowsRootHandles(true);
         myTree.addMouseListener(new doubleClick());
 
-        myTree.setPreferredSize(new Dimension(0,250));
+        myTree.setPreferredSize(new Dimension(0, 250));
     }
 
-    public void addNewLevel(Level level, int index){
+    public void addNewLevel(Level level, int index) {
         levels.add(new DefaultMutableTreeNode(new pair(index, level.getName())));
         myTree.updateUI();
     }
 
-    public void addNewObject(ObjectIntel obj){
+    public void addNewObject(ObjectIntel obj) {
         objects.add(new DefaultMutableTreeNode(obj));
         myTree.updateUI();
     }
 
-    public void addNewTileSet(TileSet ts, int index){
+    public void addNewTileSet(TileSet ts, int index) {
         tileSets.add(new DefaultMutableTreeNode(new pair(index, ts.getName())));
         myTree.updateUI();
     }
 
-    public void addNewSpritesSheet(SpriteSheet sheet, int index){
+    public void addNewSpritesSheet(SpriteSheet sheet, int index) {
         spriteSheets.add(new DefaultMutableTreeNode(new pair(index, sheet.toString())));
         myTree.updateUI();
     }
 
-    public void addNewSprite(Sprite sprite, int index){
+    public void addNewSprite(Sprite sprite, int index) {
         sprites.add(new DefaultMutableTreeNode(new pair(index, sprite.toString())));
         myTree.updateUI();
     }
 
-    private class pair{
+    private class pair {
         public pair(int index, String name) {
             this.index = index;
             this.name = name;
@@ -87,7 +85,7 @@ public class PTree {
         public String name;
     }
 
-    public void reload(){
+    public void reload() {
         objects.removeAllChildren();
         tileSets.removeAllChildren();
         levels.removeAllChildren();
@@ -97,7 +95,7 @@ public class PTree {
         myTree.treeDidChange();
         myTree.updateUI();
 
-        for (int i = 0; i < Editor.world.levelList.size(); i++){
+        for (int i = 0; i < Editor.world.levelList.size(); i++) {
             levels.add(new DefaultMutableTreeNode(new pair(i,
                     Editor.world.levelList.get(i).getName())));
         }
@@ -107,7 +105,7 @@ public class PTree {
                     Editor.world.tileSetList.get(i).getName())));
         }
 
-        for (ObjectIntel obj: Editor.world.worldObjects.getObjs()){
+        for (ObjectIntel obj : Editor.world.worldObjects.getObjs()) {
             objects.add(new DefaultMutableTreeNode(obj));
         }
 
@@ -118,7 +116,7 @@ public class PTree {
 
         List<Sprite> spriteList = Editor.world.worldObjects.getSpriteList();
         for (int i = 0; i < spriteList.size(); i++) {
-            sprites.add(new DefaultMutableTreeNode(new pair(i,spriteList.get(i).toString())));
+            sprites.add(new DefaultMutableTreeNode(new pair(i, spriteList.get(i).toString())));
         }
 
         myTree.getModel();
@@ -133,30 +131,63 @@ public class PTree {
                 if (node == null) return;
                 if (!node.isLeaf())
                     return;
-                if (node.getParent() == objects)
-                    return;
+                TreeNode parent = node.getParent();
                 Object tmp = node.getUserObject();
-                if (node.getParent() == tileSets){
+
+                if (parent == objects)
+                    return;
+                else if (parent == tileSets) {
                     if (tmp instanceof pair)
                         Editor.editFrame.tileSetFrame.display.changeTileSet(((pair) tmp).index);
                     return;
                 }
-                if (node.getParent() == levels){
+                else if (parent == levels) {
                     if (tmp instanceof pair) {
                         Editor.mainFrame.setLevel(((pair) tmp).index);
                         Editor.editFrame.tabbedPane.setSelectedIndex(0);
                     }
                 }
-                if (node.getParent() == spriteSheets){
-                    if (tmp instanceof pair){
+                else if (parent == spriteSheets) {
+                    if (tmp instanceof pair) {
                         Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
                         Editor.editFrame.tabbedPane.setSelectedIndex(2);
+                    }
+                }
+                else if (parent == sprites) {
+                    if (tmp instanceof pair) {
+                        customizeSprite((pair) tmp);
                     }
                 }
             }
         }
     }
 
+    private void customizeSprite(pair p) {
+        Object[] possibilites = {"Rename", "Delete"};
+        String s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+                "What do you want to do with " + p.name,
+                "Customize sprite",
+                JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(Editor.world.worldObjects.getSpriteList().get(p.index).getImage()),
+                possibilites, "Rename");
+        if (s == null)
+            return;
+        if (s == "Delete") {
+            sprites.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
+            myTree.updateUI();
+            return;
+        }
+        if (s == "Rename") {
+            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+                    "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
+            if (s == null)
+                return;
+            p.name = s;
+            Editor.world.worldObjects.getSpriteList().get(p.index).setName(s);
+            myTree.updateUI();
+            return;
+        }
+    }
 
     private DefaultMutableTreeNode objects;
     private DefaultMutableTreeNode tileSets;

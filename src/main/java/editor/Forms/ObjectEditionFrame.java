@@ -40,7 +40,12 @@ public class ObjectEditionFrame extends JPanel {
                 desactivate();
                 if (name == null)
                     return;
-                Editor.world.worldObjects.addSprite(new Sprite(first.x, first.y, last.x, last.y, name, ssIndex));
+                int x1 = Math.min(first.x, last.x);
+                int x2 = Math.max(first.x, last.x);
+                int y1 = Math.min(first.y, last.y);
+                int y2 = Math.max(first.y, last.y);
+
+                Editor.world.worldObjects.addSprite(new Sprite(x1, y1, x2 - x1, y2 - y1, name, ssIndex));
                 first = null;
                 last = null;
                 refresh();
