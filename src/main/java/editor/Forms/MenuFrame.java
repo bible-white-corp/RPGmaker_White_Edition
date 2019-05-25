@@ -1,10 +1,15 @@
 package editor.Forms;
 
 import editor.Maps.*;
+import editor.Maps.actions.loadWorldAction;
+import editor.Maps.actions.newMapAction;
+import editor.Maps.actions.newWorldAction;
+import editor.Maps.actions.saveWorldAction;
+import editor.Object.actions.createSpriteAction;
 import editor.Object.actions.newSpritesSheet;
-import editor.Tiles.createTileSetAction;
-import editor.Tiles.loadTileSetAction;
-import editor.Tiles.saveTileSetAction;
+import editor.Tiles.actions.createTileSetAction;
+import editor.Tiles.actions.loadTileSetAction;
+import editor.Tiles.actions.saveTileSetAction;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -115,9 +120,16 @@ public class MenuFrame extends JMenuBar{
         add(menu);
 
         Action new_ss = new newSpritesSheet();
-        menuItem = new JMenuItem("Add SpritesSheet");
+        menuItem = new JMenuItem("Add spritesSheet");
         menuItem.setAction(new_ss);
         menu.add(menuItem);
+
+        Action new_s = new createSpriteAction();
+        menuItem = new JMenuItem();
+        menuItem.setAction(new_s);
+        menu.add(menuItem);
+
+
     }
 
 }

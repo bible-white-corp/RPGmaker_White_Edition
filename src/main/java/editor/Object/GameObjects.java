@@ -65,6 +65,10 @@ public class GameObjects {
         return animations;
     }
 
+    public List<Sprite> getSpriteList() {
+        return spriteList;
+    }
+
     public void addObject(String name){
 
         objs.add(new ObjectIntel(name));
@@ -77,6 +81,7 @@ public class GameObjects {
     }
 
     public void addSprite(Sprite sprite){
+        Editor.world.projectTree.addNewSprite(sprite, spriteList.size());
         spriteList.add(sprite);
     }
 

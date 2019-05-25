@@ -1,6 +1,7 @@
-package editor.Tiles;
+package editor.Tiles.actions;
 
 import editor.Editor;
+import editor.Tiles.TileSet;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -35,8 +36,6 @@ public class saveTileSetAction extends AbstractAction {
 
         JFileChooser fileChooser = new JFileChooser(".");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        //#TODO make user choose which tileset
 
         if (fileChooser.showSaveDialog(Editor.mainFrame) == JFileChooser.APPROVE_OPTION) {
             int index = Editor.world.tileSetList.indexOf(res);

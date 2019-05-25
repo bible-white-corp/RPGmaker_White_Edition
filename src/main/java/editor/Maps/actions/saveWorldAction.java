@@ -1,4 +1,4 @@
-package editor.Maps;
+package editor.Maps.actions;
 
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;

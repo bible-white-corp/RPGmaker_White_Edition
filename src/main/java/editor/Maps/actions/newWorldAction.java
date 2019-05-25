@@ -1,7 +1,6 @@
-package editor.Maps;
+package editor.Maps.actions;
 
 import editor.Editor;
-import editor.Forms.EditFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

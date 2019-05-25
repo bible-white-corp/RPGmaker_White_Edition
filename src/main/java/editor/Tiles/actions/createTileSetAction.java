@@ -1,4 +1,4 @@
-package editor.Tiles;
+package editor.Tiles.actions;
 
 import editor.Editor;
 

@@ -1,13 +1,9 @@
 package editor.Forms;
 
 import editor.Editor;
-import editor.Maps.World;
-import editor.Maps.saveWorldAction;
-import editor.ProjectTree.PTree;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class EditFrame extends JFrame {
 
@@ -17,6 +13,7 @@ public class EditFrame extends JFrame {
     JPanel footer;
     public TileSetFrame tileSetFrame;
     public ObjectEditionFrame editionFrame;
+    public JTabbedPane tabbedPane;
 
     public EditFrame() {
 
@@ -45,7 +42,7 @@ public class EditFrame extends JFrame {
 
     private void createMainWindow() {
 
-        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane();
 
         pan.add(tabbedPane, get_c(1,0,1,1));
 

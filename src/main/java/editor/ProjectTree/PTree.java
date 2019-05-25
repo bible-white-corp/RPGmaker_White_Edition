@@ -4,6 +4,7 @@ import editor.Editor;
 import editor.Maps.Level;
 import editor.Object.GameObjects;
 import editor.Object.ObjectIntel;
+import editor.Object.Sprite;
 import editor.Object.SpriteSheet;
 import editor.Tiles.TileSet;
 
@@ -27,12 +28,14 @@ public class PTree {
         spriteSheets = new DefaultMutableTreeNode("SpriteSheets", true);
         tileSets = new DefaultMutableTreeNode("TileSets", true);
         levels = new DefaultMutableTreeNode("Levels", true);
+        sprites = new DefaultMutableTreeNode("Sprites", true);
+
 
         rootNode.add(objects);
-        rootNode.add(spriteSheets);
         rootNode.add(tileSets);
         rootNode.add(levels);
         rootNode.add(spriteSheets);
+        rootNode.add(sprites);
 
 
         myTree = new JTree(treeModel);
@@ -64,6 +67,11 @@ public class PTree {
         myTree.updateUI();
     }
 
+    public void addNewSprite(Sprite sprite, int index){
+        sprites.add(new DefaultMutableTreeNode(new pair(index, sprite.toString())));
+        myTree.updateUI();
+    }
+
     private class pair{
         public pair(int index, String name) {
             this.index = index;
@@ -83,6 +91,9 @@ public class PTree {
         objects.removeAllChildren();
         tileSets.removeAllChildren();
         levels.removeAllChildren();
+        spriteSheets.removeAllChildren();
+        sprites.removeAllChildren();
+
         myTree.treeDidChange();
         myTree.updateUI();
 
@@ -101,8 +112,13 @@ public class PTree {
         }
 
         List<SpriteSheet> sheetList = Editor.world.worldObjects.getSpriteSheetList();
-        for (int i = 0; i < Editor.world.worldObjects.getSpriteSheetList().size(); i++) {
+        for (int i = 0; i < sheetList.size(); i++) {
             spriteSheets.add(new DefaultMutableTreeNode(new pair(i, sheetList.get(i).toString())));
+        }
+
+        List<Sprite> spriteList = Editor.world.worldObjects.getSpriteList();
+        for (int i = 0; i < spriteList.size(); i++) {
+            sprites.add(new DefaultMutableTreeNode(new pair(i,spriteList.get(i).toString())));
         }
 
         myTree.getModel();
@@ -126,12 +142,15 @@ public class PTree {
                     return;
                 }
                 if (node.getParent() == levels){
-                    if (tmp instanceof pair)
+                    if (tmp instanceof pair) {
                         Editor.mainFrame.setLevel(((pair) tmp).index);
+                        Editor.editFrame.tabbedPane.setSelectedIndex(0);
+                    }
                 }
                 if (node.getParent() == spriteSheets){
                     if (tmp instanceof pair){
                         Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
+                        Editor.editFrame.tabbedPane.setSelectedIndex(2);
                     }
                 }
             }
@@ -143,6 +162,7 @@ public class PTree {
     private DefaultMutableTreeNode tileSets;
     private DefaultMutableTreeNode levels;
     private DefaultMutableTreeNode spriteSheets;
+    private DefaultMutableTreeNode sprites;
 
     public JTree myTree;
 }

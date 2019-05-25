@@ -1,6 +1,8 @@
-package editor.Maps;
+package editor.Maps.actions;
 
 import editor.Editor;
+import editor.Maps.World;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 

@@ -12,10 +12,11 @@ public class Sprite {
 
     Dimension dimension;
 
-    public Sprite(int x, int y, int width, int height, String name) {
+    public Sprite(int x, int y, int width, int height, String name, int index) {
         this.name = name;
         this.x = x;
         this.y = y;
+        this.ssIndex = index;
 
         dimension = new Dimension(width, height);
     }
@@ -34,5 +35,10 @@ public class Sprite {
 
     public SpriteSheet getSpriteSheet(){
         return Editor.world.worldObjects.spriteSheetList.get(ssIndex);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -43,7 +43,7 @@ public class InspectorFrame extends JPanel {
 
         int state = -1;
 
-        public TileLayer(Selection selection)
+        public TileLayer(Selection selection)//#TODO ouais pense a refactor ce truc de 200lignes
         {
             this.selection = selection;
 
