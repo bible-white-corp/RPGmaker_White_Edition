@@ -26,7 +26,7 @@ public class ObjectEditionFrame extends JPanel {
         setSheet(0);
         mouse = new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 first = new Point(e.getX(), e.getY());
                 last = new Point(e.getX(), e.getY());
             }
@@ -40,7 +40,7 @@ public class ObjectEditionFrame extends JPanel {
                 desactivate();
                 first = null;
                 last = null;
-                if (name == null || name.isEmpty())
+                if (name == null)
                     return;
                 Editor.world.worldObjects.addSprite(new Sprite(first.x, first.y, last.x, last.y, name, ssIndex));
                 repaint();
@@ -50,7 +50,7 @@ public class ObjectEditionFrame extends JPanel {
             public void mouseDragged(MouseEvent e) {
                 last.x = e.getX();
                 last.y = e.getY();
-                repaint();
+                refresh();
             }
         };
     }
@@ -58,6 +58,9 @@ public class ObjectEditionFrame extends JPanel {
 
     public boolean is_set(){
         return sheet != null;
+    }
+    private void refresh(){
+        this.repaint();
     }
 
     public void active(){
@@ -82,13 +85,8 @@ public class ObjectEditionFrame extends JPanel {
         if (first == null)
             return;
 
-        int x1 = Math.min(first.x, last.x);
-        int x2 = Math.max(first.x, last.x);
-        int y1 = Math.min(first.y, last.y);
-        int y2 = Math.max(first.y, last.y);
-
         g.setColor(new Color(0.5f,0.5f,0.5f,0.7f));
-        g.fillRect(x1, y1, x2, y2);
+        g.fillRect(first.x, first.y, last.x, last.y);
     }
 
     public void setSheet(int index){
