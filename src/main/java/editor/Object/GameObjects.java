@@ -89,8 +89,6 @@ public class GameObjects {
         return spriteSheetList;
     }
 
-
-
     public void addAnimation(String animationName, List<Integer> sprites){
         animations.add(new Animation(animationName, sprites));
     }

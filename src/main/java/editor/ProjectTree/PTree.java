@@ -2,10 +2,7 @@ package editor.ProjectTree;
 
 import editor.Editor;
 import editor.Maps.Level;
-import editor.Object.GameObjects;
-import editor.Object.ObjectIntel;
-import editor.Object.Sprite;
-import editor.Object.SpriteSheet;
+import editor.Object.*;
 import editor.Tiles.TileSet;
 
 import javax.swing.*;
@@ -14,8 +11,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class PTree {
     public PTree(String pName) {
@@ -27,13 +22,14 @@ public class PTree {
         tileSets = new DefaultMutableTreeNode("TileSets", true);
         levels = new DefaultMutableTreeNode("Levels", true);
         sprites = new DefaultMutableTreeNode("Sprites", true);
-
+        animations = new DefaultMutableTreeNode("Animations", true);
 
         rootNode.add(objects);
         rootNode.add(tileSets);
         rootNode.add(levels);
         rootNode.add(spriteSheets);
         rootNode.add(sprites);
+        rootNode.add(animations);
 
 
         myTree = new JTree(treeModel);
@@ -70,19 +66,9 @@ public class PTree {
         myTree.updateUI();
     }
 
-    private class pair {
-        public pair(int index, String name) {
-            this.index = index;
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-
-        public int index;
-        public String name;
+    public void addNewAnimation(Animation anim, int index) {
+        animations.add(new DefaultMutableTreeNode(new pair(index, anim.toString())));
+        myTree.updateUI();
     }
 
     public void reload() {
@@ -119,6 +105,11 @@ public class PTree {
             sprites.add(new DefaultMutableTreeNode(new pair(i, spriteList.get(i).toString())));
         }
 
+        List<Animation> animationList = Editor.world.worldObjects.getAnimations();
+        for (int i = 0; i < animationList.size(); i++) {
+            animations.add(new DefaultMutableTreeNode(new pair(i, animationList.get(i).toString())));
+        }
+
         myTree.getModel();
         myTree.updateUI();
     }
@@ -140,24 +131,24 @@ public class PTree {
                     if (tmp instanceof pair)
                         Editor.editFrame.tileSetFrame.display.changeTileSet(((pair) tmp).index);
                     return;
-                }
-                else if (parent == levels) {
+                } else if (parent == levels) {
                     if (tmp instanceof pair) {
                         Editor.mainFrame.setLevel(((pair) tmp).index);
                         Editor.editFrame.tabbedPane.setSelectedIndex(0);
                     }
-                }
-                else if (parent == spriteSheets) {
+                } else if (parent == spriteSheets) {
                     if (tmp instanceof pair) {
                         Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
                         Editor.editFrame.tabbedPane.setSelectedIndex(2);
                     }
-                }
-                else if (parent == sprites) {
+                } else if (parent == sprites) {
                     if (tmp instanceof pair) {
                         customizeSprite((pair) tmp);
                     }
-                }
+                } else if (parent == animations)
+                    if (tmp instanceof pair) {
+                        customizeAnimation((pair) tmp);
+                    }
             }
         }
     }
@@ -189,11 +180,15 @@ public class PTree {
         }
     }
 
+    private void customizeAnimation(pair p) {
+    }
+
     private DefaultMutableTreeNode objects;
     private DefaultMutableTreeNode tileSets;
     private DefaultMutableTreeNode levels;
     private DefaultMutableTreeNode spriteSheets;
     private DefaultMutableTreeNode sprites;
+    private DefaultMutableTreeNode animations;
 
     public JTree myTree;
 }

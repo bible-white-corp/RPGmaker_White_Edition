@@ -41,6 +41,11 @@ public class Animation {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     public Animation(String name, List<Integer> sprites) {
         this.name = name;
         this.sprites = sprites;

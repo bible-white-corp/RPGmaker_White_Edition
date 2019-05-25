@@ -1,8 +1,6 @@
 package editor.Forms;
 
 import editor.Editor;
-import editor.Maps.World;
-import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
 
@@ -10,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
