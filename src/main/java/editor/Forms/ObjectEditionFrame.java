@@ -33,23 +33,22 @@ public class ObjectEditionFrame extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                //lauch action
+                //launch action
                 String name = (String) JOptionPane.showInputDialog(Editor.mainFrame,
                         "Give a name for the new sprite", "New sprite",
                         JOptionPane.INFORMATION_MESSAGE);
                 desactivate();
-                first = null;
-                last = null;
                 if (name == null)
                     return;
                 Editor.world.worldObjects.addSprite(new Sprite(first.x, first.y, last.x, last.y, name, ssIndex));
-                repaint();
+                first = null;
+                last = null;
+                refresh();
             }
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                last.x = e.getX();
-                last.y = e.getY();
+                last.setLocation(e.getX(), e.getY());
                 refresh();
             }
         };
@@ -86,7 +85,13 @@ public class ObjectEditionFrame extends JPanel {
             return;
 
         g.setColor(new Color(0.5f,0.5f,0.5f,0.7f));
-        g.fillRect(first.x, first.y, last.x, last.y);
+
+        int x1 = Math.min(first.x, last.x);
+        int x2 = Math.max(first.x, last.x);
+        int y1 = Math.min(first.y, last.y);
+        int y2 = Math.max(first.y, last.y);
+
+        g.fillRect(x1, y1, x2 - x1, y2 - y1);
     }
 
     public void setSheet(int index){
