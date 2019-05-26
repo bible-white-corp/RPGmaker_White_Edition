@@ -30,6 +30,15 @@ public class ObjectIntel {
         return name;
     }
 
+    public List<String> getNames(){
+        List<String> res = new Vector<>();
+        List<Sprite> list = Editor.world.worldObjects.getSpriteList();
+        for (int i : animations){
+            res.add(list.get(i).toString());
+        }
+        return res;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

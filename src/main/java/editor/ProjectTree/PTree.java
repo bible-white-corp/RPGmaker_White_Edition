@@ -127,7 +127,9 @@ public class PTree {
                 Object tmp = node.getUserObject();
 
                 if (parent == objects)
-                    return;
+                    if (tmp instanceof pair) {
+                        customizeObjIntel((pair) tmp);
+                    }
                 else if (parent == tileSets) {
                     if (tmp instanceof pair)
                         Editor.editFrame.tileSetFrame.display.changeTileSet(((pair) tmp).index);
@@ -146,10 +148,11 @@ public class PTree {
                     if (tmp instanceof pair) {
                         customizeSprite((pair) tmp);
                     }
-                } else if (parent == animations)
+                } else if (parent == animations) {
                     if (tmp instanceof pair) {
                         customizeAnimation((pair) tmp);
                     }
+                }
             }
         }
     }
@@ -208,6 +211,35 @@ public class PTree {
             return;
         }
     }
+
+    private void customizeObjIntel(pair p) {
+        Object[] possibilites = {"Rename", "Delete"};
+        String s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+                Editor.world.worldObjects.getObjs().get(p.index).getNames().toString()
+                        + "\nWhat do you want to do with " + p.name,
+                "Customize sprite",
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                possibilites, "Rename");
+        if (s == null)
+            return;
+        if (s == "Delete") {
+            objects.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
+            myTree.updateUI();
+            return;
+        }
+        if (s == "Rename") {
+            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+                    "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
+            if (s == null)
+                return;
+            p.name = s;
+            Editor.world.worldObjects.getAnimations().get(p.index).setName(s);
+            myTree.updateUI();
+            return;
+        }
+    }
+
 
     private DefaultMutableTreeNode objects;
     private DefaultMutableTreeNode tileSets;

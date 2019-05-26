@@ -38,6 +38,13 @@ public class createObjectAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         Editor.editFrame.tabbedPane.setSelectedIndex(2);
+
+        if (Editor.world.worldObjects.getAnimations().size() == 0){
+            JOptionPane.showMessageDialog(Editor.editFrame, "No animation available",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String objName = (String) JOptionPane.showInputDialog(Editor.editFrame,
                 "Name the object", "New object", JOptionPane.INFORMATION_MESSAGE);
         if (objName == null)
