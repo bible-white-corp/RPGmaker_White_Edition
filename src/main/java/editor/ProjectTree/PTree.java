@@ -17,19 +17,19 @@ public class PTree {
         DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(pName);
         DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
 
-        objects = new DefaultMutableTreeNode("Objects", true);
+        objects = new DefaultMutableTreeNode("Objects Pool", true);
         spriteSheets = new DefaultMutableTreeNode("SpriteSheets", true);
         tileSets = new DefaultMutableTreeNode("TileSets", true);
         levels = new DefaultMutableTreeNode("Levels", true);
         sprites = new DefaultMutableTreeNode("Sprites", true);
         animations = new DefaultMutableTreeNode("Animations", true);
 
-        rootNode.add(objects);
         rootNode.add(tileSets);
         rootNode.add(levels);
         rootNode.add(spriteSheets);
         rootNode.add(sprites);
         rootNode.add(animations);
+        rootNode.add(objects);
 
 
         myTree = new JTree(treeModel);
@@ -46,8 +46,8 @@ public class PTree {
         myTree.updateUI();
     }
 
-    public void addNewObject(ObjectIntel obj) {
-        objects.add(new DefaultMutableTreeNode(obj));
+    public void addNewObject(ObjectIntel obj, int index) {
+        objects.add(new DefaultMutableTreeNode(new pair(index, obj.getName())));
         myTree.updateUI();
     }
 
@@ -91,8 +91,9 @@ public class PTree {
                     Editor.world.tileSetList.get(i).getName())));
         }
 
-        for (ObjectIntel obj : Editor.world.worldObjects.getObjs()) {
-            objects.add(new DefaultMutableTreeNode(obj));
+        List<ObjectIntel> objectIntels = Editor.world.worldObjects.getObjs();
+        for (int i = 0; i < objectIntels.size(); i++) {
+            objects.add(new DefaultMutableTreeNode(new pair(i, objectIntels.get(i).toString())));
         }
 
         List<SpriteSheet> sheetList = Editor.world.worldObjects.getSpriteSheetList();

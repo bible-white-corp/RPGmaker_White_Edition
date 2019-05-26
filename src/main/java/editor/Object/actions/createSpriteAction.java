@@ -18,7 +18,7 @@ public class createSpriteAction extends AbstractAction {
             Editor.editFrame.editionFrame.active();
         }
         else {
-            JOptionPane.showMessageDialog(Editor.mainFrame,
+            JOptionPane.showMessageDialog(Editor.editFrame,
                     "Please, select a SpritesSheet before trying to create sprites",
                     "Warning", JOptionPane.WARNING_MESSAGE);
         }

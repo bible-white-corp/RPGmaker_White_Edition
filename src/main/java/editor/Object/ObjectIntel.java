@@ -8,14 +8,15 @@ import java.util.Vector;
 public class ObjectIntel {
     private List<Integer> animations;///index of object's animation in objects list
     private String name;
+    boolean is_static;
 
-    public ObjectIntel(String objName) {
+    public ObjectIntel(String objName, boolean is_static, List<Integer> animations) {
+        this.is_static = is_static;
         name = objName;
-        animations = new Vector<>();
-        Editor.world.projectTree.addNewObject(this);
+        this.animations = animations;
     }
 
-    public void addAnimation(int index){
+    public void setAnimation(int index, int animation){
 
         animations.add(index);
     }

@@ -13,9 +13,10 @@ public class newSpritesSheet extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Editor.editFrame.tabbedPane.setSelectedIndex(2);
         JFileChooser fileChooser = new JFileChooser(".");
 
-        if (fileChooser.showOpenDialog(Editor.mainFrame) == JFileChooser.APPROVE_OPTION){
+        if (fileChooser.showOpenDialog(Editor.editFrame) == JFileChooser.APPROVE_OPTION){
             try {
                 Editor.world.worldObjects.addSpriteSheet(fileChooser.getSelectedFile().getPath());
 
@@ -23,11 +24,11 @@ public class newSpritesSheet extends AbstractAction {
 
                 excep.printStackTrace();
 
-                JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the import",
+                JOptionPane.showMessageDialog(Editor.editFrame, "IO error cancelled the import",
                         "IO error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(Editor.mainFrame, "Loading Complete!",
+            JOptionPane.showMessageDialog(Editor.editFrame, "Loading Complete!",
                     "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }

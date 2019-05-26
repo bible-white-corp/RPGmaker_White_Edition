@@ -69,9 +69,10 @@ public class GameObjects {
         return spriteList;
     }
 
-    public void addObject(String name){
-
-        objs.add(new ObjectIntel(name));
+    public void addObject(String name, boolean is_static, List<Integer> animList){
+        ObjectIntel tmp = new ObjectIntel(name, is_static, animList);
+        Editor.world.projectTree.addNewObject(tmp, objs.size());
+        objs.add(tmp);
     }
 
     public void addSpriteSheet(String path) throws IOException {

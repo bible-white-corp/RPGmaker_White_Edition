@@ -17,15 +17,16 @@ public class createAnimationAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Editor.editFrame.tabbedPane.setSelectedIndex(2);
         List<Sprite> spriteList = Editor.world.worldObjects.getSpriteList();
         Object[] elements = spriteList.toArray();
         if (elements.length == 0){
-            JOptionPane.showMessageDialog(Editor.mainFrame, "No sprite available!",
+            JOptionPane.showMessageDialog(Editor.editFrame, "No sprite available!",
                     "New animation ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        String animName = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+        String animName = (String) JOptionPane.showInputDialog(Editor.editFrame,
                 "Name the new animation", "New animation",
                 JOptionPane.INFORMATION_MESSAGE);
 
@@ -37,7 +38,7 @@ public class createAnimationAction extends AbstractAction {
         List<Integer> sprites = new Vector<>();
         List<String> names = new Vector<>();
         do {
-            Sprite s = (Sprite) JOptionPane.showInputDialog(Editor.mainFrame,
+            Sprite s = (Sprite) JOptionPane.showInputDialog(Editor.editFrame,
                     "Add a sprite to the animation",
                     "New animation", JOptionPane.INFORMATION_MESSAGE,
                     null, elements, elements[0]);
@@ -52,18 +53,18 @@ public class createAnimationAction extends AbstractAction {
                 }
             }
 
-            res = JOptionPane.showConfirmDialog(Editor.mainFrame,
+            res = JOptionPane.showConfirmDialog(Editor.editFrame,
                     names.toString() + "\nAdd another animation ?");
         } while (res == JOptionPane.YES_OPTION);
 
         if (res == JOptionPane.NO_OPTION){
             Editor.world.worldObjects.addAnimation(animName, sprites);
-            JOptionPane.showMessageDialog(Editor.mainFrame,
+            JOptionPane.showMessageDialog(Editor.editFrame,
                     "Animation " + animName + " created", "Success",
                     JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            JOptionPane.showMessageDialog(Editor.mainFrame,
+            JOptionPane.showMessageDialog(Editor.editFrame,
                     "Animation creation aborted", "Failure",
                     JOptionPane.WARNING_MESSAGE);
         }
