@@ -21,7 +21,7 @@ public class ObjectEditionFrame extends JPanel {
 
     public ObjectEditionFrame() {
 
-        setBackground(Color.RED);
+        setBackground(Color.WHITE);
         ssIndex = 0;
         setSheet(0);
         mouse = new MouseAdapter() {

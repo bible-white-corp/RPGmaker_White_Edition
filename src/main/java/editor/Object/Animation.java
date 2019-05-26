@@ -41,6 +41,15 @@ public class Animation {
         this.name = name;
     }
 
+    public List<String> getNames(){
+        List<String> res = new Vector<>();
+        List<Sprite> list = Editor.world.worldObjects.getSpriteList();
+        for (int i : sprites){
+            res.add(list.get(i).toString());
+        }
+        return res;
+    }
+
     @Override
     public String toString() {
         return name;

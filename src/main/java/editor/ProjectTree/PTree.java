@@ -181,6 +181,31 @@ public class PTree {
     }
 
     private void customizeAnimation(pair p) {
+        Object[] possibilites = {"Rename", "Delete"};
+        String s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+                Editor.world.worldObjects.getAnimations().get(p.index).getNames().toString()
+                        + "\nWhat do you want to do with " + p.name,
+                "Customize sprite",
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                possibilites, "Rename");
+        if (s == null)
+            return;
+        if (s == "Delete") {
+            animations.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
+            myTree.updateUI();
+            return;
+        }
+        if (s == "Rename") {
+            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+                    "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
+            if (s == null)
+                return;
+            p.name = s;
+            Editor.world.worldObjects.getAnimations().get(p.index).setName(s);
+            myTree.updateUI();
+            return;
+        }
     }
 
     private DefaultMutableTreeNode objects;
