@@ -90,7 +90,9 @@ public class GameObjects {
     }
 
     public void addAnimation(String animationName, List<Integer> sprites){
-        animations.add(new Animation(animationName, sprites));
+        Animation tmp = new Animation(animationName, sprites);
+        Editor.world.projectTree.addNewAnimation(tmp, animations.size());
+        animations.add(tmp);
     }
 
     public void add_obj(TilePair position, int index, String instanceName){

@@ -47,6 +47,10 @@ public class Sprite {
         return Editor.world.worldObjects.spriteSheetList.get(ssIndex);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

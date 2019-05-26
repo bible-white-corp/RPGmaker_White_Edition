@@ -5,6 +5,7 @@ import editor.Maps.actions.loadWorldAction;
 import editor.Maps.actions.newMapAction;
 import editor.Maps.actions.newWorldAction;
 import editor.Maps.actions.saveWorldAction;
+import editor.Object.actions.createAnimationAction;
 import editor.Object.actions.createSpriteAction;
 import editor.Object.actions.newSpritesSheet;
 import editor.Tiles.actions.createTileSetAction;
@@ -129,7 +130,10 @@ public class MenuFrame extends JMenuBar{
         menuItem.setAction(new_s);
         menu.add(menuItem);
 
-
+        Action new_anim = new createAnimationAction();
+        menuItem = new JMenuItem();
+        menuItem.setAction(new_anim);
+        menu.add(menuItem);
     }
 
 }
