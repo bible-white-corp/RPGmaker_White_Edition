@@ -117,7 +117,7 @@ public class InspectorFrame extends JPanel {
                 }
             });
 
-            textField.addActionListener(changeEvent -> selection.getTiles().forEach(tilePair -> tilePair.getTile().setName(textField.getName())));
+            textField.addActionListener(changeEvent -> selection.getTiles().forEach(tilePair -> tilePair.getTile().setName(textField.getText())));
 
             enableSolid.addActionListener(changeEvent ->  {
 
