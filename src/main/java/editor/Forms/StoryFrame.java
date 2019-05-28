@@ -5,18 +5,13 @@ import editor.Object.ObjectInstantiation;
 import javax.swing.*;
 import java.awt.*;
 
-enum Path{
-    Stand,
-    Random
-}
-
 public class StoryFrame extends JPanel {
 
     private JList<ObjectInstantiation> list = new JList<>();
     private JTextField name = new JTextField();
     private JTextField dialog = new JTextField();
 
-    private JComboBox<Path> path = new JComboBox<>();
+    private JComboBox path = new JComboBox(Path.getPath());
 
     public StoryFrame() {
 
@@ -37,4 +32,5 @@ public class StoryFrame extends JPanel {
         con.add(path, EditFrame.get_c(1,2,0,0));
         con.add(new JPanel(), EditFrame.get_c(2,3,1,1));
     }
+
 }
