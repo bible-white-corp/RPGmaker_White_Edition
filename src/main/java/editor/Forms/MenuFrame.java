@@ -1,5 +1,6 @@
 package editor.Forms;
 
+import editor.Editor;
 import editor.Maps.*;
 import editor.Maps.actions.loadWorldAction;
 import editor.Maps.actions.newMapAction;
@@ -12,10 +13,13 @@ import editor.Object.actions.newSpritesSheet;
 import editor.Tiles.actions.createTileSetAction;
 import editor.Tiles.actions.loadTileSetAction;
 import editor.Tiles.actions.saveTileSetAction;
+import engine.Engine;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
+import static engine.Engine.*;
 import static java.lang.System.exit;
 
 public class MenuFrame extends JMenuBar{
@@ -145,6 +149,13 @@ public class MenuFrame extends JMenuBar{
         Action new_obj = new createObjectAction();
         menuItem = new JMenuItem();
         menuItem.setAction(new_obj);
+        menu.add(menuItem);
+
+        menu = new JMenu("Engine");
+        add(menu);
+
+        menuItem = new JMenuItem("Launch");
+        menuItem.addActionListener(actionEvent -> Engine.launchWorld(Editor.world));
         menu.add(menuItem);
     }
 

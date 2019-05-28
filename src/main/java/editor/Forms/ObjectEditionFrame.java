@@ -101,6 +101,7 @@ public class ObjectEditionFrame extends JPanel {
 
     public void setSheet(int index){
         List<SpriteSheet> list = Editor.world.worldObjects.getSpriteSheetList();
+
         if (index >= list.size()){
             sheet = null;
             ssIndex = -1;

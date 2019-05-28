@@ -117,19 +117,25 @@ public class PTree {
 
     private class doubleClick extends MouseAdapter {
         public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2) {
+
+
+            if (e.getClickCount() >= 2) {
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                         myTree.getLastSelectedPathComponent();
                 if (node == null) return;
+
                 if (!node.isLeaf())
                     return;
+
+
                 TreeNode parent = node.getParent();
                 Object tmp = node.getUserObject();
 
-                if (parent == objects)
+                if (parent == objects) {
                     if (tmp instanceof pair) {
                         customizeObjIntel((pair) tmp);
                     }
+                }
                 else if (parent == tileSets) {
                     if (tmp instanceof pair)
                         Editor.editFrame.tileSetFrame.display.changeTileSet(((pair) tmp).index);
