@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class StoryFrame extends JPanel {
 
@@ -46,12 +48,31 @@ public class StoryFrame extends JPanel {
 
                 con.add(new Label("Name"), EditFrame.get_c(0, 0, 0, 0));
                 con.add(name, EditFrame.get_c(1, 0, 0, 0));
+                name.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        selectObj.setName(name.getText());
+                    }
+                });
 
                 con.add(new Label("Dialog"), EditFrame.get_c(0, 1, 0, 0));
                 con.add(dialog, EditFrame.get_c(1, 1, 0, 0));
+                dialog.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        selectObj.setDialog(dialog.getText());
+                    }
+                });
 
                 con.add(new Label("Path"), EditFrame.get_c(0, 2, 0, 0));
                 con.add(path, EditFrame.get_c(1, 2, 0, 0));
+                path.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        selectObj.setPath((Path) path.getSelectedItem());
+                    }
+                });
+
                 con.add(new JPanel(), EditFrame.get_c(2, 3, 1, 1));
                 add(con, BorderLayout.CENTER);
 
