@@ -96,8 +96,8 @@ public class GameObjects {
         animations.add(tmp);
     }
 
-    public void add_obj(TilePair position, int index, String instanceName){
-        instantiations.add(new ObjectInstantiation(index, instanceName, position));
+    public void add_obj(int index, TilePair position, String instanceName){
+        instantiations.add(new ObjectInstantiation(objs.get(index), instanceName, position));
     }
 
     /*public void addAnimation(String objName, String animationName){

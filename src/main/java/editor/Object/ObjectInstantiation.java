@@ -4,14 +4,17 @@ import editor.Editor;
 import editor.Tiles.TilePair;
 
 public class ObjectInstantiation {
-    int objIntelIndex;
+    ObjectIntel objectIntel;
     String name;
+    String dialog;
     TilePair position;
 
-    ObjectInstantiation(int index, String objName, TilePair position){
-        this.objIntelIndex = index;
+    ObjectInstantiation(ObjectIntel objectIntel, String objName, TilePair position){
+        this.objectIntel = objectIntel;
         this.name = objName;
         this.position = position;
+        if (!objectIntel.is_static)
+            this.dialog = "Hello!";
     }
 
     @Override
@@ -19,12 +22,16 @@ public class ObjectInstantiation {
         return name;
     }
 
-    public ObjectIntel getIntel(){
-        return Editor.world.worldObjects.objs.get(objIntelIndex);
+    public ObjectIntel getObjectIntel() {
+        return objectIntel;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getDialog() {
+        return dialog;
     }
 
     public TilePair getPosition() {

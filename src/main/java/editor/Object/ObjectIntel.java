@@ -8,7 +8,7 @@ import java.util.Vector;
 public class ObjectIntel {
     private List<Integer> animations;///index of object's animation in objects list
     private String name;
-    boolean is_static;
+    boolean is_static; //or is_character ?
 
     public ObjectIntel(String objName, boolean is_static, List<Integer> animations) {
         this.is_static = is_static;
