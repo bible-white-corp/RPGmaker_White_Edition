@@ -87,6 +87,9 @@ public class GameObjects {
         SpriteSheet sheet = SpriteSheet.importSpriteSheet(path);
         Editor.world.projectTree.addNewSpritesSheet(sheet, spriteSheetList.size());
         spriteSheetList.add(sheet);
+        if (!Editor.editFrame.editionFrame.is_set()){
+            Editor.editFrame.editionFrame.setSheet(spriteSheetList.size() - 1);
+        }
     }
 
     public void addSprite(Sprite sprite){
