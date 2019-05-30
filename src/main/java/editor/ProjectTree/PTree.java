@@ -118,8 +118,35 @@ public class PTree {
     private class doubleClick extends MouseAdapter {
         public void mouseClicked(MouseEvent e) {
 
+            if (e.getClickCount() >= 2 && e.getButton() == MouseEvent.BUTTON1) {
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+                        myTree.getLastSelectedPathComponent();
+                if (node == null) return;
 
-            if (e.getClickCount() >= 2) {
+                if (!node.isLeaf())
+                    return;
+
+
+                TreeNode parent = node.getParent();
+                Object tmp = node.getUserObject();
+
+                if (parent == tileSets) {
+                    if (tmp instanceof pair)
+                        Editor.editFrame.tileSetFrame.display.changeTileSet(((pair) tmp).index);
+                    return;
+                } else if (parent == levels) {
+                    if (tmp instanceof pair) {
+                        Editor.mainFrame.setLevel(((pair) tmp).index);
+                        Editor.editFrame.tabbedPane.setSelectedIndex(0);
+                    }
+                } else if (parent == spriteSheets) {
+                    if (tmp instanceof pair) {
+                        Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
+                        Editor.editFrame.tabbedPane.setSelectedIndex(2);
+                    }
+                }
+            }
+            else if (e.getButton() == MouseEvent.BUTTON3){
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                         myTree.getLastSelectedPathComponent();
                 if (node == null) return;
@@ -136,21 +163,7 @@ public class PTree {
                         customizeObjIntel((pair) tmp);
                     }
                 }
-                else if (parent == tileSets) {
-                    if (tmp instanceof pair)
-                        Editor.editFrame.tileSetFrame.display.changeTileSet(((pair) tmp).index);
-                    return;
-                } else if (parent == levels) {
-                    if (tmp instanceof pair) {
-                        Editor.mainFrame.setLevel(((pair) tmp).index);
-                        Editor.editFrame.tabbedPane.setSelectedIndex(0);
-                    }
-                } else if (parent == spriteSheets) {
-                    if (tmp instanceof pair) {
-                        Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
-                        Editor.editFrame.tabbedPane.setSelectedIndex(2);
-                    }
-                } else if (parent == sprites) {
+                else if (parent == sprites) {
                     if (tmp instanceof pair) {
                         customizeSprite((pair) tmp);
                     }
