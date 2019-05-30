@@ -1,6 +1,7 @@
 package editor.Object;
 
 import editor.Editor;
+import editor.Object.Categories.Player;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
@@ -22,6 +23,8 @@ public class GameObjects {
     List<Sprite> spriteList;
     transient List<SpriteSheet> spriteSheetList;
     List<String> spritesSheetNames;
+    List<ObjectInstantiation> inWorldObj;
+    Player player;
 
     public GameObjects() {
         objs = new Vector<>();
@@ -30,6 +33,7 @@ public class GameObjects {
         instantiations = new Vector<>();
         spriteSheetList = new Vector<>();
         spritesSheetNames = new Vector<>();
+        inWorldObj = new Vector<>();
     }
 
     public void export(String path){
@@ -69,6 +73,10 @@ public class GameObjects {
         return spriteList;
     }
 
+    public List<ObjectInstantiation> getInWorldObj() {
+        return inWorldObj;
+    }
+
     public void addObject(String name, boolean is_static, List<Integer> animList){
         ObjectIntel tmp = new ObjectIntel(name, is_static, animList);
         Editor.world.projectTree.addNewObject(tmp, objs.size());
@@ -96,9 +104,6 @@ public class GameObjects {
         animations.add(tmp);
     }
 
-    public void add_obj(TilePair position, int index, String instanceName){
-        instantiations.add(new ObjectInstantiation(index, instanceName, position));
-    }
 
     /*public void addAnimation(String objName, String animationName){
         objs.get(objName).addAnimation(animations.get(animationName));

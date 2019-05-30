@@ -3,16 +3,10 @@ package editor.Object;
 import editor.Editor;
 import editor.Tiles.TilePair;
 
-public class ObjectInstantiation {
-    int objIntelIndex;
-    String name;
-    TilePair position;
-
-    ObjectInstantiation(int index, String objName, TilePair position){
-        this.objIntelIndex = index;
-        this.name = objName;
-        this.position = position;
-    }
+public abstract class ObjectInstantiation {
+    protected int objIntelIndex;
+    protected String name;
+    protected TilePair position;
 
     @Override
     public String toString() {
