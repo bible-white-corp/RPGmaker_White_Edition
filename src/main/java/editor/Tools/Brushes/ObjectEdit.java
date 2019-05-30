@@ -23,10 +23,7 @@ public class ObjectEdit extends Brush {
     @Override
     public void clicked(Level level, Selection selection, int x_pixel, int y_pixel) {
 
-        //FixMe Tu as les coordonnes et le le layer c'est Editor.
-
         instance.finishInstantiation(Editor.getLayer_index(), new Point(x_pixel, y_pixel));
-
 
         Editor.setBrush(old_brush);
     }

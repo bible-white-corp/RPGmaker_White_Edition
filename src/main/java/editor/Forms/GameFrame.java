@@ -3,6 +3,7 @@ package editor.Forms;
 import editor.Editor;
 import editor.Maps.Level;
 import editor.Maps.World;
+import editor.Object.ObjectInstantiation;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 
@@ -70,6 +71,12 @@ public class GameFrame extends JPanel {
                     if (tile != null)
                         tile.getTileSet().drawtile(tile, x * 32, y * 32, g);
                 }
+
+        for (ObjectInstantiation instantiation : Editor.world.worldObjects.getInWorldObj())
+        {
+            if (instantiation.getLevelIndex() == Editor.world.levelList.indexOf(level))
+                g.drawImage(instantiation.getIntel().getIdle().getFirstSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
+        }
 
         int w_pixel = level.getWidth() * level.getTileWidth();
         int h_pixel = level.getHeight() * level.getTileHeight();
