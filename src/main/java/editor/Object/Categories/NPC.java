@@ -5,9 +5,8 @@ import editor.Tiles.TilePair;
 
 public class NPC extends ObjectInstantiation {
 
-    NPC (int index, String objName, TilePair position){
+    public NPC(int index, String objName){
         this.objIntelIndex = index;
         this.name = objName;
-        this.position = position;
     }
 }

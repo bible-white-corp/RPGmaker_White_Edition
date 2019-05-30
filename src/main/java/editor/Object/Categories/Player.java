@@ -4,9 +4,8 @@ import editor.Object.ObjectInstantiation;
 import editor.Tiles.TilePair;
 
 public class Player extends ObjectInstantiation {
-    Player(int index, String objName, TilePair position){
+    public Player(int index, String objName){
         this.objIntelIndex = index;
         this.name = objName;
-        this.position = position;
     }
 }

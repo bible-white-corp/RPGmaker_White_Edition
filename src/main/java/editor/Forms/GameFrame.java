@@ -14,10 +14,12 @@ import java.awt.event.MouseEvent;
 public class GameFrame extends JPanel {
 
     Level level;
+    int levelIndex = -1;
 
     public void setLevel(int index) {
 
         this.level = Editor.world.levelList.get(index);
+        levelIndex = index;
         this.repaint();
         if (level != null)
             this.level.addMapsListener(() -> GameFrame.this.repaint());
@@ -87,5 +89,9 @@ public class GameFrame extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(level.getWidth() * level.getTileWidth(), level.getHeight() * level.getTileHeight());
+    }
+
+    public int getLevelIndex() {
+        return levelIndex;
     }
 }

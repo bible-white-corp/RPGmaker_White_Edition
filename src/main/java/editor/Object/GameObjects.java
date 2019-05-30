@@ -20,11 +20,11 @@ public class GameObjects {
     List<ObjectIntel> objs;///mapping of objects_animations by their given name
     List<Animation> animations;///mapping of all user's animations
     List<ObjectInstantiation> instantiations;//list of all instantiated objects on the map
-    List<Sprite> spriteList;
-    transient List<SpriteSheet> spriteSheetList;
+    List<Sprite> spriteList;///list of sprites created until now
+    transient List<SpriteSheet> spriteSheetList;///list of spritesSheets imported
     List<String> spritesSheetNames;
-    List<ObjectInstantiation> inWorldObj;
-    Player player;
+    List<ObjectInstantiation> inWorldObj;///list of objects instatiated until now in all levels
+    Player player;///the player (if any)
 
     public GameObjects() {
         objs = new Vector<>();
@@ -107,11 +107,7 @@ public class GameObjects {
         animations.add(tmp);
     }
 
-
-    /*public void addAnimation(String objName, String animationName){
-        objs.get(objName).addAnimation(animations.get(animationName));
-    }*/
-
-
-
+    public void addObjInstance(ObjectInstantiation instantiation){
+        this.inWorldObj.add(instantiation);
+    }
 }

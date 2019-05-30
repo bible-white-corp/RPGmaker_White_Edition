@@ -29,6 +29,10 @@ public class Animation {
         return sprites;
     }
 
+    public Sprite getFirstSprite(){
+        return Editor.world.worldObjects.spriteList.get(sprites.get(0));
+    }
+
     public void setSprites(List<Integer> sprites) {
         this.sprites = sprites;
     }

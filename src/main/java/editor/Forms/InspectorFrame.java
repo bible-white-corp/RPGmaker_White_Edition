@@ -16,7 +16,6 @@ public class InspectorFrame extends JPanel {
 
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(300,0));
-
         initialize();
     }
 
@@ -265,6 +264,10 @@ public class InspectorFrame extends JPanel {
             enableSpinner.setSelected(false);
 
         }
+    }
+
+    private class objLayer extends JPanel{
+
     }
 
     private class TilePanel extends JPanel{

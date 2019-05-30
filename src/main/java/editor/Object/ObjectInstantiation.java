@@ -5,7 +5,9 @@ import editor.Tiles.TilePair;
 
 public abstract class ObjectInstantiation {
     protected int objIntelIndex;
+    protected int levelIndex = Editor.mainFrame.getLevelIndex();
     protected String name;
+    protected int layer;
     protected TilePair position;
 
     @Override
@@ -25,5 +27,17 @@ public abstract class ObjectInstantiation {
         return position;
     }
 
-    //#TODO @Clara ici que tu peux bosser
+    public int getLevelIndex() {
+        return levelIndex;
+    }
+
+    public void setPosition(TilePair position) {
+        this.position = position;
+    }
+
+    public void finishInstantiation(int layer, TilePair position){
+        this.layer = layer;
+        this.position = position;
+        Editor.world.worldObjects.addObjInstance(this);
+    }
 }

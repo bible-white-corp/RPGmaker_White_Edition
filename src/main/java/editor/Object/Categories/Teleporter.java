@@ -10,10 +10,9 @@ public class Teleporter extends ObjectInstantiation {
     int sibling_index;
     int sibling_map_index;
 
-    Teleporter(int index, String objName, TilePair position){
+    public Teleporter(int index, String objName){
         this.objIntelIndex = index;
         this.name = objName;
-        this.position = position;
     }
 
     public void setSibling(int sibling_index, int sibling_map_index) {
