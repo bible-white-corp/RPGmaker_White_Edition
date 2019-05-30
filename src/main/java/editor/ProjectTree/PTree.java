@@ -3,7 +3,9 @@ package editor.ProjectTree;
 import editor.Editor;
 import editor.Maps.Level;
 import editor.Object.*;
+import editor.Object.actions.instantiateObject;
 import editor.Tiles.TileSet;
+import editor.Tools.Brushes.ObjectEdit;
 
 import javax.swing.*;
 import javax.swing.tree.*;
@@ -144,6 +146,11 @@ public class PTree {
                         Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
                         Editor.editFrame.tabbedPane.setSelectedIndex(2);
                     }
+                } else if (parent == objects) {
+                    if (tmp instanceof pair) {
+                        Editor.editFrame.tabbedPane.setSelectedIndex(0);
+                        instantiateObject.click(((pair)tmp).index);
+                    }
                 }
             }
             else if (e.getButton() == MouseEvent.BUTTON3){
@@ -153,7 +160,6 @@ public class PTree {
 
                 if (!node.isLeaf())
                     return;
-
 
                 TreeNode parent = node.getParent();
                 Object tmp = node.getUserObject();

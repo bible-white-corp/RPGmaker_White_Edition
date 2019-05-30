@@ -6,6 +6,7 @@ import editor.Object.Categories.NPC;
 import editor.Object.Categories.Player;
 import editor.Object.Categories.Teleporter;
 import editor.Object.ObjectInstantiation;
+import editor.Tools.Brushes.ObjectEdit;
 
 import javax.swing.*;
 
@@ -40,6 +41,6 @@ public class instantiateObject {
             return;
         }
 
-        // TODO call fife fct
+        Editor.setBrush(new ObjectEdit(Editor.getBrush(), obj));
     }
 }

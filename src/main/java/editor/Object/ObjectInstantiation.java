@@ -3,12 +3,14 @@ package editor.Object;
 import editor.Editor;
 import editor.Tiles.TilePair;
 
+import java.awt.*;
+
 public abstract class ObjectInstantiation {
     protected int objIntelIndex;
     protected int levelIndex = Editor.mainFrame.getLevelIndex();
     protected String name;
     protected int layer;
-    protected TilePair position;
+    protected Point position;
 
     @Override
     public String toString() {
@@ -23,7 +25,7 @@ public abstract class ObjectInstantiation {
         return name;
     }
 
-    public TilePair getPosition() {
+    public Point getPosition() {
         return position;
     }
 
@@ -31,11 +33,8 @@ public abstract class ObjectInstantiation {
         return levelIndex;
     }
 
-    public void setPosition(TilePair position) {
-        this.position = position;
-    }
 
-    public void finishInstantiation(int layer, TilePair position){
+    public void finishInstantiation(int layer, Point position){
         this.layer = layer;
         this.position = position;
         Editor.world.worldObjects.addObjInstance(this);

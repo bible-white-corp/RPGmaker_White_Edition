@@ -3,8 +3,11 @@ package editor.Tools.Brushes;
 import editor.Editor;
 import editor.Maps.Level;
 import editor.Object.ObjectInstantiation;
+import editor.Tiles.TilePair;
 import editor.Tools.Brush;
 import editor.Tools.Selection;
+
+import java.awt.*;
 
 public class ObjectEdit extends Brush {
 
@@ -22,7 +25,8 @@ public class ObjectEdit extends Brush {
 
         //FixMe Tu as les coordonnes et le le layer c'est Editor.
 
-        Editor.getLayer_index();
+        instance.finishInstantiation(Editor.getLayer_index(), new Point(x_pixel, y_pixel));
+
 
         Editor.setBrush(old_brush);
     }
