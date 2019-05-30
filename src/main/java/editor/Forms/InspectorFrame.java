@@ -3,6 +3,7 @@ package editor.Forms;
 import editor.Editor;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
+import editor.Tiles.TileSet;
 import editor.Tools.Selection;
 
 import javax.swing.*;
@@ -72,7 +73,10 @@ public class InspectorFrame extends JPanel {
                     return;
                 }
 
-                Tile t = selection.getTiles().get(0).getTile();
+                Tile t = selection.getTiles().get(0) != null ? selection.getTiles().get(0).getTile() : null;
+
+                if (t == null)
+                    return;
 
                 textField.setText(t.getName());
                 spinner.setValue(t.getLayer());
@@ -88,12 +92,14 @@ public class InspectorFrame extends JPanel {
 
                     selection.getTiles().forEach(tilePair -> {
 
-                        String other = tilePair.getTile().getName();
+                        if (tilePair != null) {
+                            String other = tilePair.getTile().getName();
 
-                        if (!Objects.equals(name_v, other)){
+                            if (!Objects.equals(name_v, other)) {
 
-                            enableText.setSelected(true);
-                            return;
+                                enableText.setSelected(true);
+                                return;
+                            }
                         }
                     });
 
@@ -101,9 +107,12 @@ public class InspectorFrame extends JPanel {
 
                     selection.getTiles().forEach(tilePair -> {
 
-                        if (solid_v != tilePair.getTile().isWalkable()) {
-                            enableSolid.setSelected(true);
-                            return;
+                        if (tilePair != null) {
+
+                            if (solid_v != tilePair.getTile().isWalkable()) {
+                                enableSolid.setSelected(true);
+                                return;
+                            }
                         }
                     });
 
@@ -111,7 +120,7 @@ public class InspectorFrame extends JPanel {
 
                     selection.getTiles().forEach(tilePair -> {
 
-                        if (layer_v != tilePair.getTile().getLayer()) {
+                        if (tilePair != null && layer_v != tilePair.getTile().getLayer()) {
                             enableSpinner.setSelected(true);
                             return;
                         }
@@ -291,7 +300,7 @@ public class InspectorFrame extends JPanel {
             List<TilePair> tiles = selection.getTiles();
 
             if (tiles != null)
-                tiles.get(0).getTileSet().drawselection(selection, 0, 0, 150,150, g);
+                TileSet.drawselection(selection, 0, 0, 150,150, g);
         }
 
         @Override
