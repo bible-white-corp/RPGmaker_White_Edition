@@ -2,9 +2,7 @@ package editor.Object.Categories;
 
 import editor.Editor;
 import editor.Maps.Level;
-import editor.Object.GameObjects;
 import editor.Object.ObjectInstantiation;
-import editor.Tiles.TilePair;
 
 public class Teleporter extends ObjectInstantiation {
     int sibling_index;

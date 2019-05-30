@@ -3,6 +3,7 @@ package editor.Tools.Brushes;
 import editor.Editor;
 import editor.Maps.Level;
 import editor.Object.ObjectInstantiation;
+import editor.ProjectTree.objType;
 import editor.Tiles.TilePair;
 import editor.Tools.Brush;
 import editor.Tools.Selection;

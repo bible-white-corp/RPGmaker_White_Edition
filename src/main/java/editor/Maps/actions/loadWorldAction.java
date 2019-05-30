@@ -26,6 +26,7 @@ public class loadWorldAction extends AbstractAction {
                 Editor.mainFrame.setLevel(0);
                 Editor.mainFrame.repaint();
                 Editor.world.projectTree.reload();
+                Editor.world.objTree.reload();
 
             } catch (Exception excep) {
 

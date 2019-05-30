@@ -1,6 +1,7 @@
 package editor.Object;
 
 import editor.Editor;
+import editor.ProjectTree.objType;
 import editor.Tiles.TilePair;
 
 import java.awt.*;
@@ -37,6 +38,8 @@ public abstract class ObjectInstantiation {
     public void finishInstantiation(int layer, Point position){
         this.layer = layer;
         this.position = position;
+        Editor.world.objTree.addObj(this, Editor.world.worldObjects.getInWorldObj().size(),
+                objType.getEquivalent(this));
         Editor.world.worldObjects.addObjInstance(this);
     }
 }

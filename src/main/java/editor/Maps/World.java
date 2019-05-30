@@ -6,6 +6,7 @@ import com.google.gson.stream.JsonWriter;
 import editor.Editor;
 import editor.Forms.GameFrame;
 import editor.Object.GameObjects;
+import editor.ProjectTree.ObjTreeLevel;
 import editor.ProjectTree.PTree;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
@@ -24,6 +25,7 @@ public class World {
     public GameObjects worldObjects;
     transient String savePath;
     transient public PTree projectTree;
+    transient public ObjTreeLevel objTree;
 
     public World(String projectName) {
         this.projectName = projectName;
@@ -31,6 +33,7 @@ public class World {
         this.tileSetList = new Vector<>();
         this.worldObjects = new GameObjects();
         this.projectTree = new PTree(projectName);
+        this.objTree = new ObjTreeLevel();
     }
 
     public List<String> getTsNames() {
@@ -138,6 +141,7 @@ public class World {
         } catch (IOException e) { }
         res.savePath = path;
         res.projectTree = Editor.world.projectTree;
+        res.objTree = Editor.world.objTree;
         res.worldObjects.importSprites(path);
         return res;
     }
