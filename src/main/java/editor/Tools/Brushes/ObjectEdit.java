@@ -24,7 +24,7 @@ public class ObjectEdit extends Brush {
     public void clicked(Level level, Selection selection, int x_pixel, int y_pixel) {
 
         instance.finishInstantiation(Editor.getLayer_index(), new Point(x_pixel, y_pixel));
-
+        Editor.mainFrame.repaint();
         Editor.setBrush(old_brush);
     }
 
