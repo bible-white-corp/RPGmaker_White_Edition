@@ -139,7 +139,7 @@ public class World {
         try {
             f.close();
         } catch (IOException e) { }
-        res.savePath = path;
+        res.savePath = path.split(res.projectName)[0];
         res.projectTree = Editor.world.projectTree;
         res.objTree = Editor.world.objTree;
         res.worldObjects.importSprites(path);
