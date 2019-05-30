@@ -1,5 +1,6 @@
 package editor.Tools.Brushes;
 
+import editor.Editor;
 import editor.Maps.Level;
 import editor.Object.ObjectInstantiation;
 import editor.Tools.Brush;
@@ -19,7 +20,11 @@ public class ObjectEdit extends Brush {
     @Override
     public void clicked(Level level, Selection selection, int x_pixel, int y_pixel) {
 
+        //FixMe Tu as les coordonnes et le le layer c'est Editor.
 
+        Editor.getLayer_index();
+
+        Editor.setBrush(old_brush);
     }
 
     @Override
