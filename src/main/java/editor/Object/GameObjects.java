@@ -76,6 +76,14 @@ public class GameObjects {
         return inWorldObj;
     }
 
+    public ObjectInstantiation getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(ObjectInstantiation player) {
+        this.player = player;
+    }
+
     public void addObject(String name, boolean is_static, List<Integer> animList){
         ObjectIntel tmp = new ObjectIntel(name, is_static, animList);
         Editor.world.projectTree.addNewObject(tmp, objs.size());

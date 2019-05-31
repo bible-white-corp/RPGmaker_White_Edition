@@ -64,6 +64,12 @@ public class ObjectInstantiation {
         this.layer = layer;
         this.index = Editor.world.worldObjects.getInWorldObj().size();
         this.position = position;
+        if (this.type == objType.PLAYER) {
+            if (Editor.world.worldObjects.getPlayer() != null)
+                Editor.world.worldObjects.getInWorldObj().remove(Editor.world.worldObjects.getPlayer().getIndex());
+            Editor.world.worldObjects.setPlayer(this);
+            Editor.world.objTree.removeAllPlayers();
+        }
         Editor.world.objTree.addObj(this, Editor.world.worldObjects.getInWorldObj().size(), type);
         Editor.world.worldObjects.addObjInstance(this);
     }

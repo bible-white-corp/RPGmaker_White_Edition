@@ -37,8 +37,15 @@ public class instantiateObject {
         }
         else if (resp.equals(possibilities[2]))
             obj = new ObjectInstantiation(objIntelIndex, name, objType.TELEPORTER);
-        else if (resp.equals(possibilities[3]))
+        else if (resp.equals(possibilities[3])) {
             obj = new ObjectInstantiation(objIntelIndex, name, objType.PLAYER);
+            if (Editor.world.worldObjects.getPlayer() != null) {
+                if (JOptionPane.showConfirmDialog(Editor.editFrame,
+                        "A player already exists, would you like to overwrite it?", "Instantiation",
+                        JOptionPane.YES_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.CANCEL_OPTION)
+                    return;
+            }
+        }
         else {
             JOptionPane.showMessageDialog(Editor.editFrame, "Unexpected object type",
                     "ERROR", JOptionPane.ERROR_MESSAGE);

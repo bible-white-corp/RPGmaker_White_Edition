@@ -26,6 +26,10 @@ public class GameFrame extends JPanel {
             this.level.addMapsListener(() -> GameFrame.this.repaint());
     }
 
+    public Level getLevel() {
+        return level;
+    }
+
     public GameFrame() {
 
         setLevel(0);

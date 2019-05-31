@@ -79,6 +79,11 @@ public class ObjTreeLevel {
         myTree.updateUI();
     }
 
+    public void removeAllPlayers() {
+        player.removeAllChildren();
+
+    }
+
     private class doubleClick extends MouseAdapter {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() >= 2 && e.getButton() == MouseEvent.BUTTON1) {
@@ -127,7 +132,7 @@ public class ObjTreeLevel {
                 return;
             cur.setSibling(linked.getIndex(), linked.getLevelIndex());
             JOptionPane.showMessageDialog(Editor.editFrame, "Teleporter linked!",
-                    "SUCESS", JOptionPane.INFORMATION_MESSAGE);
+                    "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
 
         } else if (s == "Delete") {
             tp.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
