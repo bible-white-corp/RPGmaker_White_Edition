@@ -265,7 +265,6 @@ public class PTree {
         }
     }
 
-
     private DefaultMutableTreeNode objects;
     private DefaultMutableTreeNode tileSets;
     private DefaultMutableTreeNode levels;

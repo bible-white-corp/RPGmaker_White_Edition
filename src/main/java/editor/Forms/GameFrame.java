@@ -78,7 +78,7 @@ public class GameFrame extends JPanel {
 
         for (ObjectInstantiation instantiation : Editor.world.worldObjects.getInWorldObj())
         {
-            if (instantiation.getLevelIndex() == Editor.world.levelList.indexOf(level))
+            if (instantiation != null && instantiation.getLevelIndex() == Editor.world.levelList.indexOf(level))
                 g.drawImage(instantiation.getIntel().getIdle().getFirstSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
         }
 

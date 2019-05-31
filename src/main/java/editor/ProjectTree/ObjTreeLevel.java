@@ -62,13 +62,13 @@ public class ObjTreeLevel {
 
         for (int i = 0; i < objectInstantiations.size(); i++) {
             tmp = objectInstantiations.get(i);
-            if (tmp.getType() == objType.ITEM){
+            if (tmp.getType() == objType.ITEM) {
                 node = item;
-            } else if (tmp.getType() == objType.NPC){
+            } else if (tmp.getType() == objType.NPC) {
                 node = npc;
-            } else if (tmp.getType() == objType.TELEPORTER){
+            } else if (tmp.getType() == objType.TELEPORTER) {
                 node = tp;
-            } else if (tmp.getType() == objType.PLAYER){
+            } else if (tmp.getType() == objType.PLAYER) {
                 node = player;
             } else
                 throw new RuntimeException();
@@ -81,7 +81,6 @@ public class ObjTreeLevel {
 
     public void removeAllPlayers() {
         player.removeAllChildren();
-
     }
 
     private class doubleClick extends MouseAdapter {
@@ -94,7 +93,6 @@ public class ObjTreeLevel {
                 if (!node.isLeaf())
                     return;
 
-
                 TreeNode parent = node.getParent();
                 Object tmp = node.getUserObject();
 
@@ -102,25 +100,36 @@ public class ObjTreeLevel {
                     if (tmp instanceof pair)
                         customizeTP((pair) tmp);
                     return;
+                } else if (parent == npc) {
+                    if (tmp instanceof pair)
+                        customizeNPC((pair) tmp);
+                    return;
+                } else if (parent == item) {
+                    if (tmp instanceof pair)
+                        customizeItem((pair) tmp);
+                    return;
+                } else if (parent == player) {
+                    if (tmp instanceof pair)
+                        customizePlayer((pair) tmp);
+                    return;
                 }
+            }
         }
+
     }
 
-    private void customizeTP(pair p){
+    private void customizeTP(pair p) {
         Object[] possibilites = {"Link", "Rename", "Delete"};
         ObjectInstantiation cur = Editor.world.worldObjects.getInWorldObj().get(p.index);
         ObjectInstantiation linked = cur.getSibling();
-        String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
 
-                (linked == null ? "This teleporter is not linked yet!" :
-                        "This teleporter is linked to " + linked.toString()) + "\nWhat do you want to do with " + p.name + "?",
-                "Customize teleporter",
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                possibilites, "Rename");
+        String s = askChoice(possibilites, (linked == null ? "This teleporter is not linked yet!" :
+                "This teleporter is linked to " + linked.toString())
+                + "\nWhat do you want to do with " + p.name + "?", "Customize teleporter");
+
         if (s == null)
             return;
-        if (s == "Link"){
+        if (s == "Link") {
             Object[] choice = Editor.world.worldObjects.getInWorldObj().stream()
                     .filter(w -> w != null)
                     .filter(w -> w.getType() == objType.TELEPORTER)
@@ -135,21 +144,103 @@ public class ObjTreeLevel {
                     "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
 
         } else if (s == "Delete") {
-            tp.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
-            myTree.updateUI();
+            Object[] list = Editor.world.worldObjects.getInWorldObj().stream()
+                    .filter(w -> w != null)
+                    .filter(w -> w.getType() == objType.TELEPORTER)
+                    .filter(w -> w.getSibling() == cur).toArray();
+            for (Object o : list)
+                ((ObjectInstantiation) o).setSibling(-1, -1);
+            deleteFromMemory(p, tp);
             return;
         } else if (s == "Rename") {
-            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
-                    "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
-            if (s == null)
-                return;
-            p.name = s;
-            Editor.world.worldObjects.getSpriteList().get(p.index).setName(s);
-            myTree.updateUI();
-            return;
-        }
+            renameInMemory(p);
         }
     }
+
+    private void customizeNPC(pair p) {
+        ObjectInstantiation cur = Editor.world.worldObjects.getInWorldObj().get(p.index);
+        ObjectInstantiation linked = cur.getSibling();
+        Object[] possibilities = {"Moves", "Rename", "Delete"};
+
+        String s = askChoice(possibilities, "What do you want to do with the NPC " + p.name + "?",
+        "Customize NPC");
+
+        if (s == null)
+            return;
+        if (s == "Moves") {
+            int res = JOptionPane.showConfirmDialog(Editor.editFrame, "Is the NPC moving?", "Moves",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if (res == JOptionPane.CANCEL_OPTION)
+                return;
+            cur.setRandomMove(res == JOptionPane.YES_OPTION);
+        } else if (s == "Delete") {
+            deleteFromMemory(p, npc);
+            return;
+        } else if (s == "Rename") {
+            renameInMemory(p);
+        }
+    }
+
+    private void customizeItem(pair p) {
+        Object[] possibilities = {"Rename", "Delete"};
+
+        String s = askChoice(possibilities, "What do you want to do with the item " + p.name + "?",
+                "Customize item");
+
+        if (s == null)
+            return;
+        if (s == "Delete") {
+            deleteFromMemory(p, item);
+            return;
+        } else if (s == "Rename") {
+            renameInMemory(p);
+        }
+    }
+
+    private void customizePlayer(pair p) {
+        Object[] possibilities = {"Rename", "Delete"};
+
+        String s = askChoice(possibilities, "What do you want to do with the player " + p.name + "?",
+                "Customize player");
+
+        if (s == null)
+            return;
+        if (s == "Delete") {
+            Editor.world.worldObjects.setPlayer(null);
+            deleteFromMemory(p, player);
+            return;
+        } else if (s == "Rename") {
+            renameInMemory(p);
+        }
+    }
+
+    private String askChoice(Object[] possibilities, String message, String title){
+        return (String) JOptionPane.showInputDialog(Editor.editFrame,
+                message,
+                title,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                possibilities, possibilities[0]);
+    }
+
+    private void deleteFromMemory(pair p, DefaultMutableTreeNode node){
+        Editor.world.worldObjects.getInWorldObj().set(p.index, null);
+        node.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
+        Editor.mainFrame.repaint();
+        myTree.updateUI();
+    }
+
+    private void renameInMemory(pair p){
+        String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
+                "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
+        if (s == null)
+            return;
+        p.name = s;
+        Editor.world.worldObjects.getInWorldObj().get(p.index).setName(s);
+        myTree.updateUI();
+        return;
+    }
+
 
     private DefaultMutableTreeNode item;
     private DefaultMutableTreeNode npc;

@@ -60,6 +60,10 @@ public class ObjectInstantiation {
         return index;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void finishInstantiation(int layer, Point position){
         this.layer = layer;
         this.index = Editor.world.worldObjects.getInWorldObj().size();
@@ -80,11 +84,13 @@ public class ObjectInstantiation {
     }
 
     public Level getSiblingLevel(){
+        if (sibling_map_index == -1 || sibling_index == -1)
+            return null;
         return Editor.world.levelList.get(sibling_map_index);
     }
 
     public ObjectInstantiation getSibling(){
-        if (sibling_index == -1)
+        if (sibling_index == -1 || sibling_map_index == -1 )
             return null;
         return Editor.world.worldObjects.getInWorldObj().get(sibling_index);
     }
