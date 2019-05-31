@@ -26,8 +26,15 @@ public class instantiateObject {
         ObjectInstantiation obj;
         if (resp.equals(possibilities[0]))
             obj = new ObjectInstantiation(objIntelIndex, name, objType.ITEM);
-        else if (resp.equals(possibilities[1]))
+        else if (resp.equals(possibilities[1])) {
             obj = new ObjectInstantiation(objIntelIndex, name, objType.NPC);
+            int rdm = JOptionPane.showConfirmDialog(Editor.editFrame, "Does the NPC moves?",
+                    "Instantiation", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if (rdm == JOptionPane.CANCEL_OPTION){
+                return;
+            } else if (rdm == JOptionPane.YES_OPTION)
+                obj.setRandomMove(true);
+        }
         else if (resp.equals(possibilities[2]))
             obj = new ObjectInstantiation(objIntelIndex, name, objType.TELEPORTER);
         else if (resp.equals(possibilities[3]))

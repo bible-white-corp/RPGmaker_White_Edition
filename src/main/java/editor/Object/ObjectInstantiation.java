@@ -3,7 +3,6 @@ package editor.Object;
 import editor.Editor;
 import editor.Maps.Level;
 import editor.ProjectTree.objType;
-
 import java.awt.*;
 
 public class ObjectInstantiation {
@@ -16,6 +15,7 @@ public class ObjectInstantiation {
     int sibling_index = -1;
     int sibling_map_index;
     objType type;
+    protected boolean randomMove = false;
 
     public objType getType() {
         return type;
@@ -46,6 +46,14 @@ public class ObjectInstantiation {
 
     public int getLevelIndex() {
         return levelIndex;
+    }
+
+    public void setRandomMove(boolean randomMove) {
+        this.randomMove = randomMove;
+    }
+
+    public boolean hasRandomMove() {
+        return randomMove;
     }
 
     public int getIndex() {
