@@ -184,7 +184,7 @@ public class PTree {
 
     private void customizeSprite(pair p) {
         Object[] possibilites = {"Rename", "Delete"};
-        String s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+        String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                 "What do you want to do with " + p.name,
                 "Customize sprite",
                 JOptionPane.INFORMATION_MESSAGE,
@@ -198,7 +198,7 @@ public class PTree {
             return;
         }
         if (s == "Rename") {
-            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+            s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                     "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
             if (s == null)
                 return;
@@ -211,7 +211,7 @@ public class PTree {
 
     private void customizeAnimation(pair p) {
         Object[] possibilites = {"Rename", "Delete"};
-        String s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+        String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                 Editor.world.worldObjects.getAnimations().get(p.index).getNames().toString()
                         + "\nWhat do you want to do with " + p.name,
                 "Customize sprite",
@@ -226,7 +226,7 @@ public class PTree {
             return;
         }
         if (s == "Rename") {
-            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+            s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                     "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
             if (s == null)
                 return;
@@ -239,7 +239,7 @@ public class PTree {
 
     private void customizeObjIntel(pair p) {
         Object[] possibilites = {"Rename", "Delete"};
-        String s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+        String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                 Editor.world.worldObjects.getObjs().get(p.index).getNames().toString()
                         + "\nWhat do you want to do with " + p.name,
                 "Customize sprite",
@@ -254,7 +254,7 @@ public class PTree {
             return;
         }
         if (s == "Rename") {
-            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+            s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                     "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
             if (s == null)
                 return;

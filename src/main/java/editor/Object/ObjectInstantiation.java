@@ -12,7 +12,8 @@ public class ObjectInstantiation {
     protected String name;
     protected int layer;
     protected Point position;
-    int sibling_index;
+    int index;
+    int sibling_index = -1;
     int sibling_map_index;
     objType type;
 
@@ -47,9 +48,13 @@ public class ObjectInstantiation {
         return levelIndex;
     }
 
+    public int getIndex() {
+        return index;
+    }
 
     public void finishInstantiation(int layer, Point position){
         this.layer = layer;
+        this.index = Editor.world.worldObjects.getInWorldObj().size();
         this.position = position;
         Editor.world.objTree.addObj(this, Editor.world.worldObjects.getInWorldObj().size(), type);
         Editor.world.worldObjects.addObjInstance(this);
@@ -65,6 +70,8 @@ public class ObjectInstantiation {
     }
 
     public ObjectInstantiation getSibling(){
+        if (sibling_index == -1)
+            return null;
         return Editor.world.worldObjects.getInWorldObj().get(sibling_index);
     }
 }
