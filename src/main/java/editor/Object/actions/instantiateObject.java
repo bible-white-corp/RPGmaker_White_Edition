@@ -1,11 +1,8 @@
 package editor.Object.actions;
 
 import editor.Editor;
-import editor.Object.Categories.Item;
-import editor.Object.Categories.NPC;
-import editor.Object.Categories.Player;
-import editor.Object.Categories.Teleporter;
 import editor.Object.ObjectInstantiation;
+import editor.ProjectTree.objType;
 import editor.Tools.Brushes.ObjectEdit;
 
 import javax.swing.*;
@@ -28,13 +25,13 @@ public class instantiateObject {
 
         ObjectInstantiation obj;
         if (resp.equals(possibilities[0]))
-            obj = new Item(objIntelIndex, name);
+            obj = new ObjectInstantiation(objIntelIndex, name, objType.ITEM);
         else if (resp.equals(possibilities[1]))
-            obj = new NPC(objIntelIndex, name);
+            obj = new ObjectInstantiation(objIntelIndex, name, objType.NPC);
         else if (resp.equals(possibilities[2]))
-            obj = new Teleporter(objIntelIndex, name);
+            obj = new ObjectInstantiation(objIntelIndex, name, objType.TELEPORTER);
         else if (resp.equals(possibilities[3]))
-            obj = new Player(objIntelIndex, name);
+            obj = new ObjectInstantiation(objIntelIndex, name, objType.PLAYER);
         else {
             JOptionPane.showMessageDialog(Editor.editFrame, "Unexpected object type",
                     "ERROR", JOptionPane.ERROR_MESSAGE);

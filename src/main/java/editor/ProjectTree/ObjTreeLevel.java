@@ -1,14 +1,7 @@
 package editor.ProjectTree;
 
 import editor.Editor;
-import editor.Maps.Level;
 import editor.Object.*;
-import editor.Object.Categories.Item;
-import editor.Object.Categories.NPC;
-import editor.Object.Categories.Player;
-import editor.Object.Categories.Teleporter;
-import editor.Object.actions.instantiateObject;
-import editor.Tiles.TileSet;
 
 import javax.swing.*;
 import javax.swing.tree.*;
@@ -69,13 +62,13 @@ public class ObjTreeLevel {
 
         for (int i = 0; i < objectInstantiations.size(); i++) {
             tmp = objectInstantiations.get(i);
-            if (tmp instanceof Item){
+            if (tmp.getType() == objType.ITEM){
                 node = item;
-            } else if (tmp instanceof NPC){
+            } else if (tmp.getType() == objType.NPC){
                 node = npc;
-            } else if (tmp instanceof Teleporter){
+            } else if (tmp.getType() == objType.TELEPORTER){
                 node = tp;
-            } else if (tmp instanceof Player){
+            } else if (tmp.getType() == objType.PLAYER){
                 node = player;
             } else
                 throw new RuntimeException();

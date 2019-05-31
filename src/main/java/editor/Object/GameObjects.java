@@ -1,7 +1,6 @@
 package editor.Object;
 
 import editor.Editor;
-import editor.Object.Categories.Player;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
@@ -24,7 +23,7 @@ public class GameObjects {
     transient List<SpriteSheet> spriteSheetList;///list of spritesSheets imported
     List<String> spritesSheetNames;
     List<ObjectInstantiation> inWorldObj;///list of objects instatiated until now in all levels
-    Player player;///the player (if any)
+    ObjectInstantiation player;///the player (if any)
 
     public GameObjects() {
         objs = new Vector<>();
