@@ -16,6 +16,7 @@ public class ObjectInstantiation {
     int sibling_map_index;
     objType type;
     protected boolean randomMove = false;
+    private String dialog;
 
     public objType getType() {
         return type;
@@ -25,6 +26,8 @@ public class ObjectInstantiation {
         this.objIntelIndex = objIntelIndex;
         this.name = name;
         this.type = type;
+        if (type == objType.NPC)
+            this.dialog="Hello!";
     }
 
     @Override
@@ -58,6 +61,16 @@ public class ObjectInstantiation {
 
     public int getIndex() {
         return index;
+    }
+
+    public void setDialog(String dialog) {
+        this.dialog = dialog;
+    }
+
+    public String getDialog() {
+        if (type != objType.NPC)
+            return null;
+        return dialog;
     }
 
     public void setName(String name) {

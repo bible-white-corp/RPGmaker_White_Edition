@@ -160,7 +160,7 @@ public class ObjTreeLevel {
     private void customizeNPC(pair p) {
         ObjectInstantiation cur = Editor.world.worldObjects.getInWorldObj().get(p.index);
         ObjectInstantiation linked = cur.getSibling();
-        Object[] possibilities = {"Moves", "Rename", "Delete"};
+        Object[] possibilities = {"Moves", "Rename", "Customize dialog", "Delete"};
 
         String s = askChoice(possibilities, "What do you want to do with the NPC " + p.name + "?",
         "Customize NPC");
@@ -176,9 +176,22 @@ public class ObjTreeLevel {
         } else if (s == "Delete") {
             deleteFromMemory(p, npc);
             return;
-        } else if (s == "Rename") {
+        } else if (s == "Customize dialog") {
+            customizeDialog(p);
+        }
+        else if (s == "Rename") {
             renameInMemory(p);
         }
+    }
+
+    private void customizeDialog(pair p) {
+        System.out.println(Editor.world.worldObjects.getInWorldObj().get(p.index).getDialog());
+        String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
+                "New dialog:", "Change dialog", JOptionPane.INFORMATION_MESSAGE);
+        if (s == null)
+            return;
+        Editor.world.worldObjects.getInWorldObj().get(p.index).setDialog(s);
+        return;
     }
 
     private void customizeItem(pair p) {
