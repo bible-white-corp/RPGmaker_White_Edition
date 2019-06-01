@@ -13,7 +13,7 @@ public class newSpritesSheet extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Editor.editFrame.tabbedPane.setSelectedIndex(2);
+        Editor.editFrame.tabbedPane.setSelectedIndex(1);
         JFileChooser fileChooser = new JFileChooser(".");
 
         if (fileChooser.showOpenDialog(Editor.editFrame) == JFileChooser.APPROVE_OPTION){
