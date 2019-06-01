@@ -20,7 +20,7 @@ public class redoAction extends AbstractAction {
         while (cur != null && cur.size() == 0);
         if (cur == null)
             return;
-        cur.cancelAction();
+        Editor.world.undo.add(cur.cancelAction());
         Editor.mainFrame.repaint();;
     }
 }

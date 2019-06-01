@@ -12,7 +12,7 @@ public class UndoContainer {
     }
 
     public void add(DoneAction action){
-        queue.add(action);
+        queue.addFirst(action);
     }
 
     public void initNewAction(int levelIndex, int layerIndex){

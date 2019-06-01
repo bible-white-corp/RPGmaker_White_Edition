@@ -13,6 +13,7 @@ import editor.Object.actions.newSpritesSheet;
 import editor.Tiles.actions.createTileSetAction;
 import editor.Tiles.actions.loadTileSetAction;
 import editor.Tiles.actions.saveTileSetAction;
+import editor.Tools.Undo.action.redoAction;
 import editor.Tools.Undo.action.undoAction;
 import engine.Engine;
 
@@ -113,7 +114,7 @@ public class MenuFrame extends JMenuBar{
         menuItem.setAction(quick_undo);
         menu.add(menuItem);
 
-        Action quick_redo = new undoAction();
+        Action quick_redo = new redoAction();
         quick_redo.putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
         menuItem = new JMenuItem();
