@@ -144,7 +144,7 @@ public class PTree {
                 } else if (parent == spriteSheets) {
                     if (tmp instanceof pair) {
                         Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
-                        Editor.editFrame.tabbedPane.setSelectedIndex(2);
+                        Editor.editFrame.tabbedPane.setSelectedIndex(1);
                     }
                 } else if (parent == objects) {
                     if (tmp instanceof pair) {

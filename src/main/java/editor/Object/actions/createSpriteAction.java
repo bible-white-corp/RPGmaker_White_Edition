@@ -13,7 +13,7 @@ public class createSpriteAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Editor.editFrame.tabbedPane.setSelectedIndex(2);
+        Editor.editFrame.tabbedPane.setSelectedIndex(1);
         if (Editor.editFrame.editionFrame.is_set()) {
             Editor.editFrame.editionFrame.active();
         }

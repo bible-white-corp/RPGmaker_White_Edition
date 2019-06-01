@@ -17,7 +17,7 @@ public class createAnimationAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Editor.editFrame.tabbedPane.setSelectedIndex(2);
+        Editor.editFrame.tabbedPane.setSelectedIndex(1);
         List<Sprite> spriteList = Editor.world.worldObjects.getSpriteList();
         Object[] elements = spriteList.toArray();
         if (elements.length == 0){

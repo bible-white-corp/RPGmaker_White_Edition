@@ -37,7 +37,7 @@ public class createObjectAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Editor.editFrame.tabbedPane.setSelectedIndex(2);
+        Editor.editFrame.tabbedPane.setSelectedIndex(1);
 
         if (Editor.world.worldObjects.getAnimations().size() == 0){
             JOptionPane.showMessageDialog(Editor.editFrame, "No animation available",
