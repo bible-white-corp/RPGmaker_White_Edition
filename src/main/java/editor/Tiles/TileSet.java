@@ -232,17 +232,33 @@ public class TileSet {
      * @param graph where to print
      * @warning The size of the graph is not checked! Watchout for bounds yourself!
      */
-    public void drawselection(Selection selection, int x, int y, int w, int h, Graphics graph) {
+    public static void drawselection(Selection selection, int x, int y, int w, int h, Graphics graph) {
 
-        BufferedImage buffer = new BufferedImage(selection.getDimension().width * tile_x_size,
-                selection.getDimension().height * tile_y_size, BufferedImage.TYPE_4BYTE_ABGR);
+        int wt = 1;
+        int ht = 1;
+
+        for (TilePair tp : selection.getTiles())
+            if (tp != null)
+            {
+                wt = tp.getTileSet().tile_x_size;
+                ht = tp.getTileSet().tile_y_size;
+                break;
+            }
+
+        BufferedImage buffer = new BufferedImage(selection.getDimension().width * wt,
+                selection.getDimension().height * ht, BufferedImage.TYPE_4BYTE_ABGR);
 
         Graphics graphics = buffer.createGraphics();
 
         for (int i = 0; i < selection.getDimension().height; i++) {
             for (int j = 0; j < selection.getDimension().width; j++) {
-                drawtile(selection.getTiles().get(j + i * selection.getDimension().width),
-                        x + j * tile_x_size, y + i * tile_y_size, graphics);
+
+                TilePair tile = selection.getTiles().get(i * selection.getDimension().width + j);
+
+                if (tile == null)
+                    continue;
+
+                tile.getTileSet().drawtile(tile, x + j * wt, y + i * ht, graphics);
             }
         }
 

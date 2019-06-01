@@ -26,6 +26,10 @@ public class ObjectIntel {
         animations.remove(index);
     }
 
+    public Animation getIdle(){
+        return Editor.world.worldObjects.animations.get(animations.get(0));
+    }
+
     public String getName() {
         return name;
     }

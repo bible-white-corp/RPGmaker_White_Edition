@@ -17,4 +17,8 @@ public class EngineFrame extends JFrame {
     {
         display.setLevel(0);
     }
+
+    public void start() {
+        display.start();
+    }
 }

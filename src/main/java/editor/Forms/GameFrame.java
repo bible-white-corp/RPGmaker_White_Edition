@@ -3,6 +3,7 @@ package editor.Forms;
 import editor.Editor;
 import editor.Maps.Level;
 import editor.Maps.World;
+import editor.Object.ObjectInstantiation;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 
@@ -14,13 +15,19 @@ import java.awt.event.MouseEvent;
 public class GameFrame extends JPanel {
 
     Level level;
+    int levelIndex = -1;
 
     public void setLevel(int index) {
 
         this.level = Editor.world.levelList.get(index);
+        levelIndex = index;
         this.repaint();
         if (level != null)
             this.level.addMapsListener(() -> GameFrame.this.repaint());
+    }
+
+    public Level getLevel() {
+        return level;
     }
 
     public GameFrame() {
@@ -69,6 +76,12 @@ public class GameFrame extends JPanel {
                         tile.getTileSet().drawtile(tile, x * 32, y * 32, g);
                 }
 
+        for (ObjectInstantiation instantiation : Editor.world.worldObjects.getInWorldObj())
+        {
+            if (instantiation != null && instantiation.getLevelIndex() == Editor.world.levelList.indexOf(level))
+                g.drawImage(instantiation.getIntel().getIdle().getFirstSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
+        }
+
         int w_pixel = level.getWidth() * level.getTileWidth();
         int h_pixel = level.getHeight() * level.getTileHeight();
 
@@ -87,5 +100,9 @@ public class GameFrame extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(level.getWidth() * level.getTileWidth(), level.getHeight() * level.getTileHeight());
+    }
+
+    public int getLevelIndex() {
+        return levelIndex;
     }
 }

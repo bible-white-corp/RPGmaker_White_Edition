@@ -33,5 +33,6 @@ public class Engine {
 
         EngineFrame frame = new EngineFrame();
         frame.setVisible(true);
+        frame.start();
     }
 }

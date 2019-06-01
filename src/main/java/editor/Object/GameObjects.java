@@ -16,12 +16,14 @@ import java.util.Vector;
  * This class handles world's objects
  */
 public class GameObjects {
-    List<ObjectIntel> objs;///mapping of objects_animations by their given name
+    static List<ObjectIntel> objs;///mapping of objects_animations by their given name
     List<Animation> animations;///mapping of all user's animations
     List<ObjectInstantiation> instantiations;//list of all instantiated objects on the map
-    List<Sprite> spriteList;
-    transient List<SpriteSheet> spriteSheetList;
+    List<Sprite> spriteList;///list of sprites created until now
+    transient List<SpriteSheet> spriteSheetList;///list of spritesSheets imported
     List<String> spritesSheetNames;
+    List<ObjectInstantiation> inWorldObj;///list of objects instatiated until now in all levels
+    ObjectInstantiation player;///the player (if any)
 
     public GameObjects() {
         objs = new Vector<>();
@@ -30,6 +32,7 @@ public class GameObjects {
         instantiations = new Vector<>();
         spriteSheetList = new Vector<>();
         spritesSheetNames = new Vector<>();
+        inWorldObj = new Vector<>();
     }
 
     public void export(String path){
@@ -69,6 +72,18 @@ public class GameObjects {
         return spriteList;
     }
 
+    public List<ObjectInstantiation> getInWorldObj() {
+        return inWorldObj;
+    }
+
+    public ObjectInstantiation getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(ObjectInstantiation player) {
+        this.player = player;
+    }
+
     public void addObject(String name, boolean is_static, List<Integer> animList){
         ObjectIntel tmp = new ObjectIntel(name, is_static, animList);
         Editor.world.projectTree.addNewObject(tmp, objs.size());
@@ -79,6 +94,9 @@ public class GameObjects {
         SpriteSheet sheet = SpriteSheet.importSpriteSheet(path);
         Editor.world.projectTree.addNewSpritesSheet(sheet, spriteSheetList.size());
         spriteSheetList.add(sheet);
+        if (!Editor.editFrame.editionFrame.is_set()){
+            Editor.editFrame.editionFrame.setSheet(spriteSheetList.size() - 1);
+        }
     }
 
     public void addSprite(Sprite sprite){
@@ -96,14 +114,7 @@ public class GameObjects {
         animations.add(tmp);
     }
 
-    public void add_obj(int index, TilePair position, String instanceName){
-        instantiations.add(new ObjectInstantiation(objs.get(index), instanceName, position));
+    public void addObjInstance(ObjectInstantiation instantiation){
+        this.inWorldObj.add(instantiation);
     }
-
-    /*public void addAnimation(String objName, String animationName){
-        objs.get(objName).addAnimation(animations.get(animationName));
-    }*/
-
-
-
 }

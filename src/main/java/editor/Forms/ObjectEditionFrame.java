@@ -63,6 +63,7 @@ public class ObjectEditionFrame extends JPanel {
     public boolean is_set(){
         return sheet != null;
     }
+
     private void refresh(){
         this.repaint();
     }

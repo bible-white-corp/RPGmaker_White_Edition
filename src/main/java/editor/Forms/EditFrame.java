@@ -12,6 +12,7 @@ public class EditFrame extends JFrame {
     JToolBar toolBar;
     JPanel footer;
     public TileSetFrame tileSetFrame;
+    public ObjectFrame objectFrame;
     public ObjectEditionFrame editionFrame;
     public JTabbedPane tabbedPane;
 
@@ -71,9 +72,10 @@ public class EditFrame extends JFrame {
         JTabbedPane tabbedPane = new JTabbedPane();
 
         tileSetFrame = new TileSetFrame();
+        objectFrame = new ObjectFrame();
 
         tabbedPane.add("TileSet", tileSetFrame);
-        tabbedPane.add("Objects", new ObjectFrame());
+        tabbedPane.add("Objects", objectFrame);
 
         side_window.add(tabbedPane, get_c(0,0,1,1));
         side_window.add(new JScrollPane(Editor.world.projectTree.myTree),get_c(0,1,1,0.5));

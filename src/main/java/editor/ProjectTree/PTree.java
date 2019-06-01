@@ -3,7 +3,9 @@ package editor.ProjectTree;
 import editor.Editor;
 import editor.Maps.Level;
 import editor.Object.*;
+import editor.Object.actions.instantiateObject;
 import editor.Tiles.TileSet;
+import editor.Tools.Brushes.ObjectEdit;
 
 import javax.swing.*;
 import javax.swing.tree.*;
@@ -118,8 +120,7 @@ public class PTree {
     private class doubleClick extends MouseAdapter {
         public void mouseClicked(MouseEvent e) {
 
-
-            if (e.getClickCount() >= 2) {
+            if (e.getClickCount() >= 2 && e.getButton() == MouseEvent.BUTTON1) {
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                         myTree.getLastSelectedPathComponent();
                 if (node == null) return;
@@ -131,12 +132,7 @@ public class PTree {
                 TreeNode parent = node.getParent();
                 Object tmp = node.getUserObject();
 
-                if (parent == objects) {
-                    if (tmp instanceof pair) {
-                        customizeObjIntel((pair) tmp);
-                    }
-                }
-                else if (parent == tileSets) {
+                if (parent == tileSets) {
                     if (tmp instanceof pair)
                         Editor.editFrame.tileSetFrame.display.changeTileSet(((pair) tmp).index);
                     return;
@@ -150,7 +146,30 @@ public class PTree {
                         Editor.editFrame.editionFrame.setSheet(((pair) tmp).index);
                         Editor.editFrame.tabbedPane.setSelectedIndex(2);
                     }
-                } else if (parent == sprites) {
+                } else if (parent == objects) {
+                    if (tmp instanceof pair) {
+                        Editor.editFrame.tabbedPane.setSelectedIndex(0);
+                        instantiateObject.click(((pair)tmp).index);
+                    }
+                }
+            }
+            else if (e.getButton() == MouseEvent.BUTTON3){
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+                        myTree.getLastSelectedPathComponent();
+                if (node == null) return;
+
+                if (!node.isLeaf())
+                    return;
+
+                TreeNode parent = node.getParent();
+                Object tmp = node.getUserObject();
+
+                if (parent == objects) {
+                    if (tmp instanceof pair) {
+                        customizeObjIntel((pair) tmp);
+                    }
+                }
+                else if (parent == sprites) {
                     if (tmp instanceof pair) {
                         customizeSprite((pair) tmp);
                     }
@@ -165,7 +184,7 @@ public class PTree {
 
     private void customizeSprite(pair p) {
         Object[] possibilites = {"Rename", "Delete"};
-        String s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+        String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                 "What do you want to do with " + p.name,
                 "Customize sprite",
                 JOptionPane.INFORMATION_MESSAGE,
@@ -179,7 +198,7 @@ public class PTree {
             return;
         }
         if (s == "Rename") {
-            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+            s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                     "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
             if (s == null)
                 return;
@@ -192,7 +211,7 @@ public class PTree {
 
     private void customizeAnimation(pair p) {
         Object[] possibilites = {"Rename", "Delete"};
-        String s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+        String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                 Editor.world.worldObjects.getAnimations().get(p.index).getNames().toString()
                         + "\nWhat do you want to do with " + p.name,
                 "Customize sprite",
@@ -207,7 +226,7 @@ public class PTree {
             return;
         }
         if (s == "Rename") {
-            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+            s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                     "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
             if (s == null)
                 return;
@@ -220,7 +239,7 @@ public class PTree {
 
     private void customizeObjIntel(pair p) {
         Object[] possibilites = {"Rename", "Delete"};
-        String s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+        String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                 Editor.world.worldObjects.getObjs().get(p.index).getNames().toString()
                         + "\nWhat do you want to do with " + p.name,
                 "Customize sprite",
@@ -235,7 +254,7 @@ public class PTree {
             return;
         }
         if (s == "Rename") {
-            s = (String) JOptionPane.showInputDialog(Editor.mainFrame,
+            s = (String) JOptionPane.showInputDialog(Editor.editFrame,
                     "New name:", "Rename", JOptionPane.INFORMATION_MESSAGE);
             if (s == null)
                 return;
@@ -245,7 +264,6 @@ public class PTree {
             return;
         }
     }
-
 
     private DefaultMutableTreeNode objects;
     private DefaultMutableTreeNode tileSets;
