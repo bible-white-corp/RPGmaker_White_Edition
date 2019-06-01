@@ -25,6 +25,7 @@ public class loadWorldAction extends AbstractAction {
                 Editor.editFrame.tileSetFrame.display.changeTileSet(0);
                 Editor.mainFrame.setLevel(0);
                 Editor.mainFrame.repaint();
+                Editor.editFrame.editionFrame.setSheet(0);
                 Editor.world.projectTree.reload();
                 Editor.world.objTree.reload();
 

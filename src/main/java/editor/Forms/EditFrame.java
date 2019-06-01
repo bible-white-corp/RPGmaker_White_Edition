@@ -52,7 +52,6 @@ public class EditFrame extends JFrame {
         scrollPane.setPreferredSize(new Dimension(0,0));
 
         tabbedPane.add("Game", scrollPane);
-        tabbedPane.add("Story", new StoryFrame());
 
         editionFrame = new ObjectEditionFrame();
         tabbedPane.add("Object Edition", editionFrame);
