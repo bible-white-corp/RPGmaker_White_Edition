@@ -6,6 +6,7 @@ import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tools.Brush;
 import editor.Tools.Selection;
+import editor.Tools.Undo.UndoContainer;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -29,6 +30,8 @@ public class BucketFill extends Brush {
 
         points.add(new Point(x_pixel, y_pixel));
 
+        boolean hasBeenEdited = false;
+
         while(points.size() > 0)
         {
             Point cur = points.iterator().next();
@@ -39,6 +42,10 @@ public class BucketFill extends Brush {
                 TilePair tile = level.getTilePixel(cur.x, cur.y, t.getLayer());
 
                 if ((tile == null && background == null) || tile.equals(background)) {
+                    if (!hasBeenEdited){
+                        hasBeenEdited = true;
+                        Editor.world.undo.initNewAction(Editor.mainFrame.getLevelIndex(), tile.getTile().getLayer());
+                    }
                     level.setTilePixel(selection.getTiles().get(0), cur.x, cur.y);
 
                     points.add(new Point(cur.x + level.getTileWidth(), cur.y));

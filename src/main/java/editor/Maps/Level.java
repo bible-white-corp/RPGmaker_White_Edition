@@ -107,8 +107,10 @@ public class Level {
     }
 
     public void setTilePixel(TilePair t, int x_pixel, int y_pixel){
-
-        setFromIndex(t, getIndexPixel(x_pixel, y_pixel));
+        int index = getIndexPixel(x_pixel, y_pixel);
+        Editor.world.undo.addToLast(getFromIndex(index, Editor.world.undo.lastLayer()), index);
+        Editor.world.redo.clear();
+        setFromIndex(t, index);
     }
 
     public void addSelection(Selection selection, int x_pixel, int y_pixel) {
@@ -149,6 +151,10 @@ public class Level {
     public void initializeListener()
     {
         listeners = new EventListenerList();
+    }
+
+    public List<Layer> getLayers() {
+        return layers;
     }
 
     public TilePair getTilePixel(int x_pixel, int y_pixel, int layer) {

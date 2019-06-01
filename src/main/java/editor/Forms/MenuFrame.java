@@ -13,6 +13,7 @@ import editor.Object.actions.newSpritesSheet;
 import editor.Tiles.actions.createTileSetAction;
 import editor.Tiles.actions.loadTileSetAction;
 import editor.Tiles.actions.saveTileSetAction;
+import editor.Tools.Undo.action.undoAction;
 import engine.Engine;
 
 import javax.swing.*;
@@ -105,10 +106,18 @@ public class MenuFrame extends JMenuBar{
         menu = new JMenu("Edit");
         add(menu);
 
+        Action quick_undo = new undoAction();
+        quick_undo.putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
         menuItem = new JMenuItem("Undo");
+        menuItem.setAction(quick_undo);
         menu.add(menuItem);
 
+        Action quick_redo = new undoAction();
+        quick_redo.putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
         menuItem = new JMenuItem("Redo");
+        menuItem.setAction(quick_redo);
         menu.add(menuItem);
 
         menu.addSeparator();

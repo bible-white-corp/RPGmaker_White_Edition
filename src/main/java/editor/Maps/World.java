@@ -11,6 +11,7 @@ import editor.ProjectTree.PTree;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
+import editor.Tools.Undo.UndoContainer;
 
 import java.awt.*;
 import java.io.*;
@@ -26,6 +27,8 @@ public class World {
     transient String savePath;
     transient public PTree projectTree;
     transient public ObjTreeLevel objTree;
+    transient public UndoContainer undo = new UndoContainer();
+    transient public UndoContainer redo = new UndoContainer();
 
     public World(String projectName) {
         this.projectName = projectName;
@@ -139,6 +142,8 @@ public class World {
         try {
             f.close();
         } catch (IOException e) { }
+        res.undo = new UndoContainer();
+        res.redo = new UndoContainer();
         res.savePath = path.split(res.projectName)[0];
         res.projectTree = Editor.world.projectTree;
         res.objTree = Editor.world.objTree;
