@@ -3,10 +3,9 @@ package editor.Tools.Undo;
 import editor.Tiles.TilePair;
 
 import java.util.ArrayDeque;
-import java.util.Queue;
 
 public class UndoContainer {
-    private Queue<DoneAction> queue;
+    private ArrayDeque<DoneAction> queue;
 
     public UndoContainer() {
         queue = new ArrayDeque<>();
@@ -17,7 +16,7 @@ public class UndoContainer {
     }
 
     public void initNewAction(int levelIndex, int layerIndex){
-        queue.add(new DoneAction(levelIndex, layerIndex));
+        queue.addFirst(new DoneAction(levelIndex, layerIndex));
     }
 
     public void addToLast(TilePair old, int index){
@@ -25,14 +24,18 @@ public class UndoContainer {
     }
 
     public DoneAction pop(){
-        return queue.poll();
+        return queue.pollFirst();
     }
 
     public int lastLayer(){
-        return queue.element().getLayerIndex();
+        return queue.peekFirst().getLayerIndex();
     }
 
     public void clear(){
         queue.clear();
+    }
+
+    public int size(){
+        return queue.size();
     }
 }

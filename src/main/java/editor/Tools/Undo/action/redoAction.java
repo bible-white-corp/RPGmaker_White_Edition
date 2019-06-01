@@ -7,9 +7,17 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class redoAction extends AbstractAction {
+    public redoAction() {
+        super("Redo");
+    }
+
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        DoneAction cur = Editor.world.redo.pop();
+        DoneAction cur;
+        do {
+            cur = Editor.world.redo.pop();
+        }
+        while (cur != null && cur.size() == 0);
         if (cur == null)
             return;
         cur.cancelAction();

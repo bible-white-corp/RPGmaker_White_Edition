@@ -109,14 +109,14 @@ public class MenuFrame extends JMenuBar{
         Action quick_undo = new undoAction();
         quick_undo.putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
-        menuItem = new JMenuItem("Undo");
+        menuItem = new JMenuItem();
         menuItem.setAction(quick_undo);
         menu.add(menuItem);
 
         Action quick_redo = new undoAction();
         quick_redo.putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
-        menuItem = new JMenuItem("Redo");
+        menuItem = new JMenuItem();
         menuItem.setAction(quick_redo);
         menu.add(menuItem);
 

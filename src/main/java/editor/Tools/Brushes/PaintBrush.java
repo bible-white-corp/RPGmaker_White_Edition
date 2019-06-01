@@ -14,8 +14,6 @@ public class PaintBrush extends Brush {
 
         float r2 = brush_size * brush_size;
 
-        boolean hasBeenEdited = false;
-
         for (int x = -(brush_size - 1); x < brush_size; ++x) for (int y = -(brush_size - 1); y < brush_size; ++y)
         {
             if ( (float)(x*x + y*y) / r2 > 0.45)
@@ -32,12 +30,6 @@ public class PaintBrush extends Brush {
 
             int x_pixel_adjusted = x_pixel + x * level.getTileWidth();
             int y_pixel_adjusted = y_pixel + y * level.getTileHeight();
-
-            if (!hasBeenEdited){
-                hasBeenEdited = true;
-                Editor.world.undo.initNewAction(Editor.mainFrame.getLevelIndex(),
-                        selection.getTiles().get(m_x + m_y * selection.getDimension().width).getTile().getLayer());
-            }
 
             setTile(level, selection, x_pixel_adjusted, y_pixel_adjusted, m_x, m_y);
         }
