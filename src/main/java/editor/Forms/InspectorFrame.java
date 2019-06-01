@@ -64,6 +64,8 @@ public class InspectorFrame extends JPanel {
             add(enableSpinner, EditFrame.get_c(2, 2, 1, 0));
 
             selection.addSelectionListener(selectionListener);
+
+            initialize();
         }
 
         Selection.SelectionListener selectionListener = () -> {

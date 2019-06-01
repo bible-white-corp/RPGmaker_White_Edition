@@ -2,6 +2,8 @@ package engine.Forms;
 
 import editor.Maps.Level;
 import editor.Tiles.TilePair;
+import engine.Controllers.Camera;
+import engine.Controllers.KeyBoardInput;
 import engine.Engine;
 
 import javax.swing.*;
@@ -11,13 +13,9 @@ import java.awt.image.BufferedImage;
 
 public class GameDisplay extends JPanel implements Runnable {
 
-    Thread thread = null;
-    Level level;
-
-    Rectangle window = new Rectangle(0,0,1000,500);
-
-    Point focus = new Point(0,0);
-    float zoom = 1;
+    KeyBoardInput keyBoardInput = new KeyBoardInput();
+    Camera camera = new Camera();
+    Level level = null;
 
     public GameDisplay()
     {
@@ -27,10 +25,15 @@ public class GameDisplay extends JPanel implements Runnable {
 
         addComponentListener(onResize);
 
-        addKeyListener(new KeyAdapter() {
+        addKeyListener(keyBoardInput);
+
+        keyBoardInput.addKeyBoardListener(new KeyBoardInput.CameraInputListener() {
+
             @Override
             public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
+
+                Point focus = camera.getFocus();
+                float zoom = camera.getZoom();
 
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                     focus.y -= 10;
@@ -50,7 +53,8 @@ public class GameDisplay extends JPanel implements Runnable {
                 if (e.getKeyCode() == KeyEvent.VK_2)
                     zoom /= 1.2;
 
-                computeWindow();
+                camera.setFocus(focus);
+                camera.setZoom(zoom);
             }
         });
 
@@ -71,17 +75,9 @@ public class GameDisplay extends JPanel implements Runnable {
         public void componentResized(ComponentEvent e) {
             super.componentResized(e);
 
-            computeWindow();
+            camera.setRatio((float)getHeight() / (float)getWidth());
         }
     };
-
-    public void computeWindow()
-    {
-        int width = (int)(10 * level.getTileWidth() * zoom);
-        int height = (width * getHeight() / getWidth());
-
-        window = new Rectangle(focus.x - width , focus.y -height , focus.x + width, focus.y + height);
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -108,18 +104,24 @@ public class GameDisplay extends JPanel implements Runnable {
                         tile.getTileSet().drawtile(tile, x * level.getTileWidth(), y * level.getTileHeight(), buffer_graph);
                 }
 
-        g.drawImage(buffer,0,0,getWidth() ,getHeight(), window.x, window.y, window.width, window.height, null);
+        g.drawImage(buffer,0,0,getWidth() ,getHeight(),
+                camera.getFirst().x, camera.getFirst().y,
+                camera.getSecond().x, camera.getSecond().y, null);
     }
+
+    Thread thread = null;
 
     public void start() {
 
         if (thread == null) {
+
             thread = new Thread(this);
             thread.start();
         }
     }
 
     public void stop() {
+
         thread = null;
     }
 
@@ -127,13 +129,18 @@ public class GameDisplay extends JPanel implements Runnable {
     public void run() {
 
         while (thread != null) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
+
+            try
+            {
+                Thread.sleep(20);
             }
+            catch (InterruptedException e)
+            {
+
+            }
+
             repaint();
         }
-        thread = null;
     }
 }
 
