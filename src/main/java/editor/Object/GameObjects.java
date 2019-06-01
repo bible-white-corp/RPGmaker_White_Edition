@@ -18,7 +18,7 @@ import java.util.Vector;
 public class GameObjects {
     static List<ObjectIntel> objs;///mapping of objects_animations by their given name
     List<Animation> animations;///mapping of all user's animations
-    List<ObjectInstantiation> instantiations;//list of all instantiated objects on the map
+    public static List<ObjectInstantiation> instantiations;//list of all instantiated objects on the map
     List<Sprite> spriteList;///list of sprites created until now
     transient List<SpriteSheet> spriteSheetList;///list of spritesSheets imported
     List<String> spritesSheetNames;

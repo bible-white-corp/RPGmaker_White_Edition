@@ -1,5 +1,6 @@
 package editor.Forms;
 
+import editor.Object.GameObjects;
 import editor.Object.ObjectInstantiation;
 import editor.Tools.Selection;
 
@@ -9,21 +10,27 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class StoryFrame extends JPanel {
 
-    private JList<ObjectInstantiation> list = new JList<>();
-//    private JScrollPane listScroller = new JScrollPane(list);
-
+    private JList<ObjectInstantiation> list = new JList<ObjectInstantiation>((Vector<? extends ObjectInstantiation>) GameObjects.instantiations);
     private JTextField name = new JTextField();
     private JTextField dialog = new JTextField();
     private JComboBox path = new JComboBox(Path.getPath());
 
     private ObjectInstantiation selectObj;
 
-
+    public void printList() {
+        System.out.println("list: ");
+        for (int i = 0; i < list.getModel().getSize(); i++) {
+            System.out.println(list.getModel().getElementAt(i).getName());
+        }
+    }
+    
     public StoryFrame() {
-
+        
+        printList();
         setLayout(new BorderLayout());
 
         add(list, BorderLayout.WEST);
@@ -78,8 +85,6 @@ public class StoryFrame extends JPanel {
 
             }
         });
-        //add(listScroller, EditFrame.get_c(0, 0, 0, 1));
-        //listScroller.setPreferredSize(new Dimension(5, 0));
     }
 
     public void setName(String name) {
@@ -103,7 +108,6 @@ public class StoryFrame extends JPanel {
             System.out.println("null selected obj");
             return;
         }
-
         this.selectObj = (ObjectInstantiation) selectElt;
     }
 }
