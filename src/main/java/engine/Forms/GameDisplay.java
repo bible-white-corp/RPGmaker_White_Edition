@@ -1,6 +1,7 @@
 package engine.Forms;
 
 import editor.Maps.Level;
+import editor.Object.ObjectInstantiation;
 import editor.Tiles.TilePair;
 import engine.Controllers.Camera;
 import engine.Controllers.KeyBoardInput;
@@ -29,23 +30,34 @@ public class GameDisplay extends JPanel implements Runnable {
 
         keyBoardInput.addKeyBoardListener(new KeyBoardInput.CameraInputListener() {
 
+            private boolean isCamKey(int e)
+            {
+                return e == KeyEvent.VK_W || e == KeyEvent.VK_A || e == KeyEvent.VK_S || e == KeyEvent.VK_D;
+            }
+
             @Override
             public void keyPressed(KeyEvent e) {
 
-                Point focus = camera.getFocus();
                 float zoom = camera.getZoom();
 
-                if (e.getKeyCode() == KeyEvent.VK_UP)
-                    focus.y -= 10;
+                if (isCamKey(e.getKeyCode())) {
 
-                if (e.getKeyCode() == KeyEvent.VK_DOWN)
-                    focus.y += 10;
+                    Point focus = camera.getFocus();
 
-                if (e.getKeyCode() == KeyEvent.VK_LEFT)
-                    focus.x -= 10;
+                    if (e.getKeyCode() == KeyEvent.VK_W)
+                        focus.y -= 10;
 
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-                    focus.x += 10;
+                    if (e.getKeyCode() == KeyEvent.VK_A)
+                        focus.y += 10;
+
+                    if (e.getKeyCode() == KeyEvent.VK_S)
+                        focus.x -= 10;
+
+                    if (e.getKeyCode() == KeyEvent.VK_D)
+                        focus.x += 10;
+
+                    camera.setFocus(focus);
+                }
 
                 if (e.getKeyCode() == KeyEvent.VK_1)
                     zoom *= 1.2;
@@ -53,12 +65,19 @@ public class GameDisplay extends JPanel implements Runnable {
                 if (e.getKeyCode() == KeyEvent.VK_2)
                     zoom /= 1.2;
 
-                camera.setFocus(focus);
                 camera.setZoom(zoom);
             }
         });
 
         setLevel(0);
+    }
+
+    public KeyBoardInput getKeyBoardInput() {
+        return keyBoardInput;
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 
     public void setLevel(int index) {
@@ -104,6 +123,13 @@ public class GameDisplay extends JPanel implements Runnable {
                         tile.getTileSet().drawtile(tile, x * level.getTileWidth(), y * level.getTileHeight(), buffer_graph);
                 }
 
+        for (ObjectInstantiation instantiation : Engine.world.worldObjects.getInWorldObj()) {
+
+            if (instantiation != null && instantiation.getLevelIndex() == Engine.world.levelList.indexOf(level)) {
+
+                buffer_graph.drawImage(instantiation.getIntel().getIdle().getFirstSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
+            }
+        }
         g.drawImage(buffer,0,0,getWidth() ,getHeight(),
                 camera.getFirst().x, camera.getFirst().y,
                 camera.getSecond().x, camera.getSecond().y, null);

@@ -1,6 +1,7 @@
 package editor.Object;
 
 import editor.Editor;
+import editor.ProjectTree.objType;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
@@ -77,7 +78,14 @@ public class GameObjects {
     }
 
     public ObjectInstantiation getPlayer() {
-        return player;
+
+        for (ObjectInstantiation oi : inWorldObj)
+        {
+            if (oi != null && oi.getType() == objType.PLAYER)
+                return oi;
+        }
+
+        return null;
     }
 
     public void setPlayer(ObjectInstantiation player) {

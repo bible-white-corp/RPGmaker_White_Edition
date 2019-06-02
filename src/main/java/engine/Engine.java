@@ -1,10 +1,7 @@
 package engine;
 
-import editor.Editor;
-import editor.Forms.GameFrame;
 import editor.Maps.World;
 import engine.Forms.EngineFrame;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.io.IOException;
 

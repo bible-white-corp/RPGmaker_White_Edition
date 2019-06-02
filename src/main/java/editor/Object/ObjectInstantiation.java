@@ -107,4 +107,9 @@ public class ObjectInstantiation {
             return null;
         return Editor.world.worldObjects.getInWorldObj().get(sibling_index);
     }
+
+    public void setPosition(Point coords) {
+        this.position.x = coords.x;
+        this.position.y = coords.y;
+    }
 }

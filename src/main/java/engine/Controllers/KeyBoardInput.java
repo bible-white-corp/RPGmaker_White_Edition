@@ -48,7 +48,7 @@ public class KeyBoardInput implements KeyListener {
         public void keyReleased(KeyEvent keyEvent) {}
     }
 
-    public abstract class PlayerInputListener extends KeyBoardListener {}
+    public abstract static class PlayerInputListener extends KeyBoardListener {}
     public abstract static class CameraInputListener extends KeyBoardListener {}
-    public abstract class MenuInputListener extends  KeyBoardListener {}
+    public abstract static class MenuInputListener extends  KeyBoardListener {}
 }
