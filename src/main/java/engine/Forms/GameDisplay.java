@@ -47,10 +47,10 @@ public class GameDisplay extends JPanel implements Runnable {
                     if (e.getKeyCode() == KeyEvent.VK_W)
                         focus.y -= 10;
 
-                    if (e.getKeyCode() == KeyEvent.VK_A)
+                    if (e.getKeyCode() == KeyEvent.VK_S)
                         focus.y += 10;
 
-                    if (e.getKeyCode() == KeyEvent.VK_S)
+                    if (e.getKeyCode() == KeyEvent.VK_A)
                         focus.x -= 10;
 
                     if (e.getKeyCode() == KeyEvent.VK_D)
