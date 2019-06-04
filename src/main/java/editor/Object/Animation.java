@@ -19,10 +19,15 @@ public class Animation {
      * @return the next frame for the animation
      */
     public Sprite getNext(){
-        Sprite res = Editor.world.worldObjects.spriteList.get(cur++);
+        Sprite res = Editor.world.worldObjects.spriteList.get(sprites.get(cur++));
         if (cur == sprites.size())
             cur = 0;
         return res;
+    }
+
+    public Sprite getSprite()
+    {
+        return Editor.world.worldObjects.spriteList.get(sprites.get(cur));
     }
 
     public List<Integer> getSprites() {
@@ -30,7 +35,10 @@ public class Animation {
     }
 
     public Sprite getFirstSprite(){
-        return Editor.world.worldObjects.spriteList.get(sprites.get(0));
+
+        cur = 0;
+
+        return getSprite();
     }
 
     public void setSprites(List<Integer> sprites) {

@@ -26,8 +26,13 @@ public class ObjectIntel {
         animations.remove(index);
     }
 
+    public Animation getAnimation(int index)
+    {
+        return Editor.world.worldObjects.animations.get(animations.get(index));
+    }
+
     public Animation getIdle(){
-        return Editor.world.worldObjects.animations.get(animations.get(0));
+        return getAnimation(0);
     }
 
     public String getName() {

@@ -134,7 +134,7 @@ public class GameDisplay extends JPanel implements Runnable {
 
             if (instantiation != null && instantiation.getLevelIndex() == Engine.world.levelList.indexOf(level)) {
 
-                buffer_graph.drawImage(instantiation.getIntel().getIdle().getNext().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
+                buffer_graph.drawImage(instantiation.getCurrentSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
             }
         }
         g.drawImage(buffer,0,0,getWidth() ,getHeight(),

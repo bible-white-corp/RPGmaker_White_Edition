@@ -18,6 +18,8 @@ public class ObjectInstantiation {
     protected boolean randomMove = false;
     private String dialog;
 
+    transient int current_animation = 0;
+
     public objType getType() {
         return type;
     }
@@ -37,6 +39,11 @@ public class ObjectInstantiation {
 
     public ObjectIntel getIntel(){
         return Editor.world.worldObjects.objs.get(objIntelIndex);
+    }
+
+    public Sprite getCurrentSprite()
+    {
+        return getIntel().getAnimation(current_animation).getSprite();
     }
 
     public String getName() {
@@ -111,5 +118,14 @@ public class ObjectInstantiation {
     public void setPosition(Point coords) {
         this.position.x = coords.x;
         this.position.y = coords.y;
+    }
+
+    public void setAnimation(int i) {
+
+        current_animation = i;
+    }
+
+    public Animation getCurrentAnimation() {
+        return getIntel().getAnimation(current_animation);
     }
 }

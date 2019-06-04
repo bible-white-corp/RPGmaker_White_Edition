@@ -72,7 +72,6 @@ public class KeyBoardInput implements KeyListener {
         listener.stop();
     }
 
-
     private static abstract class KeyBoardListener implements EventListener, Runnable {
 
         protected int elapse_time = 20;
