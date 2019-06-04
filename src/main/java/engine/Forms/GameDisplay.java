@@ -1,9 +1,11 @@
 package engine.Forms;
 
+import editor.Forms.GameFrame;
 import editor.Maps.Level;
 import editor.Object.ObjectInstantiation;
 import editor.Tiles.TilePair;
 import engine.Controllers.Camera;
+import engine.Controllers.GameKey;
 import engine.Controllers.KeyBoardInput;
 import engine.Engine;
 
@@ -30,39 +32,44 @@ public class GameDisplay extends JPanel implements Runnable {
 
         keyBoardInput.addKeyBoardListener(new KeyBoardInput.CameraInputListener() {
 
-            private boolean isCamKey(int e)
+            private boolean isCamKeyPressed()
             {
-                return e == KeyEvent.VK_W || e == KeyEvent.VK_A || e == KeyEvent.VK_S || e == KeyEvent.VK_D;
+                return  input.IsPressed(GameKey.Cam_Down) ||
+                        input.IsPressed(GameKey.Cam_Zoom_Minus) ||
+                        input.IsPressed(GameKey.Cam_Zoom_Plus) ||
+                        input.IsPressed(GameKey.Cam_Up) ||
+                        input.IsPressed(GameKey.Cam_Left) ||
+                        input.IsPressed(GameKey.Cam_Right);
             }
 
             @Override
-            public void keyPressed(KeyEvent e) {
+            protected void computeKey() {
 
                 float zoom = camera.getZoom();
 
-                if (isCamKey(e.getKeyCode())) {
+                if (isCamKeyPressed()) {
 
                     Point focus = camera.getFocus();
 
-                    if (e.getKeyCode() == KeyEvent.VK_W)
+                    if (input.IsPressed(GameKey.Cam_Up))
                         focus.y -= 10;
 
-                    if (e.getKeyCode() == KeyEvent.VK_S)
+                    if (input.IsPressed(GameKey.Cam_Down))
                         focus.y += 10;
 
-                    if (e.getKeyCode() == KeyEvent.VK_A)
+                    if (input.IsPressed(GameKey.Cam_Left))
                         focus.x -= 10;
 
-                    if (e.getKeyCode() == KeyEvent.VK_D)
+                    if (input.IsPressed(GameKey.Cam_Right))
                         focus.x += 10;
 
                     camera.setFocus(focus);
                 }
 
-                if (e.getKeyCode() == KeyEvent.VK_1)
+                if (input.IsPressed(GameKey.Cam_Zoom_Plus))
                     zoom *= 1.2;
 
-                if (e.getKeyCode() == KeyEvent.VK_2)
+                if (input.IsPressed(GameKey.Cam_Zoom_Minus))
                     zoom /= 1.2;
 
                 camera.setZoom(zoom);
@@ -127,7 +134,7 @@ public class GameDisplay extends JPanel implements Runnable {
 
             if (instantiation != null && instantiation.getLevelIndex() == Engine.world.levelList.indexOf(level)) {
 
-                buffer_graph.drawImage(instantiation.getIntel().getIdle().getFirstSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
+                buffer_graph.drawImage(instantiation.getIntel().getIdle().getNext().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
             }
         }
         g.drawImage(buffer,0,0,getWidth() ,getHeight(),
