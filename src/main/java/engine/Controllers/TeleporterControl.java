@@ -1,6 +1,8 @@
 package engine.Controllers;
 
+import editor.Editor;
 import editor.Object.ObjectInstantiation;
+import engine.Engine;
 
 public class TeleporterControl extends KeyBoardInput.TeleporterInputListener {
 
@@ -23,11 +25,15 @@ public class TeleporterControl extends KeyBoardInput.TeleporterInputListener {
     @Override
     public void computeKey() {
 
+        if (Engine.getEngineFrame().getDisplay().getLevel() != self.getLevelIndex())
+            return;
+
         boolean newInside = playerCollide();
 
         if (newInside && !isInside)
         {
-            //FixMe Teleport
+            Engine.getEngineFrame().getDisplay().setLevel(self.getSibling().getLevelIndex());
+            player.setPosition(self.getSibling().getPosition());
         }
 
         isInside = newInside;

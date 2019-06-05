@@ -100,10 +100,14 @@ public class GameDisplay extends JPanel implements Runnable {
     public void setLevel(int index) {
 
         this.level = Engine.world.levelList.get(index);
+        this.paintMap();
         this.repaint();
 
         if (level != null)
-            this.level.addMapsListener(() -> GameDisplay.this.repaint());
+            this.level.addMapsListener(() -> {
+                GameDisplay.this.paintMap();
+                GameDisplay.this.repaint();
+            });
     }
 
     ComponentListener onResize = new ComponentAdapter() {
@@ -114,6 +118,33 @@ public class GameDisplay extends JPanel implements Runnable {
             camera.setRatio((float)getHeight() / (float)getWidth());
         }
     };
+
+    public int getLevel() {
+        return Engine.world.levelList.indexOf(level);
+    }
+
+    BufferedImage bufferedMap;
+
+    public void paintMap()
+    {
+        if (level == null)
+            return;
+
+        int pixel_width = level.getWidth() * level.getTileWidth();
+        int pixel_height = level.getHeight() * level.getTileHeight();
+
+        bufferedMap = new BufferedImage(pixel_width,pixel_height, BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics buffer_graph = bufferedMap.getGraphics();
+
+        for (int l = 0; l < 10; ++l)
+            for(int y = 0; y < level.getHeight(); ++y)
+                for(int x = 0; x < level.getWidth(); ++x) {
+                    TilePair tile = level.getTile(x, y, l);
+
+                    if (tile != null)
+                        tile.getTileSet().drawtile(tile, x * level.getTileWidth(), y * level.getTileHeight(), buffer_graph);
+                }
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -131,14 +162,8 @@ public class GameDisplay extends JPanel implements Runnable {
         BufferedImage buffer = new BufferedImage(pixel_width,pixel_height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics buffer_graph = buffer.getGraphics();
 
-        for (int l = 0; l < 10; ++l)
-            for(int y = 0; y < level.getHeight(); ++y)
-                for(int x = 0; x < level.getWidth(); ++x) {
-                    TilePair tile = level.getTile(x, y, l);
-
-                    if (tile != null)
-                        tile.getTileSet().drawtile(tile, x * level.getTileWidth(), y * level.getTileHeight(), buffer_graph);
-                }
+        buffer_graph.drawImage(bufferedMap,camera.getFirst().x,camera.getFirst().y, camera.getSecond().x, camera.getSecond().y,
+                camera.getFirst().x,camera.getFirst().y, camera.getSecond().x, camera.getSecond().y,null);
 
         for (ObjectInstantiation instantiation : Engine.world.worldObjects.getInWorldObj()) {
 
@@ -147,6 +172,7 @@ public class GameDisplay extends JPanel implements Runnable {
                 buffer_graph.drawImage(instantiation.getCurrentSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
             }
         }
+
         g.drawImage(buffer,0,0,getWidth() ,getHeight(),
                 camera.getFirst().x, camera.getFirst().y,
                 camera.getSecond().x, camera.getSecond().y, null);
