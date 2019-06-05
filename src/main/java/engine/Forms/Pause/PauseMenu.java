@@ -5,14 +5,13 @@ import engine.Engine;
 import javax.swing.*;
 import java.awt.*;
 
-public class PauseMenu extends JPanel {
+public class PauseMenu extends JPopupMenu {
 
     public PauseMenu() {
         setPreferredSize(new Dimension(400,400));
         add(new JButton(new PauseResumeAction(this)));
-        add(new JButton(new PauseQuitAction()));
+        add(new JButton(new PauseQuitAction(this)));
 
-        setVisible(true);
-        Engine.getEngineFrame().getDisplay().stop();
+        setVisible(false);
     }
 }

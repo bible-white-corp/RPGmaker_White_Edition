@@ -13,7 +13,7 @@ public class newWorldAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String projectName = JOptionPane.showInputDialog(Editor.mainFrame,
+        String projectName = JOptionPane.showInputDialog(Editor.editFrame,
                 "Name the new project:", "New project", JOptionPane.INFORMATION_MESSAGE);
         if (projectName == null)
             return;
@@ -24,7 +24,7 @@ public class newWorldAction extends AbstractAction {
         {
             if (pane.getResult() != JOptionPane.OK_OPTION)
                 return;
-            JOptionPane.showMessageDialog(Editor.mainFrame, "Min values are 48 x 48 and 16 x 16",
+            JOptionPane.showMessageDialog(Editor.editFrame, "Min values are 48 x 48 and 16 x 16",
                     "Prompt error", JOptionPane.ERROR_MESSAGE);
             pane = new levelPaneMultiInput();
         }

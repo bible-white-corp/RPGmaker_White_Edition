@@ -152,7 +152,7 @@ public class MenuFrame extends JMenuBar{
 
         menuItem = new JMenuItem("Launch");
 
-        Action quick_lauch = new AbstractAction("Lauch") {
+        Action quick_lauch = new AbstractAction("Launch") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Engine.launchWorld(Editor.world);

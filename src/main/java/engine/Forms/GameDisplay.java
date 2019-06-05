@@ -20,7 +20,9 @@ public class GameDisplay extends JPanel implements Runnable {
     KeyBoardInput keyBoardInput = new KeyBoardInput();
     Camera camera = new Camera();
     Level level = null;
+    Boolean inEscMenu = false;
     private long elapse_time = 50;
+    PauseMenu pauseMenu;
 
     public GameDisplay()
     {
@@ -32,7 +34,9 @@ public class GameDisplay extends JPanel implements Runnable {
 
         addKeyListener(keyBoardInput);
 
-        Action quick_exit = new PauseQuitAction();
+        pauseMenu = new PauseMenu();
+
+        Action quick_exit = new PauseQuitAction(pauseMenu);
         quick_exit.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
         registerKeyboardAction(quick_exit,KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK), JComponent.WHEN_FOCUSED);
 
@@ -58,7 +62,12 @@ public class GameDisplay extends JPanel implements Runnable {
                 float zoom = camera.getZoom();
 
                 if (isEscPressed()){
-                    add(new PauseMenu());
+                    if (!inEscMenu) {
+                        enterMenu();
+                    }
+                    else {
+                        exitMenu();
+                    }
                     return;
                 }
 
@@ -216,6 +225,19 @@ public class GameDisplay extends JPanel implements Runnable {
             keyBoardInput.tick();
             repaint();
         }
+    }
+
+    void exitMenu(){
+        pauseMenu.setVisible(false);
+        remove(pauseMenu);
+        inEscMenu = false;
+        start();
+    }
+    void enterMenu(){
+        inEscMenu = true;
+        pauseMenu.setVisible(true);
+        add(pauseMenu);
+        stop();
     }
 }
 
