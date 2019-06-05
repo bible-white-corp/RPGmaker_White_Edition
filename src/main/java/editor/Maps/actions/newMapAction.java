@@ -27,8 +27,8 @@ public class newMapAction extends AbstractAction {
         if (pane.getResult() != JOptionPane.OK_OPTION)
             return;
 
-        Editor.world.addMap(pane.getHeightField() * pane.getTileHeightField(),
-                pane.getWidthField() * pane.getTileWidthField(),
+        Editor.world.addMap(pane.getHeightField(),
+                pane.getWidthField(),
                 pane.getTileHeightField(), pane.getTileWidthField(), pane.getLevelNameField());
     }
 }
