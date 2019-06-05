@@ -43,7 +43,6 @@ public class PTree {
         myTree.setShowsRootHandles(true);
         myTree.addMouseListener(new doubleClick());
 
-        myTree.setPreferredSize(new Dimension(0, 250));
     }
 
     public void addNewLevel(Level level, int index){

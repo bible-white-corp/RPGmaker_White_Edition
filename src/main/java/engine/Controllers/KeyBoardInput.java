@@ -92,4 +92,5 @@ public class KeyBoardInput implements KeyListener {
     public abstract static class PlayerInputListener extends KeyBoardListener {}
     public abstract static class CameraInputListener extends KeyBoardListener {}
     public abstract static class MenuInputListener extends  KeyBoardListener {}
+    public abstract static class TeleporterInputListener extends  KeyBoardListener {}
 }
