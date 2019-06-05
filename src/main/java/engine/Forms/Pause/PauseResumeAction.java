@@ -5,14 +5,11 @@ import engine.Engine;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class PauseResumeAction extends AbstractAction {
+public class PauseResumeAction {
 
-    public PauseResumeAction() {
-        super("Resume");
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Engine.getEngineFrame().getDisplay().exitMenu();
+    public static void perform() {
+
+        Engine.getEngineFrame().getDisplay().start();
     }
 }

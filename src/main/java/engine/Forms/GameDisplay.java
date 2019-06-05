@@ -21,9 +21,7 @@ public class GameDisplay extends JPanel implements Runnable {
     KeyBoardInput keyBoardInput = new KeyBoardInput();
     Camera camera = new Camera();
     Level level = null;
-    Boolean inEscMenu = false;
     private long elapse_time = 50;
-    PauseMenu pauseMenu;
 
     public GameDisplay()
     {
@@ -35,14 +33,11 @@ public class GameDisplay extends JPanel implements Runnable {
 
         addKeyListener(keyBoardInput);
 
-        pauseMenu = new PauseMenu();
-
         Action quick_exit = new PauseQuitAction();
-        quick_exit.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
         registerKeyboardAction(quick_exit,KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK), JComponent.WHEN_FOCUSED);
 
-      /*  Action quick_menu = new PauseAction();
-        quick_menu.putValue(Action.MNEMONIC_KEY, KeyStroke.get);*/
+        Action quick_menu = new PauseAction();
+        registerKeyboardAction(quick_menu,KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_FOCUSED);
 
         keyBoardInput.addKeyBoardListener(new KeyBoardInput.CameraInputListener() {
 
@@ -217,23 +212,9 @@ public class GameDisplay extends JPanel implements Runnable {
         }
     }
 
-    public void exitMenu(){
-        pauseMenu.setVisible(false);
-        remove(pauseMenu);
-        inEscMenu = false;
-        start();
-    }
-    void enterMenu(){
-        inEscMenu = true;
-        pauseMenu.setVisible(true);
-        add(pauseMenu);
-        stop();
-    }
     public void escPressed(){
-        if (!inEscMenu)
-            enterMenu();
-        else
-            exitMenu();
+        stop();
+        PauseMenu.perform();
     }
 }
 
