@@ -8,6 +8,11 @@ import java.io.IOException;
 public class Engine {
 
     public static World world;
+    private static EngineFrame engineFrame;
+
+    public static EngineFrame getEngineFrame() {
+        return engineFrame;
+    }
 
     public static void main(String[] args) {
 
@@ -28,8 +33,8 @@ public class Engine {
     {
         Engine.world = world;
 
-        EngineFrame frame = new EngineFrame();
-        frame.setVisible(true);
-        frame.start();
+        engineFrame = new EngineFrame();
+        engineFrame.setVisible(true);
+        engineFrame.start();
     }
 }

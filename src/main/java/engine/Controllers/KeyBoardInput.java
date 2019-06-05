@@ -22,6 +22,7 @@ public class KeyBoardInput implements KeyListener {
             KeyEvent.VK_W,
             KeyEvent.VK_1,
             KeyEvent.VK_2,
+            KeyEvent.VK_ESCAPE,
     };
 
     public void tick()

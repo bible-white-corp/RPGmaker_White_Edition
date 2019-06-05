@@ -7,6 +7,7 @@ import engine.Controllers.Camera;
 import engine.Controllers.GameKey;
 import engine.Controllers.KeyBoardInput;
 import engine.Engine;
+import engine.Forms.Pause.PauseMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,10 +43,19 @@ public class GameDisplay extends JPanel implements Runnable {
                         input.IsPressed(GameKey.Cam_Right);
             }
 
+            private boolean isEscPressed(){
+                return input.IsPressed(GameKey.Esc);
+            }
+
             @Override
             public void computeKey() {
 
                 float zoom = camera.getZoom();
+
+                if (isEscPressed()){
+                    add(new PauseMenu());
+                    return;
+                }
 
                 if (isCamKeyPressed()) {
 

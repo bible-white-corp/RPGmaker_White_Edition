@@ -10,6 +10,10 @@ public class EngineFrame extends JFrame {
 
     private GameDisplay display = new GameDisplay();
 
+    public GameDisplay getDisplay() {
+        return display;
+    }
+
     public EngineFrame()
     {
         add(display);

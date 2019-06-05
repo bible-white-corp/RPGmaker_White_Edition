@@ -11,7 +11,8 @@ public enum GameKey {
     Cam_Down,
     Cam_Up,
     Cam_Zoom_Plus,
-    Cam_Zoom_Minus;
+    Cam_Zoom_Minus,
+    Esc;
 
     public static int Count = GameKey.values().length;
 }
