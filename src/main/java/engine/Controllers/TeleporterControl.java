@@ -4,6 +4,8 @@ import editor.Editor;
 import editor.Object.ObjectInstantiation;
 import engine.Engine;
 
+import java.awt.*;
+
 public class TeleporterControl extends KeyBoardInput.TeleporterInputListener {
 
     ObjectInstantiation player;
@@ -19,7 +21,18 @@ public class TeleporterControl extends KeyBoardInput.TeleporterInputListener {
 
     public boolean playerCollide()
     {
-        return false;
+        Point center = (Point) player.getPosition().clone();
+        center.move(player.getCurrentSprite().getX(), player.getCurrentSprite().getY());
+
+        int width = self.getCurrentSprite().getX();
+        int height = self.getCurrentSprite().getY();
+
+        Point upperleft = self.getPosition();
+
+        int deltax = center.x - upperleft.x;
+        int deltay = center.y - upperleft.y;
+
+        return deltax >= 0 && deltax < width && deltay > 0 && deltay < height;
     }
 
     @Override
