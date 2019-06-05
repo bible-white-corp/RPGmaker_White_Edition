@@ -45,4 +45,8 @@ public class EngineFrame extends JFrame {
 
         display.start();
     }
+
+    public void stop(){
+        display.stop();
+    }
 }
