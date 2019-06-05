@@ -44,9 +44,7 @@ public class PlayerControl extends PlayerInputListener {
     }
 
     @Override
-    protected void computeKey() {
-
-
+    public void computeKey() {
 
         if (isPlayerKeyPressed()) {
 

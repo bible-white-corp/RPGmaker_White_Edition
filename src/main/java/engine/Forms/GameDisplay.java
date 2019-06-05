@@ -1,6 +1,5 @@
 package engine.Forms;
 
-import editor.Forms.GameFrame;
 import editor.Maps.Level;
 import editor.Object.ObjectInstantiation;
 import editor.Tiles.TilePair;
@@ -19,6 +18,7 @@ public class GameDisplay extends JPanel implements Runnable {
     KeyBoardInput keyBoardInput = new KeyBoardInput();
     Camera camera = new Camera();
     Level level = null;
+    private long elapse_time = 20;
 
     public GameDisplay()
     {
@@ -43,7 +43,7 @@ public class GameDisplay extends JPanel implements Runnable {
             }
 
             @Override
-            protected void computeKey() {
+            public void computeKey() {
 
                 float zoom = camera.getZoom();
 
@@ -165,13 +165,14 @@ public class GameDisplay extends JPanel implements Runnable {
 
             try
             {
-                Thread.sleep(20);
+                Thread.sleep(elapse_time);
             }
             catch (InterruptedException e)
             {
 
             }
 
+            keyBoardInput.tick();
             repaint();
         }
     }

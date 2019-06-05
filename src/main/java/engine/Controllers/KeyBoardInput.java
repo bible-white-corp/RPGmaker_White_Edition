@@ -3,12 +3,13 @@ package engine.Controllers;
 import javax.swing.event.EventListenerList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
 import java.util.EventListener;
 
 public class KeyBoardInput implements KeyListener {
 
     private boolean isPressed[] = new boolean[GameKey.Count];
+
+    private EventListenerList listenerList = new EventListenerList();
 
     private int key_to_enum[] = {
             KeyEvent.VK_LEFT,
@@ -22,6 +23,14 @@ public class KeyBoardInput implements KeyListener {
             KeyEvent.VK_1,
             KeyEvent.VK_2,
     };
+
+    public void tick()
+    {
+        for (KeyBoardListener listener : listenerList.getListeners(KeyBoardListener.class))
+        {
+            listener.computeKey();
+        }
+    }
 
     @Override
     public void keyTyped(KeyEvent keyEvent) {
@@ -63,55 +72,20 @@ public class KeyBoardInput implements KeyListener {
     public void addKeyBoardListener(KeyBoardListener listener)
     {
         listener.input = this;
-        listener.start();
+        listenerList.add(KeyBoardListener.class, listener);
     }
 
     public void removeKeyBoardListener(KeyBoardListener listener)
     {
         listener.input = null;
-        listener.stop();
+        listenerList.remove(KeyBoardListener.class, listener);
     }
 
-    private static abstract class KeyBoardListener implements EventListener, Runnable {
+    private static abstract class KeyBoardListener implements EventListener {
 
-        protected int elapse_time = 20;
         public KeyBoardInput input;
 
-        Thread thread = null;
-
-        public void start() {
-
-            if (thread == null) {
-
-                thread = new Thread(this);
-                thread.start();
-            }
-        }
-
-        public void stop() {
-
-            thread = null;
-        }
-
-        @Override
-        public void run() {
-
-            while (thread != null) {
-
-                try
-                {
-                    Thread.sleep(elapse_time);
-                }
-                catch (InterruptedException e)
-                {
-
-                }
-
-                computeKey();
-            }
-        }
-
-        protected abstract void computeKey();
+        public abstract void computeKey();
     }
 
     public abstract static class PlayerInputListener extends KeyBoardListener {}
