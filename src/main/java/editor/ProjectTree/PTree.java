@@ -270,9 +270,7 @@ public class PTree {
         int res = JOptionPane.NO_OPTION;
 
         for (int i = 0; i < instanciations.size(); i++) { //for each obj
-            System.out.println("name :" + p.name + "index:" + p.index);
             if (instanciations.get(i).getIntel().is_anim(p.index)) { //if anim used
-                //ask for confirmation
                 res = JOptionPane.showConfirmDialog(Editor.editFrame, "This animation is " +
                         "used in at least one object, do you really want to delete it ?");
                 if (res == JOptionPane.YES_OPTION)
@@ -282,8 +280,14 @@ public class PTree {
                             "Supression cancelled", "Cancelled",
                             JOptionPane.INFORMATION_MESSAGE);
             }
+
+            if (instanciations.get(i).getIntel().getAnimations().isEmpty()) {
+                Editor.world.worldObjects.removeObject(instanciations.get(i).getObjIntelIndex());
+                instanciations.remove(i);
+                //TODO remove it in the tree too ?
+            }
+
         }
-        //if object has no more anim, it must be deleted
     }
 
     private void customizeObjIntel(pair p) {

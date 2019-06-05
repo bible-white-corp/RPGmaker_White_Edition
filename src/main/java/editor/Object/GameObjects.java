@@ -98,6 +98,10 @@ public class GameObjects {
         objs.add(tmp);
     }
 
+    public void removeObject(int objectIntelIndex) {
+        objs.remove(objectIntelIndex);
+    }
+
     public void addSpriteSheet(String path) throws IOException {
         SpriteSheet sheet = SpriteSheet.importSpriteSheet(path);
         Editor.world.projectTree.addNewSpritesSheet(sheet, spriteSheetList.size());

@@ -35,6 +35,9 @@ public class ObjectIntel {
         animations.remove(index);
     }
 
+    public List<Integer> getAnimations() {
+        return animations;
+    }
 
     public Animation getAnimation(int index)
     {
