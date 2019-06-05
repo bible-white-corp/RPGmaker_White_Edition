@@ -185,9 +185,9 @@ public class ObjTreeLevel {
     }
 
     private void customizeDialog(pair p) {
-        System.out.println(Editor.world.worldObjects.getInWorldObj().get(p.index).getDialog());
         String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
-                "New dialog:", "Change dialog", JOptionPane.INFORMATION_MESSAGE);
+                "Current dialog: " + Editor.world.worldObjects.getInWorldObj().get(p.index).getDialog()+
+                        "\nNew dialog: ", "Change dialog", JOptionPane.INFORMATION_MESSAGE);
         if (s == null)
             return;
         Editor.world.worldObjects.getInWorldObj().get(p.index).setDialog(s);
