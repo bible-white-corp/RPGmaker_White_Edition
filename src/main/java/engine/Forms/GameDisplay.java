@@ -36,7 +36,7 @@ public class GameDisplay extends JPanel implements Runnable {
 
         pauseMenu = new PauseMenu();
 
-        Action quick_exit = new PauseQuitAction(pauseMenu);
+        Action quick_exit = new PauseQuitAction();
         quick_exit.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
         registerKeyboardAction(quick_exit,KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK), JComponent.WHEN_FOCUSED);
 
@@ -227,7 +227,7 @@ public class GameDisplay extends JPanel implements Runnable {
         }
     }
 
-    void exitMenu(){
+    public void exitMenu(){
         pauseMenu.setVisible(false);
         remove(pauseMenu);
         inEscMenu = false;

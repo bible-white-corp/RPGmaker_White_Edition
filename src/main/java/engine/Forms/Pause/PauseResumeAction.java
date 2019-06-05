@@ -7,16 +7,12 @@ import java.awt.event.ActionEvent;
 
 public class PauseResumeAction extends AbstractAction {
 
-    private PauseMenu pauseMenu;
-
-    public PauseResumeAction(PauseMenu pauseMenu) {
+    public PauseResumeAction() {
         super("Resume");
-        this.pauseMenu = pauseMenu;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Engine.getEngineFrame().start();
-        Engine.getEngineFrame().remove(pauseMenu);
+        Engine.getEngineFrame().getDisplay().exitMenu();
     }
 }

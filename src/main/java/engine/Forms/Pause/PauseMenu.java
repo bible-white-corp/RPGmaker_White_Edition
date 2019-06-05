@@ -9,8 +9,8 @@ public class PauseMenu extends JPopupMenu {
 
     public PauseMenu() {
         setPreferredSize(new Dimension(400,400));
-        add(new JButton(new PauseResumeAction(this)));
-        add(new JButton(new PauseQuitAction(this)));
+        add(new ResumeButton());
+        add(new QuitButton());
 
         setVisible(false);
     }

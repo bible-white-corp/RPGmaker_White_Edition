@@ -10,11 +10,9 @@ import static java.lang.System.exit;
 
 public class PauseQuitAction extends AbstractAction {
 
-    private PauseMenu pauseMenu;
 
-    public PauseQuitAction(PauseMenu pauseMenu) {
+    public PauseQuitAction() {
         super("Quit");
-        this.pauseMenu = pauseMenu;
     }
 
     @Override
