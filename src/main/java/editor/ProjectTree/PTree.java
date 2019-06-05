@@ -217,6 +217,7 @@ public class PTree {
         if (s == null)
             return;
         if (s == "Delete") {
+            //TODO deleteCascade
             sprites.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
             myTree.updateUI();
             return;
@@ -245,6 +246,8 @@ public class PTree {
         if (s == null)
             return;
         if (s == "Delete") {
+            //TODO deleteCascade
+            deleteAnim(p);
             animations.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
             myTree.updateUI();
             return;
@@ -259,6 +262,28 @@ public class PTree {
             myTree.updateUI();
             return;
         }
+    }
+
+    private void deleteAnim(pair p) {
+        List<ObjectInstantiation> instanciations = Editor.world.worldObjects.getInWorldObj();
+
+        int res = JOptionPane.NO_OPTION;
+
+        for (int i = 0; i < instanciations.size(); i++) { //for each obj
+            System.out.println("name :" + p.name + "index:" + p.index);
+            if (instanciations.get(i).getIntel().is_anim(p.index)) { //if anim used
+                //ask for confirmation
+                res = JOptionPane.showConfirmDialog(Editor.editFrame, "This animation is " +
+                        "used in at least one object, do you really want to delete it ?");
+                if (res == JOptionPane.YES_OPTION)
+                    instanciations.get(i).getIntel().removeAnimation(p.index);
+                else
+                    JOptionPane.showMessageDialog(Editor.editFrame,
+                            "Supression cancelled", "Cancelled",
+                            JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        //if object has no more anim, it must be deleted
     }
 
     private void customizeObjIntel(pair p) {

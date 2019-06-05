@@ -20,11 +20,21 @@ public class ObjectIntel {
 
         animations.add(index);
     }
+
+    public boolean is_anim(int animIndex) {
+        for (int i = 0; i < animations.size(); i++) {
+            if (animations.get(i) == animIndex)
+                return true;
+        }
+        return false;
+    }
+
     public void removeAnimation(int index){
         if (index < 0 || index >= animations.size())
             throw new IndexOutOfBoundsException();
         animations.remove(index);
     }
+
 
     public Animation getAnimation(int index)
     {
