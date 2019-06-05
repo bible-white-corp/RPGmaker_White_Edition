@@ -8,6 +8,7 @@ import engine.Controllers.GameKey;
 import engine.Controllers.KeyBoardInput;
 import engine.Engine;
 import engine.Forms.Pause.PauseMenu;
+import engine.Forms.Pause.PauseQuitAction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class GameDisplay extends JPanel implements Runnable {
     KeyBoardInput keyBoardInput = new KeyBoardInput();
     Camera camera = new Camera();
     Level level = null;
-    private long elapse_time = 20;
+    private long elapse_time = 50;
 
     public GameDisplay()
     {
@@ -30,6 +31,10 @@ public class GameDisplay extends JPanel implements Runnable {
         addComponentListener(onResize);
 
         addKeyListener(keyBoardInput);
+
+        Action quick_exit = new PauseQuitAction();
+        quick_exit.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
+        registerKeyboardAction(quick_exit,KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK), JComponent.WHEN_FOCUSED);
 
         keyBoardInput.addKeyBoardListener(new KeyBoardInput.CameraInputListener() {
 
