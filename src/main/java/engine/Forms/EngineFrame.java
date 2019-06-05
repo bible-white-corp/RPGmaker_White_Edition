@@ -41,6 +41,8 @@ public class EngineFrame extends JFrame {
             PlayerControl playerControl = new PlayerControl(player, display.getCamera());
 
             display.getKeyBoardInput().addKeyBoardListener(playerControl);
+
+            setLevel(player.getLevelIndex());
         }
 
         display.start();
