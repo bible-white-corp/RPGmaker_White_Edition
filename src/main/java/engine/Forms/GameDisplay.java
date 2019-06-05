@@ -7,6 +7,7 @@ import engine.Controllers.Camera;
 import engine.Controllers.GameKey;
 import engine.Controllers.KeyBoardInput;
 import engine.Engine;
+import engine.Forms.Pause.PauseAction;
 import engine.Forms.Pause.PauseMenu;
 import engine.Forms.Pause.PauseQuitAction;
 
@@ -40,6 +41,9 @@ public class GameDisplay extends JPanel implements Runnable {
         quick_exit.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
         registerKeyboardAction(quick_exit,KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK), JComponent.WHEN_FOCUSED);
 
+      /*  Action quick_menu = new PauseAction();
+        quick_menu.putValue(Action.MNEMONIC_KEY, KeyStroke.get);*/
+
         keyBoardInput.addKeyBoardListener(new KeyBoardInput.CameraInputListener() {
 
             private boolean isCamKeyPressed()
@@ -52,24 +56,10 @@ public class GameDisplay extends JPanel implements Runnable {
                         input.IsPressed(GameKey.Cam_Right);
             }
 
-            private boolean isEscPressed(){
-                return input.IsPressed(GameKey.Esc);
-            }
-
             @Override
             public void computeKey() {
 
                 float zoom = camera.getZoom();
-
-                if (isEscPressed()){
-                    if (!inEscMenu) {
-                        enterMenu();
-                    }
-                    else {
-                        exitMenu();
-                    }
-                    return;
-                }
 
                 if (isCamKeyPressed()) {
 
@@ -238,6 +228,12 @@ public class GameDisplay extends JPanel implements Runnable {
         pauseMenu.setVisible(true);
         add(pauseMenu);
         stop();
+    }
+    public void escPressed(){
+        if (!inEscMenu)
+            enterMenu();
+        else
+            exitMenu();
     }
 }
 
