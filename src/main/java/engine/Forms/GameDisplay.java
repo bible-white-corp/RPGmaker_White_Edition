@@ -7,6 +7,7 @@ import engine.Controllers.Camera;
 import engine.Controllers.GameKey;
 import engine.Controllers.KeyBoardInput;
 import engine.Engine;
+import engine.Forms.Dialogs.askDialog;
 import engine.Forms.Pause.PauseAction;
 import engine.Forms.Pause.PauseMenu;
 import engine.Forms.Pause.PauseQuitAction;
@@ -15,6 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.security.Key;
 
 public class GameDisplay extends JPanel implements Runnable {
 
@@ -34,10 +36,13 @@ public class GameDisplay extends JPanel implements Runnable {
         addKeyListener(keyBoardInput);
 
         Action quick_exit = new PauseQuitAction();
-        registerKeyboardAction(quick_exit,KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK), JComponent.WHEN_FOCUSED);
+        registerKeyboardAction(quick_exit, KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK), JComponent.WHEN_FOCUSED);
 
         Action quick_menu = new PauseAction();
-        registerKeyboardAction(quick_menu,KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_FOCUSED);
+        registerKeyboardAction(quick_menu, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_FOCUSED);
+
+        Action quick_dialog = new askDialog();
+        registerKeyboardAction(quick_dialog, KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,0), JComponent.WHEN_FOCUSED);
 
         keyBoardInput.addKeyBoardListener(new KeyBoardInput.CameraInputListener() {
 
@@ -120,6 +125,10 @@ public class GameDisplay extends JPanel implements Runnable {
 
     public int getLevel() {
         return Engine.world.levelList.indexOf(level);
+    }
+
+    public Level getCurLevel(){
+        return this.level;
     }
 
     BufferedImage bufferedMap;
