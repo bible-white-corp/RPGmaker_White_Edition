@@ -10,7 +10,7 @@ public class EditFrame extends JFrame {
     JPanel pan = new JPanel();
     JMenuBar menuBar;
     JToolBar toolBar;
-    JPanel footer;
+    FooterFrame footer;
     public TileSetFrame tileSetFrame;
     public ObjectFrame objectFrame;
     public ObjectEditionFrame editionFrame;
@@ -25,6 +25,8 @@ public class EditFrame extends JFrame {
 
         setTitle("RpgEditor");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        footer.setFooterMouseListener(Editor.mainFrame);
     }
 
     private void createMainFrame() {
