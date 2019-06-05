@@ -62,6 +62,10 @@ public class ObjTreeLevel {
 
         for (int i = 0; i < objectInstantiations.size(); i++) {
             tmp = objectInstantiations.get(i);
+
+            if (tmp == null)
+                continue;
+
             if (tmp.getType() == objType.ITEM) {
                 node = item;
             } else if (tmp.getType() == objType.NPC) {

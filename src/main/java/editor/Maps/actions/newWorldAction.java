@@ -19,12 +19,12 @@ public class newWorldAction extends AbstractAction {
             return;
 
         levelPaneMultiInput pane = new levelPaneMultiInput();
-        while (pane.getHeightField() <= 48 || pane.getWidthField() <= 48 ||
+        while (pane.getHeightField() <= 3 || pane.getWidthField() <= 3 ||
                 pane.getTileHeightField() <= 15 || pane.getTileWidthField() <= 15)
         {
             if (pane.getResult() != JOptionPane.OK_OPTION)
                 return;
-            JOptionPane.showMessageDialog(Editor.editFrame, "Min values are 48 x 48 and 16 x 16",
+            JOptionPane.showMessageDialog(Editor.editFrame, "Min values are 4 x 4 and 16 x 16",
                     "Prompt error", JOptionPane.ERROR_MESSAGE);
             pane = new levelPaneMultiInput();
         }

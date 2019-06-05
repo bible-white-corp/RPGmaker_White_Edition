@@ -50,7 +50,7 @@ public class PlayerControl extends PlayerInputListener {
 
             Point coords = (Point) player.getPosition().clone();
 
-            int player_speed = 2;
+            int player_speed = 4;
 
             if (input.IsPressed(GameKey.Up)) {
 

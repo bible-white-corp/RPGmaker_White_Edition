@@ -144,6 +144,9 @@ public class GameDisplay extends JPanel implements Runnable {
         bufferedMap = new BufferedImage(pixel_width,pixel_height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics buffer_graph = bufferedMap.getGraphics();
 
+        buffer_graph.setColor(Color.BLACK);
+        buffer_graph.fillRect(0,0,pixel_width,pixel_height);
+
         for (int l = 0; l < 10; ++l)
             for(int y = 0; y < level.getHeight(); ++y)
                 for(int x = 0; x < level.getWidth(); ++x) {
@@ -164,11 +167,14 @@ public class GameDisplay extends JPanel implements Runnable {
         int pixel_width = level.getWidth() * level.getTileWidth();
         int pixel_height = level.getHeight() * level.getTileHeight();
 
-        g.setColor(Color.GRAY);
-        g.fillRect(0,0, pixel_width , pixel_height);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0, getWidth() , getHeight());
 
         BufferedImage buffer = new BufferedImage(pixel_width,pixel_height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics buffer_graph = buffer.getGraphics();
+
+        buffer_graph.setColor(Color.BLACK);
+        buffer_graph.fillRect(0,0,pixel_width,pixel_height);
 
         buffer_graph.drawImage(bufferedMap,camera.getFirst().x,camera.getFirst().y, camera.getSecond().x, camera.getSecond().y,
                 camera.getFirst().x,camera.getFirst().y, camera.getSecond().x, camera.getSecond().y,null);
@@ -184,6 +190,8 @@ public class GameDisplay extends JPanel implements Runnable {
         g.drawImage(buffer,0,0,getWidth() ,getHeight(),
                 camera.getFirst().x, camera.getFirst().y,
                 camera.getSecond().x, camera.getSecond().y, null);
+
+        buffer_graph.dispose();
     }
 
     Thread thread = null;

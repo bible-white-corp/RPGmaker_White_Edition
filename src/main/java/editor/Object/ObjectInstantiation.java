@@ -58,6 +58,10 @@ public class ObjectInstantiation {
         return levelIndex;
     }
 
+    public void setLevelIndex(int levelIndex) {
+        this.levelIndex = levelIndex;
+    }
+
     public void setRandomMove(boolean randomMove) {
         this.randomMove = randomMove;
     }
