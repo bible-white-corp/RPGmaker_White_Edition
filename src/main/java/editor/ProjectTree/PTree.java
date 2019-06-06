@@ -246,7 +246,7 @@ public class PTree {
         if (s == null)
             return;
         if (s == "Delete") {
-            deleteAnim(p);
+            deleteAnim(p, false);
             animations.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
             myTree.updateUI();
             return;
@@ -266,39 +266,47 @@ public class PTree {
     private void deleteSprite(pair p) {
         List<Animation> animations = Editor.world.worldObjects.getAnimations();
         int res = JOptionPane.NO_OPTION;
-        System.out.println(p.name + ":" + p.index);
 
         for (int i = 0; i < animations.size(); i++) {
-            System.out.println(animations.get(i).getSprites());
             if (animations.get(i).is_sprite(p.index)) {
                 res = JOptionPane.showConfirmDialog(Editor.editFrame, "This sprite is " +
                         "used in at least one animation, do you really want to delete it ?");
                 if (res == JOptionPane.YES_OPTION)
-                    animations.get(i).removeSprite(p.index);//FIXME
+                    animations.get(i).removeSprite(p.index);
                 else
                     JOptionPane.showMessageDialog(Editor.editFrame,
-                            "Supression cancelled", "Cancelled",
+                            "Deleting cancelled", "Cancelled",
                             JOptionPane.INFORMATION_MESSAGE);
             }
+
+            //check if all anim still have at least one sprite
+            if (animations.get(i).getSprites().size() == 0) {
+                deleteAnim(new pair(i, animations.get(i).getName()), true);
+                animations.remove(i);
+                //FIXME delete in tree too
+            }
         }
-        //check if anim still has at least one sprite, otherwise call deleteAnim and delete it
     }
 
-    private void deleteAnim(pair p) {
+    private void deleteAnim(pair p, boolean noSprite) {
         List<ObjectInstantiation> instanciations = Editor.world.worldObjects.getInWorldObj();
 
         int res = JOptionPane.NO_OPTION;
 
         for (int i = 0; i < instanciations.size(); i++) { //for each obj
             if (instanciations.get(i).getIntel().is_anim(p.index)) { //if anim used
-                res = JOptionPane.showConfirmDialog(Editor.editFrame, "This animation is " +
-                        "used in at least one object, do you really want to delete it ?");
-                if (res == JOptionPane.YES_OPTION)
-                    instanciations.get(i).getIntel().removeAnimation(p.index);//FIXME
-                else
-                    JOptionPane.showMessageDialog(Editor.editFrame,
-                            "Supression cancelled", "Cancelled",
-                            JOptionPane.INFORMATION_MESSAGE);
+                if (noSprite)
+                    instanciations.get(i).getIntel().removeAnimation(p.index);
+                else {
+                    res = JOptionPane.showConfirmDialog(Editor.editFrame, "This animation is " +
+                            "used in at least one object, do you really want to delete it ?");
+                    if (res == JOptionPane.YES_OPTION)
+                        instanciations.get(i).getIntel().removeAnimation(p.index);
+                    else
+                        JOptionPane.showMessageDialog(Editor.editFrame,
+                                "Supression cancelled", "Cancelled",
+                                JOptionPane.INFORMATION_MESSAGE);
+                }
             }
 
             if (instanciations.get(i).getIntel().getAnimations().isEmpty()) {
