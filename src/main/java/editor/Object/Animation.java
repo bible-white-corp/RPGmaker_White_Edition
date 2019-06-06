@@ -71,4 +71,22 @@ public class Animation {
         this.name = name;
         this.sprites = sprites;
     }
+
+    public boolean is_sprite(int spriteNb) {
+        for (int i = 0; i < sprites.size(); i++) {
+            if (sprites.get(i) == spriteNb)
+                return true;
+        }
+        return false;
+    }
+
+    public void removeSprite(int spriteNb) {
+        if (!is_sprite(spriteNb))
+            return;
+
+        for (int i = 0; i < sprites.size(); i++) {
+            if (sprites.get(i) == spriteNb)
+                sprites.remove(i);
+        }
+    }
 }

@@ -217,7 +217,7 @@ public class PTree {
         if (s == null)
             return;
         if (s == "Delete") {
-            //TODO deleteCascade
+            deleteSprite(p);
             sprites.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
             myTree.updateUI();
             return;
@@ -246,7 +246,6 @@ public class PTree {
         if (s == null)
             return;
         if (s == "Delete") {
-            //TODO deleteCascade
             deleteAnim(p);
             animations.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
             myTree.updateUI();
@@ -264,6 +263,27 @@ public class PTree {
         }
     }
 
+    private void deleteSprite(pair p) {
+        List<Animation> animations = Editor.world.worldObjects.getAnimations();
+        int res = JOptionPane.NO_OPTION;
+        System.out.println(p.name + ":" + p.index);
+
+        for (int i = 0; i < animations.size(); i++) {
+            System.out.println(animations.get(i).getSprites());
+            if (animations.get(i).is_sprite(p.index)) {
+                res = JOptionPane.showConfirmDialog(Editor.editFrame, "This sprite is " +
+                        "used in at least one animation, do you really want to delete it ?");
+                if (res == JOptionPane.YES_OPTION)
+                    animations.get(i).removeSprite(p.index);//FIXME
+                else
+                    JOptionPane.showMessageDialog(Editor.editFrame,
+                            "Supression cancelled", "Cancelled",
+                            JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        //check if anim still has at least one sprite, otherwise call deleteAnim and delete it
+    }
+
     private void deleteAnim(pair p) {
         List<ObjectInstantiation> instanciations = Editor.world.worldObjects.getInWorldObj();
 
@@ -274,7 +294,7 @@ public class PTree {
                 res = JOptionPane.showConfirmDialog(Editor.editFrame, "This animation is " +
                         "used in at least one object, do you really want to delete it ?");
                 if (res == JOptionPane.YES_OPTION)
-                    instanciations.get(i).getIntel().removeAnimation(p.index);
+                    instanciations.get(i).getIntel().removeAnimation(p.index);//FIXME
                 else
                     JOptionPane.showMessageDialog(Editor.editFrame,
                             "Supression cancelled", "Cancelled",
@@ -286,7 +306,6 @@ public class PTree {
                 instanciations.remove(i);
                 //TODO remove it in the tree too ?
             }
-
         }
     }
 
