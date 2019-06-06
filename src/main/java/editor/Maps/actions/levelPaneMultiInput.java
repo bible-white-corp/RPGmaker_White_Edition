@@ -53,7 +53,7 @@ public class levelPaneMultiInput {
         askPanel.add(new JLabel("Level Name:"));
         askPanel.add(levelNameField);
 
-        result = JOptionPane.showConfirmDialog(Editor.mainFrame, askPanel,
+        result = JOptionPane.showConfirmDialog(Editor.editFrame, askPanel,
                 "Enter values for the new map", JOptionPane.OK_CANCEL_OPTION);
     }
 

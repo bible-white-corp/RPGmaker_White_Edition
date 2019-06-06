@@ -1,5 +1,8 @@
 package engine.Controllers;
 
+import editor.Maps.Level;
+import engine.Engine;
+
 import java.awt.*;
 
 public class Camera implements Runnable{
@@ -55,16 +58,48 @@ public class Camera implements Runnable{
         target_ratio = new_ratio;
     }
 
-    private void computeCamera()
-    {
+    private void computeCamera() {
+        Level l = Engine.world.levelList.get(Engine.getEngineFrame().getDisplay().getLevel());
+
         int width = (int) (320 * zoom);
         int height = (int) (width * ratio);
+
+        int pixel_width = l.getWidth() * l.getTileWidth();
+        int pixel_height = l.getHeight() * l.getTileHeight();
 
         first.x = focus.x - width;
         first.y = focus.y - height;
 
-        second.x = focus.x + width;
-        second.y = focus.y + height;
+        if (pixel_width > width * 2) {
+
+            if (first.x < 0)
+                first.x = 0;
+
+            second.x = first.x + 2 * width;
+
+            if (second.x >= pixel_width)
+                second.x = pixel_width - 1;
+
+            first.x = second.x - 2 * width;
+        }
+        else
+            second.x = first.x + 2 * width;
+
+        if (pixel_height > height * 2) {
+
+            if (first.y < 0)
+                first.y = 0;
+
+            second.y = first.y + 2 * height;
+
+            if (second.y >= pixel_height)
+                second.y = pixel_height - 1;
+
+            first.y = second.y - 2 * height;
+        }
+        else
+            second.y = first.y + 2 * height;
+
     }
 
 

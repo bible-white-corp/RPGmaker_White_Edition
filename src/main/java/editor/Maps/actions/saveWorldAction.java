@@ -28,18 +28,18 @@ public class saveWorldAction extends AbstractAction {
             JFileChooser fileChooser = new JFileChooser(".");
             fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-            if (fileChooser.showSaveDialog(Editor.mainFrame) == JFileChooser.APPROVE_OPTION) {
+            if (fileChooser.showSaveDialog(Editor.editFrame) == JFileChooser.APPROVE_OPTION) {
                     success = Editor.world.exportMap(fileChooser.getSelectedFile().getPath());
             }
             else
                 return;
         }
         if (success){
-            JOptionPane.showMessageDialog(Editor.mainFrame, "Save complete",
+            JOptionPane.showMessageDialog(Editor.editFrame, "Save complete",
                     "Success", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the export",
+            JOptionPane.showMessageDialog(Editor.editFrame, "IO error cancelled the export",
                     "IO error", JOptionPane.ERROR_MESSAGE);
         }
     }

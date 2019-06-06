@@ -22,7 +22,7 @@ public class createTileSetAction extends AbstractAction {
 
         JFileChooser fileChooser = new JFileChooser(".");
 
-        if (fileChooser.showOpenDialog(Editor.mainFrame) == JFileChooser.APPROVE_OPTION) {
+        if (fileChooser.showOpenDialog(Editor.editFrame) == JFileChooser.APPROVE_OPTION) {
 
             if (ask_size() != JOptionPane.OK_OPTION)
                 return;
@@ -32,12 +32,12 @@ public class createTileSetAction extends AbstractAction {
 
             if (!creation) {
 
-                JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the import",
+                JOptionPane.showMessageDialog(Editor.editFrame, "IO error cancelled the import",
                         "IO error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            JOptionPane.showMessageDialog(Editor.mainFrame, "Loading Complete!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(Editor.editFrame, "Loading Complete!", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -61,9 +61,9 @@ public class createTileSetAction extends AbstractAction {
 
         int res = 0;
         do {
-            res = JOptionPane.showConfirmDialog(Editor.mainFrame, askPanel,
-                    "Enter values for the new map", JOptionPane.OK_CANCEL_OPTION);
-        } while (getTileHeightField() < 1 && getTileWidthField() < 1);
+            res = JOptionPane.showConfirmDialog(Editor.editFrame, askPanel,
+                    "Enter values for the TileSet dimensions", JOptionPane.OK_CANCEL_OPTION);
+        } while ((getTileHeightField() < 1 && getTileWidthField() < 1) && res != JOptionPane.CANCEL_OPTION);
 
         return res;
     }

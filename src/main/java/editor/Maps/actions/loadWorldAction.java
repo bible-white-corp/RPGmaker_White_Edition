@@ -18,7 +18,7 @@ public class loadWorldAction extends AbstractAction {
         JFileChooser fileChooser = new JFileChooser(".");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-        if (fileChooser.showOpenDialog(Editor.mainFrame) == JFileChooser.APPROVE_OPTION){
+        if (fileChooser.showOpenDialog(Editor.editFrame) == JFileChooser.APPROVE_OPTION){
             try {
                 World w = World.importWorld(fileChooser.getSelectedFile().getPath());
                 Editor.world = w;
@@ -33,11 +33,11 @@ public class loadWorldAction extends AbstractAction {
 
                 excep.printStackTrace();
 
-                JOptionPane.showMessageDialog(Editor.mainFrame, "IO error cancelled the import",
+                JOptionPane.showMessageDialog(Editor.editFrame, "IO error cancelled the import",
                         "IO error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(Editor.mainFrame, "Loading Complete!",
+            JOptionPane.showMessageDialog(Editor.editFrame, "Loading Complete!",
                     "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }

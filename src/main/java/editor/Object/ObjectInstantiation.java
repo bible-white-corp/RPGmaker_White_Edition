@@ -60,6 +60,10 @@ public class ObjectInstantiation {
 
     public int getObjIntelIndex() { return objIntelIndex; }
 
+    public void setLevelIndex(int levelIndex) {
+        this.levelIndex = levelIndex;
+    }
+
     public void setRandomMove(boolean randomMove) {
         this.randomMove = randomMove;
     }
@@ -92,7 +96,7 @@ public class ObjectInstantiation {
         this.position = position;
         if (this.type == objType.PLAYER) {
             if (Editor.world.worldObjects.getPlayer() != null)
-                Editor.world.worldObjects.getInWorldObj().remove(Editor.world.worldObjects.getPlayer().getIndex());
+                Editor.world.worldObjects.getInWorldObj().set(Editor.world.worldObjects.player.getIndex(), null);
             Editor.world.worldObjects.setPlayer(this);
             Editor.world.objTree.removeAllPlayers();
         }

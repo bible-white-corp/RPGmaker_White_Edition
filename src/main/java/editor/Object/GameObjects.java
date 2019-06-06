@@ -41,6 +41,7 @@ public class GameObjects {
         File f = new File(location);
         f.mkdirs();
 
+        spritesSheetNames = new Vector<>();
         for (SpriteSheet sheet : spriteSheetList){
             spritesSheetNames.add(sheet.name);
             new Thread(() -> {

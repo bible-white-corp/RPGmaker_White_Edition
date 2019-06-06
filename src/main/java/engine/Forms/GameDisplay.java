@@ -7,19 +7,23 @@ import engine.Controllers.Camera;
 import engine.Controllers.GameKey;
 import engine.Controllers.KeyBoardInput;
 import engine.Engine;
+import engine.Forms.Dialogs.askDialog;
+import engine.Forms.Pause.PauseAction;
 import engine.Forms.Pause.PauseMenu;
+import engine.Forms.Pause.PauseQuitAction;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.security.Key;
 
 public class GameDisplay extends JPanel implements Runnable {
 
     KeyBoardInput keyBoardInput = new KeyBoardInput();
     Camera camera = new Camera();
     Level level = null;
-    private long elapse_time = 20;
+    private long elapse_time = 50;
 
     public GameDisplay()
     {
@@ -30,6 +34,15 @@ public class GameDisplay extends JPanel implements Runnable {
         addComponentListener(onResize);
 
         addKeyListener(keyBoardInput);
+
+        Action quick_exit = new PauseQuitAction();
+        registerKeyboardAction(quick_exit, KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK), JComponent.WHEN_FOCUSED);
+
+        Action quick_menu = new PauseAction();
+        registerKeyboardAction(quick_menu, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_FOCUSED);
+
+        Action quick_dialog = new askDialog();
+        registerKeyboardAction(quick_dialog, KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,0), JComponent.WHEN_FOCUSED);
 
         keyBoardInput.addKeyBoardListener(new KeyBoardInput.CameraInputListener() {
 
@@ -43,19 +56,10 @@ public class GameDisplay extends JPanel implements Runnable {
                         input.IsPressed(GameKey.Cam_Right);
             }
 
-            private boolean isEscPressed(){
-                return input.IsPressed(GameKey.Esc);
-            }
-
             @Override
             public void computeKey() {
 
                 float zoom = camera.getZoom();
-
-                if (isEscPressed()){
-                    add(new PauseMenu());
-                    return;
-                }
 
                 if (isCamKeyPressed()) {
 
@@ -100,10 +104,14 @@ public class GameDisplay extends JPanel implements Runnable {
     public void setLevel(int index) {
 
         this.level = Engine.world.levelList.get(index);
+        this.paintMap();
         this.repaint();
 
         if (level != null)
-            this.level.addMapsListener(() -> GameDisplay.this.repaint());
+            this.level.addMapsListener(() -> {
+                GameDisplay.this.paintMap();
+                GameDisplay.this.repaint();
+            });
     }
 
     ComponentListener onResize = new ComponentAdapter() {
@@ -115,6 +123,40 @@ public class GameDisplay extends JPanel implements Runnable {
         }
     };
 
+    public int getLevel() {
+        return Engine.world.levelList.indexOf(level);
+    }
+
+    public Level getCurLevel(){
+        return this.level;
+    }
+
+    BufferedImage bufferedMap;
+
+    public void paintMap()
+    {
+        if (level == null)
+            return;
+
+        int pixel_width = level.getWidth() * level.getTileWidth();
+        int pixel_height = level.getHeight() * level.getTileHeight();
+
+        bufferedMap = new BufferedImage(pixel_width,pixel_height, BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics buffer_graph = bufferedMap.getGraphics();
+
+        buffer_graph.setColor(Color.BLACK);
+        buffer_graph.fillRect(0,0,pixel_width,pixel_height);
+
+        for (int l = 0; l < 10; ++l)
+            for(int y = 0; y < level.getHeight(); ++y)
+                for(int x = 0; x < level.getWidth(); ++x) {
+                    TilePair tile = level.getTile(x, y, l);
+
+                    if (tile != null)
+                        tile.getTileSet().drawtile(tile, x * level.getTileWidth(), y * level.getTileHeight(), buffer_graph);
+                }
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -125,20 +167,17 @@ public class GameDisplay extends JPanel implements Runnable {
         int pixel_width = level.getWidth() * level.getTileWidth();
         int pixel_height = level.getHeight() * level.getTileHeight();
 
-        g.setColor(Color.GRAY);
-        g.fillRect(0,0, pixel_width , pixel_height);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0, getWidth() , getHeight());
 
         BufferedImage buffer = new BufferedImage(pixel_width,pixel_height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics buffer_graph = buffer.getGraphics();
 
-        for (int l = 0; l < 10; ++l)
-            for(int y = 0; y < level.getHeight(); ++y)
-                for(int x = 0; x < level.getWidth(); ++x) {
-                    TilePair tile = level.getTile(x, y, l);
+        buffer_graph.setColor(Color.BLACK);
+        buffer_graph.fillRect(0,0,pixel_width,pixel_height);
 
-                    if (tile != null)
-                        tile.getTileSet().drawtile(tile, x * level.getTileWidth(), y * level.getTileHeight(), buffer_graph);
-                }
+        buffer_graph.drawImage(bufferedMap,camera.getFirst().x,camera.getFirst().y, camera.getSecond().x, camera.getSecond().y,
+                camera.getFirst().x,camera.getFirst().y, camera.getSecond().x, camera.getSecond().y,null);
 
         for (ObjectInstantiation instantiation : Engine.world.worldObjects.getInWorldObj()) {
 
@@ -147,9 +186,12 @@ public class GameDisplay extends JPanel implements Runnable {
                 buffer_graph.drawImage(instantiation.getCurrentSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
             }
         }
+
         g.drawImage(buffer,0,0,getWidth() ,getHeight(),
                 camera.getFirst().x, camera.getFirst().y,
                 camera.getSecond().x, camera.getSecond().y, null);
+
+        buffer_graph.dispose();
     }
 
     Thread thread = null;
@@ -185,6 +227,11 @@ public class GameDisplay extends JPanel implements Runnable {
             keyBoardInput.tick();
             repaint();
         }
+    }
+
+    public void escPressed(){
+        stop();
+        PauseMenu.perform();
     }
 }
 

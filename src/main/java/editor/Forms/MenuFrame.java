@@ -118,17 +118,6 @@ public class MenuFrame extends JMenuBar{
         menuItem.setAction(quick_redo);
         menu.add(menuItem);
 
-        menu.addSeparator();
-
-        menuItem = new JMenuItem("Cut");
-        menu.add(menuItem);
-
-        menuItem = new JMenuItem("Copy");
-        menu.add(menuItem);
-
-        menuItem = new JMenuItem("Paste");
-        menu.add(menuItem);
-
         menu = new JMenu("Objects");
         add(menu);
 
@@ -162,8 +151,16 @@ public class MenuFrame extends JMenuBar{
         add(menu);
 
         menuItem = new JMenuItem("Launch");
-        menuItem.addActionListener(actionEvent -> Engine.launchWorld(Editor.world));
+
+        Action quick_lauch = new AbstractAction("Launch") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Engine.launchWorld(Editor.world);
+            }
+        };
+        quick_lauch.putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_F10, KeyEvent.SHIFT_DOWN_MASK));
+        menuItem.setAction(quick_lauch);
         menu.add(menuItem);
     }
-
 }

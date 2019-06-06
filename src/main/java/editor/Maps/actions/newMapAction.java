@@ -14,12 +14,12 @@ public class newMapAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         levelPaneMultiInput pane = new levelPaneMultiInput();
-        while (pane.getHeightField() <= 48 || pane.getWidthField() <= 48 ||
+        while (pane.getHeightField() < 4 || pane.getWidthField() < 4 ||
                 pane.getTileHeightField() <= 15 || pane.getTileWidthField() <= 15)
         {
             if (pane.getResult() != JOptionPane.OK_OPTION)
                 return;
-            JOptionPane.showMessageDialog(Editor.mainFrame, "Min values are 48 x 48 and 16 x 16",
+            JOptionPane.showMessageDialog(Editor.editFrame, "Min values are 4 x 4 and 16 x 16",
                     "Prompt error", JOptionPane.ERROR_MESSAGE);
             pane = new levelPaneMultiInput();
         }
@@ -27,7 +27,8 @@ public class newMapAction extends AbstractAction {
         if (pane.getResult() != JOptionPane.OK_OPTION)
             return;
 
-        Editor.world.addMap(pane.getHeightField(), pane.getWidthField(),
+        Editor.world.addMap(pane.getHeightField(),
+                pane.getWidthField(),
                 pane.getTileHeightField(), pane.getTileWidthField(), pane.getLevelNameField());
     }
 }

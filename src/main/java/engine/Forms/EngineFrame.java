@@ -32,7 +32,7 @@ public class EngineFrame extends JFrame {
 
         for (ObjectInstantiation obj : Engine.world.worldObjects.getInWorldObj())
         {
-            if (obj.getType() == objType.TELEPORTER)
+            if (obj != null && obj.getType() == objType.TELEPORTER)
                 display.getKeyBoardInput().addKeyBoardListener(new TeleporterControl(player, obj));
         }
 
@@ -41,6 +41,8 @@ public class EngineFrame extends JFrame {
             PlayerControl playerControl = new PlayerControl(player, display.getCamera());
 
             display.getKeyBoardInput().addKeyBoardListener(playerControl);
+
+            setLevel(player.getLevelIndex());
         }
 
         display.start();
