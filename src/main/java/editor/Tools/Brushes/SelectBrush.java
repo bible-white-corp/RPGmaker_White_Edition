@@ -20,7 +20,7 @@ public class SelectBrush extends Brush {
 
         list.add(level.getTilePixel(first.x, first.y));
 
-        Editor.getSelection().setSelection(list, new Dimension(1,1));
+        Editor.getSelection().setSelectionOnWorld(list, new Dimension(1,1), new Point(first.x, first.y));
     }
 
     @Override
@@ -54,7 +54,7 @@ public class SelectBrush extends Brush {
             for (int x = x1; x <= x2; x += level.getTileWidth())
                 list.add(level.getTilePixel(x,y));
 
-        Editor.getSelection().setSelection(list,
-                new Dimension((x2-x1) / level.getTileWidth() + 1, (y2-y1) / level.getTileHeight() + 1));
+        Editor.getSelection().setSelectionOnWorld(list,
+                new Dimension((x2-x1) / level.getTileWidth() + 1, (y2-y1) / level.getTileHeight() + 1), new Point(x1,y1));
     }
 }

@@ -1,5 +1,6 @@
 package editor.Tools;
 
+import editor.Editor;
 import editor.Tiles.TilePair;
 
 import javax.swing.event.EventListenerList;
@@ -12,6 +13,9 @@ public class Selection{
     private List<TilePair> tiles = null;
     private Dimension dimension;
 
+    private boolean isOnWorld = false;
+    private Point origin = null;
+
     private final EventListenerList listeners = new EventListenerList();
 
     public List<TilePair> getTiles() {
@@ -22,9 +26,25 @@ public class Selection{
 
         this.tiles = tiles;
         this.dimension = dimension;
+        this.isOnWorld = false;
 
         for (SelectionListener listener : listeners.getListeners(SelectionListener.class))
             listener.selectionChange();
+
+        Editor.mainFrame.repaint();
+    }
+
+    public void setSelectionOnWorld(List<TilePair> tiles, Dimension dimension, Point origin) {
+
+        this.tiles = tiles;
+        this.dimension = dimension;
+        this.isOnWorld = true;
+        this.origin = origin;
+
+        for (SelectionListener listener : listeners.getListeners(SelectionListener.class))
+            listener.selectionChange();
+
+        Editor.mainFrame.repaint();
     }
 
     public Dimension getDimension() {
@@ -44,5 +64,13 @@ public class Selection{
     public interface SelectionListener extends EventListener {
 
         void selectionChange();
+    }
+
+    public boolean isOnWorld() {
+        return isOnWorld;
+    }
+
+    public Point getOrigin() {
+        return origin;
     }
 }
