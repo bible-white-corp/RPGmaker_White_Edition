@@ -231,6 +231,7 @@ public class GameDisplay extends JPanel implements Runnable {
 
     public void escPressed(){
         stop();
+        Engine.getEngineFrame().getNpcCalculus().stop();
         PauseMenu.perform();
     }
 }

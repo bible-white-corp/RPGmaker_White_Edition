@@ -17,6 +17,10 @@ public class EngineFrame extends JFrame {
         return display;
     }
 
+    public NpcCalculus getNpcCalculus() {
+        return npcCalculus;
+    }
+
     public EngineFrame(long elasped_time, int npcSpeed)
     {
         add(display);

@@ -42,5 +42,6 @@ public class askDialog extends AbstractAction {
         JOptionPane.showOptionDialog(Engine.getEngineFrame(), cur.getDialog(), cur.getName(), JOptionPane.YES_OPTION,
                 JOptionPane.PLAIN_MESSAGE, new ImageIcon(cur.getCurrentSprite().getImage()), answers, null);
         Engine.getEngineFrame().getDisplay().start();
+        Engine.getEngineFrame().getNpcCalculus().start();
     }
 }
