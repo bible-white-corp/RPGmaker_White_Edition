@@ -33,6 +33,7 @@ public class KeyBoardInput implements KeyListener {
 
         isPressed[k.getIndex()] = status;
         isPressed[GameKey.Shift.getIndex()] = keyEvent.isShiftDown();
+        isPressed[GameKey.Ctrl.getIndex()] = keyEvent.isControlDown();
     }
 
     @Override

@@ -17,7 +17,8 @@ public enum GameKey {
     Cam_Zoom_Plus(8, KeyEvent.VK_1),
     Cam_Zoom_Minus(9, KeyEvent.VK_2),
     Esc(10, KeyEvent.VK_ESCAPE),
-    Shift(11, KeyEvent.VK_SHIFT);
+    Shift(11, KeyEvent.VK_SHIFT),
+    Ctrl(12, KeyEvent.VK_CONTROL);
 
     private int index;
     private int keyCode;
