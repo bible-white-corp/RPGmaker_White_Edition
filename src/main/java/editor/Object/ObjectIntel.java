@@ -30,16 +30,12 @@ public class ObjectIntel {
     }
 
     public void removeAnimation(int animNb){
-        System.out.println(name + " before:" + animations);
         while (is_anim(animNb)) {
             for (int i = 0; i < animations.size(); i++) {
-                if (animations.get(i) == animNb) {
+                if (animations.get(i) == animNb)
                     animations.remove(i);
-                    System.out.println("index od deleted elt:" + i);
-                }
             }
         }
-        System.out.println(name + " after:" + animations);
     }
 
     public List<Integer> getAnimations() {

@@ -100,6 +100,13 @@ public class GameObjects {
     }
 
     public void removeObject(int objectIntelIndex) {
+        //remove all instantiations of this obj
+        for (int i = 0; i < instantiations.size(); i++) {
+            if (instantiations.get(i).getObjIntelIndex() == objectIntelIndex)
+                instantiations.remove(i);
+        }
+        //in objTree too
+        
         objs.remove(objectIntelIndex);
     }
 
