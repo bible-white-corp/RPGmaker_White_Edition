@@ -20,7 +20,6 @@ public class ObjectInstantiation {
     int sibling_index = -1;
     int sibling_map_index;
     objType type;
-    protected boolean randomMove = false;
     private String dialog;
     transient private int nextDest = 0;
     transient animationType curAnimType = animationType.IDLE;
@@ -142,6 +141,8 @@ public class ObjectInstantiation {
     }
 
     public animationType getCurAnimType() {
+        if (curAnimType == null)
+            curAnimType = animationType.IDLE;
         return curAnimType;
     }
 

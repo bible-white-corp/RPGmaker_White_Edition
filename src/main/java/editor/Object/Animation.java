@@ -24,7 +24,7 @@ public class Animation {
     }
 
     public void setNext(){
-        if (++cur == sprites.size())
+        if (++cur >= sprites.size())
             cur = 0;
     }
 

@@ -17,6 +17,7 @@ public class PathSettings {
     MoveType type;
     Random random;
     int levelIndex;
+    int parentObj;
 
     public PathSettings(MoveType type, Point coord, int levelIndex){
         this.type = type;
@@ -86,6 +87,7 @@ public class PathSettings {
     }
 
     public void addPoint(Point p){
-        paths.add(p);
+        if (paths.size() < 2)
+            paths.add(p);
     }
 }
