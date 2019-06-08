@@ -237,7 +237,7 @@ public class PTree {
     private void customizeAnimation(pair p) {
         Object[] possibilites = {"Rename", "Delete"};
         String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
-                Editor.world.worldObjects.getObjs().get(p.index).getNames()
+                Editor.world.worldObjects.getAnimations().get(p.index).getNames()
                         + "\nWhat do you want to do with " + p.name,
                 "Customize animation",
                 JOptionPane.INFORMATION_MESSAGE,
@@ -266,12 +266,16 @@ public class PTree {
     private void deleteSprite(pair p) {
         List<Animation> animations = Editor.world.worldObjects.getAnimations();
         int res = JOptionPane.NO_OPTION;
+        boolean asked = false;
 
         for (int i = 0; i < animations.size(); i++) {
             if (animations.get(i).is_sprite(p.index)) {
-                res = JOptionPane.showConfirmDialog(Editor.editFrame, "This sprite is " +
-                        "used in at least one animation, do you really want to delete it ?");
-                if (res == JOptionPane.YES_OPTION)
+                if (!asked) {
+                    res = JOptionPane.showConfirmDialog(Editor.editFrame, "This sprite is " +
+                            "used in at least one animation, do you really want to delete it ?");
+                    asked = true;
+                }
+                else if (res == JOptionPane.YES_OPTION)
                     animations.get(i).removeSprite(p.index);
                 else
                     JOptionPane.showMessageDialog(Editor.editFrame,
@@ -292,14 +296,18 @@ public class PTree {
         List<ObjectIntel> objs = Editor.world.worldObjects.getObjs();
 
         int res = JOptionPane.NO_OPTION;
+        boolean asked = false;
 
         for (int i = 0; i < objs.size(); i++) { //for each obj
             if (objs.get(i).is_anim(p.index)) { //if anim used
                 if (noSprite)
                     objs.get(i).removeAnimation(p.index);
                 else {
-                    res = JOptionPane.showConfirmDialog(Editor.editFrame, "This animation is " +
-                            "used in at least one object, do you really want to delete it ?");
+                    if (!asked) {
+                        res = JOptionPane.showConfirmDialog(Editor.editFrame, "This animation is " +
+                                "used in at least one object, do you really want to delete it ?");
+                        asked = true;
+                    }
                     if (res == JOptionPane.YES_OPTION)
                         objs.get(i).removeAnimation(p.index);
                     else
@@ -311,6 +319,7 @@ public class PTree {
 
             if (objs.get(i).getAnimations().isEmpty()) {
                 this.objects.remove(i);
+                myTree.updateUI();
                 Editor.world.worldObjects.removeObject(i);
             }
         }
