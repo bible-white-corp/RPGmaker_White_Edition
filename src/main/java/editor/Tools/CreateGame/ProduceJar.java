@@ -1,5 +1,6 @@
 package editor.Tools.CreateGame;
 
+import com.google.gson.Gson;
 import editor.Editor;
 
 import java.awt.image.BufferedImage;
@@ -8,6 +9,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.jar.*;
 import java.util.zip.ZipEntry;
@@ -21,8 +23,6 @@ public class ProduceJar {
 
         //Getting the path to our jar && opening it
         URL url = ProduceJar.class.getProtectionDomain().getCodeSource().getLocation();
-        InputStream inputStream = new BufferedInputStream(Files.newInputStream(Paths.get(url.toURI())));
-        JarInputStream jarInputStream = new JarInputStream(inputStream);
 
         //Writing the bullshit manifest
         Manifest manifest = new Manifest();
@@ -34,25 +34,72 @@ public class ProduceJar {
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         JarOutputStream jarOutputStream = new JarOutputStream(fileOutputStream, manifest);
 
-        BufferedInputStream bufferedInputStream;
-        JarEntry entry = jarInputStream.getNextJarEntry();
+        Path path_class = Paths.get(url.toURI());
 
-        //Iterating over all the JarEntries in INPUT
-        while (entry != null){
-            jarOutputStream.putNextEntry(new JarEntry(entry));
-            bufferedInputStream = new BufferedInputStream(jarInputStream);
+        Files.walk(path_class)
+                .filter(Files::isRegularFile)
+                .forEach(path_file-> {
 
-            //Writing all the data until the next JarEntry
-            byte[] buff = new byte[1024];
-            int count;
-            do{
-                count = bufferedInputStream.read(buff);
-                if (count == -1)
-                    break;
-                jarOutputStream.write(buff, 0, count);
-            } while (true);
-            jarOutputStream.closeEntry();
-            entry = jarInputStream.getNextJarEntry();
+                    try {
+
+                        FileInputStream fi = new FileInputStream(path_file.toFile());
+                        BufferedInputStream bi = new BufferedInputStream(fi);
+
+                        String file_full = path_class.relativize(path_file).toString();
+
+                        jarOutputStream.putNextEntry(new JarEntry(file_full));
+
+                        byte[] buff = new byte[1024];
+                        int count;
+
+                        do {
+
+                            count = bi.read(buff);
+
+                            if (count == -1) break;
+
+                            jarOutputStream.write(buff, 0, count);
+
+                        } while (true);
+
+                        jarOutputStream.closeEntry();
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                });
+
+        try {
+
+            URL gson_url = Gson.class.getProtectionDomain().getCodeSource().getLocation();
+            JarInputStream in = new JarInputStream(new BufferedInputStream(Files.newInputStream(Paths.get(gson_url.toURI()))));
+
+                JarEntry entry = null;
+
+                while ((entry = in.getNextJarEntry()) != null) {
+
+                    jarOutputStream.putNextEntry(new JarEntry(entry));
+
+                    byte[] buff = new byte[1024];
+                    int count;
+
+                    do {
+
+                        count = in.read(buff);
+
+                        if (count == -1) break;
+
+                        jarOutputStream.write(buff, 0, count);
+
+                    } while (true);
+
+                    jarOutputStream.closeEntry();
+                }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
 
         //copying the save
@@ -60,9 +107,12 @@ public class ProduceJar {
 
         world.delete();
 
-        try {
+        try
+        {
             jarOutputStream.close();
-        } catch (IOException e){ }
+        }
+        catch (IOException e){ }
+
         System.out.println("Im done");
     }
 
