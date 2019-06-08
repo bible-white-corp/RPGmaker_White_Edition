@@ -25,14 +25,14 @@ public class KeyBoardInput implements KeyListener {
     }
 
     private void updateKey(KeyEvent keyEvent, boolean status){
+
         GameKey k = GameKey.getGameKey(keyEvent);
+
         if (k == null)
             return;
+
         isPressed[k.getIndex()] = status;
-        if (keyEvent.isShiftDown())
-            isPressed[GameKey.Shift.getIndex()] = true;
-        else
-            isPressed[GameKey.Shift.getIndex()] = false;
+        isPressed[GameKey.Shift.getIndex()] = keyEvent.isShiftDown();
     }
 
     @Override

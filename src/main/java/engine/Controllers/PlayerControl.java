@@ -83,12 +83,5 @@ public class PlayerControl extends PlayerInputListener {
 
             countdown = 5;
         }
-        else
-        {
-            if (countdown == 0)
-                player.getCurrentAnimation().getFirstSprite();
-            else
-                countdown --;
-        }
     }
 }
