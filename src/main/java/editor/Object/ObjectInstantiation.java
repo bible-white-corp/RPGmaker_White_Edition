@@ -146,6 +146,10 @@ public class ObjectInstantiation {
         return curAnimType;
     }
 
+    public int getLayer() {
+        return layer;
+    }
+
     public Animation getCurrentAnimation() {
         return getIntel().getAnimation(current_animation);
     }

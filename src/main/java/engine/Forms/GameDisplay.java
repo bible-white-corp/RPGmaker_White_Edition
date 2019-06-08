@@ -104,12 +104,10 @@ public class GameDisplay extends JPanel implements Runnable {
     public void setLevel(int index) {
 
         this.level = Engine.world.levelList.get(index);
-        this.paintMap();
         this.repaint();
 
         if (level != null)
             this.level.addMapsListener(() -> {
-                GameDisplay.this.paintMap();
                 GameDisplay.this.repaint();
             });
     }
@@ -131,32 +129,6 @@ public class GameDisplay extends JPanel implements Runnable {
         return this.level;
     }
 
-    BufferedImage bufferedMap;
-
-    public void paintMap()
-    {
-        if (level == null)
-            return;
-
-        int pixel_width = level.getWidth() * level.getTileWidth();
-        int pixel_height = level.getHeight() * level.getTileHeight();
-
-        bufferedMap = new BufferedImage(pixel_width,pixel_height, BufferedImage.TYPE_4BYTE_ABGR);
-        Graphics buffer_graph = bufferedMap.getGraphics();
-
-        buffer_graph.setColor(Color.BLACK);
-        buffer_graph.fillRect(0,0,pixel_width,pixel_height);
-
-        for (int l = 0; l < 10; ++l)
-            for(int y = 0; y < level.getHeight(); ++y)
-                for(int x = 0; x < level.getWidth(); ++x) {
-                    TilePair tile = level.getTile(x, y, l);
-
-                    if (tile != null)
-                        tile.getTileSet().drawtile(tile, x * level.getTileWidth(), y * level.getTileHeight(), buffer_graph);
-                }
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -168,24 +140,42 @@ public class GameDisplay extends JPanel implements Runnable {
         int pixel_height = level.getHeight() * level.getTileHeight();
 
         g.setColor(Color.BLACK);
-        g.fillRect(0,0, getWidth() , getHeight());
+        g.fillRect(0, 0, getWidth(), getHeight());
 
-        BufferedImage buffer = new BufferedImage(pixel_width,pixel_height, BufferedImage.TYPE_4BYTE_ABGR);
+        BufferedImage buffer = new BufferedImage(pixel_width, pixel_height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics buffer_graph = buffer.getGraphics();
 
         buffer_graph.setColor(Color.BLACK);
-        buffer_graph.fillRect(0,0,pixel_width,pixel_height);
+        buffer_graph.fillRect(0, 0, pixel_width, pixel_height);
 
-        buffer_graph.drawImage(bufferedMap,camera.getFirst().x,camera.getFirst().y, camera.getSecond().x, camera.getSecond().y,
-                camera.getFirst().x,camera.getFirst().y, camera.getSecond().x, camera.getSecond().y,null);
+        int start_y = Math.max(0,camera.getFirst().y / level.getTileHeight());
+        int start_x = Math.max(0,camera.getFirst().x / level.getTileWidth());
 
-        for (ObjectInstantiation instantiation : Engine.world.worldObjects.getInWorldObj()) {
+        int end_y = Math.min(camera.getSecond().y / level.getTileHeight() + 1, level.getHeight());
+        int end_x = Math.min(camera.getSecond().x / level.getTileWidth() + 1, level.getWidth());
 
-            if (instantiation != null && instantiation.getLevelIndex() == Engine.world.levelList.indexOf(level)) {
+        for (int l = 0; l < 10; ++l) {
 
-                buffer_graph.drawImage(instantiation.getCurrentSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
+            for (int y = start_y; y < end_y; ++y)
+                for (int x = start_x; x < end_x; ++x) {
+
+                    TilePair tile = level.getTile(x, y, l);
+
+                    if (tile != null)
+                        tile.getTileSet().drawtile(tile, x * level.getTileWidth(), y * level.getTileHeight(), buffer_graph);
+                }
+
+            for (ObjectInstantiation instantiation : Engine.world.worldObjects.getInWorldObj()) {
+
+                if (instantiation != null && instantiation.getLevelIndex() == Engine.world.levelList.indexOf(level)
+                        && instantiation.getLayer() == l) {
+
+                    buffer_graph.drawImage(instantiation.getCurrentSprite().getImage(), instantiation.getPosition().x, instantiation.getPosition().y, null);
+                }
             }
+
         }
+
 
         g.drawImage(buffer,0,0,getWidth() ,getHeight(),
                 camera.getFirst().x, camera.getFirst().y,
