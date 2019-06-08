@@ -280,10 +280,10 @@ public class PTree {
             }
 
             //check if all anim still have at least one sprite
-            if (animations.get(i).getSprites().size() == 0) {
+            if (animations.get(i).getSprites().isEmpty()) {
+                this.animations.remove(i);
                 deleteAnim(new pair(i, animations.get(i).getName()), true);
                 animations.remove(i);
-                //FIXME delete in tree too
             }
         }
     }
@@ -309,10 +309,12 @@ public class PTree {
                 }
             }
 
-            if (instanciations.get(i).getIntel().getAnimations().isEmpty()) {
-                Editor.world.worldObjects.removeObject(instanciations.get(i).getObjIntelIndex());
-                instanciations.remove(i);
-                //TODO remove it in the tree too ?
+            for (int j = 0; j < instanciations.size(); j++) {
+                if (instanciations.get(j).getIntel().getAnimations().size() == 1) { //FIXME wrong condition ?
+                    objects.remove(instanciations.get(j).getObjIntelIndex());
+                    Editor.world.worldObjects.removeObject(instanciations.get(j).getObjIntelIndex());
+                    instanciations.remove(j);
+                }
             }
         }
     }
