@@ -289,19 +289,19 @@ public class PTree {
     }
 
     private void deleteAnim(pair p, boolean noSprite) {
-        List<ObjectInstantiation> instanciations = Editor.world.worldObjects.getInWorldObj();
+        List<ObjectIntel> objs = Editor.world.worldObjects.getObjs();
 
         int res = JOptionPane.NO_OPTION;
 
-        for (int i = 0; i < instanciations.size(); i++) { //for each obj
-            if (instanciations.get(i).getIntel().is_anim(p.index)) { //if anim used
+        for (int i = 0; i < objs.size(); i++) { //for each obj
+            if (objs.get(i).is_anim(p.index)) { //if anim used
                 if (noSprite)
-                    instanciations.get(i).getIntel().removeAnimation(p.index);
+                    objs.get(i).removeAnimation(p.index);
                 else {
                     res = JOptionPane.showConfirmDialog(Editor.editFrame, "This animation is " +
                             "used in at least one object, do you really want to delete it ?");
                     if (res == JOptionPane.YES_OPTION)
-                        instanciations.get(i).getIntel().removeAnimation(p.index);
+                        objs.get(i).removeAnimation(p.index);
                     else
                         JOptionPane.showMessageDialog(Editor.editFrame,
                                 "Supression cancelled", "Cancelled",
@@ -309,12 +309,9 @@ public class PTree {
                 }
             }
 
-            for (int j = 0; j < instanciations.size(); j++) {
-                if (instanciations.get(j).getIntel().getAnimations().size() == 1) { //FIXME wrong condition ?
-                    objects.remove(instanciations.get(j).getObjIntelIndex());
-                    Editor.world.worldObjects.removeObject(instanciations.get(j).getObjIntelIndex());
-                    instanciations.remove(j);
-                }
+            if (objs.get(i).getAnimations().isEmpty()) {
+                this.objects.remove(i);
+                Editor.world.worldObjects.removeObject(i);
             }
         }
     }
