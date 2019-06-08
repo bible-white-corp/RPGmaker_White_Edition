@@ -60,7 +60,7 @@ public class TeleporterControl extends KeyBoardInput.TeleporterInputListener {
             Engine.getEngineFrame().getDisplay().setLevel(self.getSibling().getLevelIndex());
             player.setPosition(self.getSibling().getPosition());
             player.setLevelIndex(self.getSibling().getLevelIndex());
-            camera.setFocus(self.getSibling().getPosition());
+            camera.forceFocus(self.getSibling().getPosition());
         }
 
         isInside = newInside;

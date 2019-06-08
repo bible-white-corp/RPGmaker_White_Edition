@@ -168,6 +168,7 @@ public class ObjectInstantiation {
         oi.nextDest = nextDest;
         oi.curAnimType = curAnimType;
         oi.current_animation = current_animation;
+        oi.path = path;
 
         return oi;
     }

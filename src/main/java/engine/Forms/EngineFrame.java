@@ -7,6 +7,7 @@ import engine.Controllers.TeleporterControl;
 import engine.Engine;
 
 import javax.swing.*;
+import java.awt.event.WindowEvent;
 
 public class EngineFrame extends JFrame {
 
@@ -53,5 +54,17 @@ public class EngineFrame extends JFrame {
 
         display.start();
         npcCalculus.start();
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(WindowEvent winEvt) {
+
+                display.stop();
+                npcCalculus.stop();
+
+                System.exit(0);
+            }
+        });
     }
+
+
 }

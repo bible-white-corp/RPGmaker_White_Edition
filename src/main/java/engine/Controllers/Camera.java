@@ -48,6 +48,13 @@ public class Camera implements Runnable{
         target_focus = new_focus;
     }
 
+    public void forceFocus(Point new_focus)
+    {
+        target_focus = new_focus;
+        focus.x = new_focus.x;
+        focus.y = new_focus.y;
+    }
+
     public void setZoom(float new_zoom)
     {
         target_zoom = new_zoom;
