@@ -12,6 +12,9 @@ public class Pencil extends Brush {
     @Override
     public void clicked(Level level, Selection selection, int x_pixel, int y_pixel) {
 
+        if (selection == null || selection.getDimension() == null)
+            return;
+
         for (int i = 0; i < selection.getDimension().width; ++i)
             for (int j = 0; j < selection.getDimension().height; ++j)
             {

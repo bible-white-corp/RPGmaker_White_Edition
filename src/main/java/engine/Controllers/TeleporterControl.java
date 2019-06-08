@@ -9,6 +9,7 @@ import java.util.List;
 
 public class TeleporterControl extends KeyBoardInput.TeleporterInputListener {
 
+    Camera camera;
     ObjectInstantiation player;
     ObjectInstantiation self;
 
@@ -16,10 +17,11 @@ public class TeleporterControl extends KeyBoardInput.TeleporterInputListener {
 
     static List<TeleporterControl> others = new LinkedList<TeleporterControl>();
 
-    public TeleporterControl(ObjectInstantiation player, ObjectInstantiation obj) {
+    public TeleporterControl(ObjectInstantiation player, ObjectInstantiation obj, Camera camera) {
 
         this.self = obj;
         this.player = player;
+        this.camera = camera;
 
         others.add(this);
     }
@@ -58,6 +60,7 @@ public class TeleporterControl extends KeyBoardInput.TeleporterInputListener {
             Engine.getEngineFrame().getDisplay().setLevel(self.getSibling().getLevelIndex());
             player.setPosition(self.getSibling().getPosition());
             player.setLevelIndex(self.getSibling().getLevelIndex());
+            camera.setFocus(self.getSibling().getPosition());
         }
 
         isInside = newInside;
