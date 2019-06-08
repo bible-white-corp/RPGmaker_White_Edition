@@ -237,9 +237,9 @@ public class PTree {
     private void customizeAnimation(pair p) {
         Object[] possibilites = {"Rename", "Delete"};
         String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
-                Editor.world.worldObjects.getAnimations().get(p.index).getNames().toString()
+                Editor.world.worldObjects.getObjs().get(p.index).getNames()
                         + "\nWhat do you want to do with " + p.name,
-                "Customize sprite",
+                "Customize animation",
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
                 possibilites, "Rename");
@@ -319,9 +319,9 @@ public class PTree {
     private void customizeObjIntel(pair p) {
         Object[] possibilites = {"Rename", "Delete"};
         String s = (String) JOptionPane.showInputDialog(Editor.editFrame,
-                Editor.world.worldObjects.getObjs().get(p.index).getNames().toString()
+                Editor.world.worldObjects.getObjs().get(p.index).getNames()
                         + "\nWhat do you want to do with " + p.name,
-                "Customize sprite",
+                "Customize objects",
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
                 possibilites, "Rename");

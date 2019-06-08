@@ -57,7 +57,7 @@ public class ObjectIntel {
 
     public List<String> getNames(){
         List<String> res = new Vector<>();
-        List<Sprite> list = Editor.world.worldObjects.getSpriteList();
+        List<Animation> list = Editor.world.worldObjects.getAnimations();
         for (int i : animations){
             res.add(list.get(i).toString());
         }
