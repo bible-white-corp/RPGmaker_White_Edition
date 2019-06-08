@@ -1,6 +1,7 @@
 package engine.Controllers;
 
 import editor.Editor;
+import editor.Maps.Level;
 import editor.Object.ObjectInstantiation;
 import editor.Object.animationType;
 import editor.Tiles.TilePair;
@@ -24,13 +25,31 @@ public class PlayerControl extends PlayerInputListener {
         camera.setFocus(player.getPosition());
     }
 
-    public static boolean canMove(Point p, int levelIndex)
+    public static boolean canMove(Point p, int levelIndex, ObjectInstantiation self)
     {
+        Level level = Editor.world.levelList.get(levelIndex);
+
+        int width = self.getCurrentSprite().getDimension().width - 1;
+        int height = self.getCurrentSprite().getDimension().height - 1;
+
+        if (p.x < 0 || p.x + width >= level.getTileWidth() * level.getWidth()
+         || p.y < 0 || p.y + height >= level.getTileHeight() * level.getHeight())
+            return false;
+
         for (int i = 0; i < 10; ++i) {
 
-            TilePair tilePair = Editor.world.levelList.get(levelIndex).getTilePixel(p.x, p.y, i);
+            TilePair tilePair_1 = level.getTilePixel(p.x, p.y, i);
+            TilePair tilePair_2 = level.getTilePixel(p.x + width, p.y, i);
+            TilePair tilePair_3 = level.getTilePixel(p.x, p.y + height, i);
+            TilePair tilePair_4 = level.getTilePixel(p.x + width, p.y + height, i);
 
-            if (tilePair != null && !tilePair.getTile().isWalkable())
+            if (tilePair_1 != null && !tilePair_1.getTile().isWalkable())
+                return false;
+            if (tilePair_2 != null && !tilePair_2.getTile().isWalkable())
+                return false;
+            if (tilePair_3 != null && !tilePair_3.getTile().isWalkable())
+                return false;
+            if (tilePair_4 != null && !tilePair_4.getTile().isWalkable())
                 return false;
         }
 
@@ -43,6 +62,34 @@ public class PlayerControl extends PlayerInputListener {
                 input.IsPressed(GameKey.Up) ||
                 input.IsPressed(GameKey.Left) ||
                 input.IsPressed(GameKey.Right);
+    }
+
+    public boolean move(Point coords, Point origin)
+    {
+        if (PlayerControl.canMove(coords, Engine.getEngineFrame().getDisplay().getLevel(), player)) {
+            player.setPosition(coords);
+            camera.setFocus(coords);
+
+            return true;
+        }
+        else
+        {
+            Point direction = (Point) coords.clone();
+            direction.translate(-origin.x, -origin.y);
+
+            if (Math.abs(direction.x) <= 1 && direction.y == 0)
+                return false;
+
+            if (Math.abs(direction.y) <= 1 && direction.x == 0)
+                return false;
+
+            Point middle = new Point(origin.x + direction.x / 2, origin.y + direction.y / 2);
+
+            if (move(middle, origin))
+                return move(coords, middle);
+        }
+
+        return false;
     }
 
     @Override
@@ -77,10 +124,7 @@ public class PlayerControl extends PlayerInputListener {
 
             player.getCurrentAnimation().getNext();
 
-            if (canMove(coords, Engine.getEngineFrame().getDisplay().getLevel())) {
-                player.setPosition(coords);
-                camera.setFocus(coords);
-            }
+            move(coords, player.getPosition());
 
             countdown = 5;
         }

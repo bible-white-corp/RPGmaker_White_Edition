@@ -78,7 +78,7 @@ public class PathSettings {
                 y = random.nextInt(l.getHeight());
                 p = new Point(x * l.getTileWidth() - l.getTileWidth()/2,
                         y * l.getTileHeight() - l.getTileHeight() / 2);
-            } while (!PlayerControl.canMove(p, levelIndex));
+            } while (!PlayerControl.canMove(p, levelIndex, null));
             paths.set(0, p);
             return paths.get(0);
         }
