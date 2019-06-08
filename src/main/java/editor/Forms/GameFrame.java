@@ -6,6 +6,7 @@ import editor.Maps.World;
 import editor.Object.ObjectInstantiation;
 import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
+import editor.Tools.Selection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,6 +95,17 @@ public class GameFrame extends JPanel {
 
             for (int x = 0; x < level.getWidth(); ++x)
                 g.drawLine(x * level.getTileWidth(), 0, x * level.getTileWidth(), h_pixel);
+        }
+
+        if (Editor.getSelection().isOnWorld())
+        {
+            Selection s = Editor.getSelection();
+
+            g.setColor(Color.RED);
+            g.drawRect(s.getOrigin().x, s.getOrigin().y,
+                    s.getDimension().width * level.getTileWidth(),
+                    s.getDimension().height * level.getTileHeight()
+                    );
         }
     }
 
