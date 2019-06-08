@@ -81,12 +81,11 @@ public class Animation {
     }
 
     public void removeSprite(int spriteNb) {
-        if (!is_sprite(spriteNb))
-            return;
-
-        for (int i = 0; i < sprites.size(); i++) {
-            if (sprites.get(i) == spriteNb)
-                sprites.remove(i);
+        while (is_sprite(spriteNb)) {
+            for (int i = 0; i < sprites.size(); i++) {
+                if (sprites.get(i) == spriteNb)
+                    sprites.remove(i);
+            }
         }
     }
 }
