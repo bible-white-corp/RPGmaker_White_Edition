@@ -12,7 +12,7 @@ import java.util.Vector;
 
 public class PathSettings {
     Vector<Point> paths;
-    transient int curPath = 0;
+    transient int curPath = 1;
     transient int curIt = 0;
     MoveType type;
     Random random;
@@ -22,6 +22,7 @@ public class PathSettings {
     public PathSettings(MoveType type, Point coord, int levelIndex, int objIndex){
         this.type = type;
         paths = new Vector<>();
+        paths.add(coord);
         paths.add(coord);
         this.levelIndex = levelIndex;
         random = new Random();
@@ -36,11 +37,9 @@ public class PathSettings {
         this.type = type;
     }
 
-    public int getLength(){
-        return paths.size();
-    }
-
     public Point getCur(){
+        if (type == MoveType.idle)
+            return paths.get(0);
         return paths.get(curPath);
     }
 
@@ -88,7 +87,10 @@ public class PathSettings {
     }
 
     public void addPoint(Point p){
-        if (paths.size() < 2)
-            paths.insertElementAt(p, 0);
+            paths.set(0, p);
+    }
+
+    public void setOrigin(Point p){
+        paths.set(1, p);
     }
 }

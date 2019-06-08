@@ -4,6 +4,7 @@ import editor.Editor;
 import editor.Object.*;
 import editor.Object.PathFinding.MoveType;
 import editor.Object.PathFinding.PathSettings;
+import editor.Tools.Brushes.ObjectMove;
 import editor.Tools.Brushes.PathEdit;
 
 import javax.swing.*;
@@ -126,7 +127,7 @@ public class ObjTreeLevel {
     }
 
     private void customizeTP(pair p) {
-        Object[] possibilites = {"Link", "Rename", "Delete"};
+        Object[] possibilites = {"Link", "Rename", "Delete", "Re-Locate"};
         ObjectInstantiation cur = Editor.world.worldObjects.getInWorldObj().get(p.index);
         ObjectInstantiation linked = cur.getSibling();
 
@@ -161,13 +162,14 @@ public class ObjTreeLevel {
             return;
         } else if (s == "Rename") {
             renameInMemory(p);
-        }
+        } else if (s == "Re-Locate")
+            relocate(cur);
     }
 
     private void customizeNPC(pair p) {
         ObjectInstantiation cur = Editor.world.worldObjects.getInWorldObj().get(p.index);
         ObjectInstantiation linked = cur.getSibling();
-        Object[] possibilities = {"Moves", "Rename", "Customize dialog", "Delete"};
+        Object[] possibilities = {"Moves", "Rename", "Customize dialog", "Delete","Re-Locate"};
         Object[] movePossibilities = MoveType.values();
 
         String s = askChoice(possibilities, "What do you want to do with the NPC " + p.name + "?",
@@ -197,7 +199,8 @@ public class ObjTreeLevel {
         }
         else if (s == "Rename") {
             renameInMemory(p);
-        }
+        } else if (s == "Re-Locate")
+            relocate(cur);
     }
 
     private void customizeDialog(pair p) {
@@ -211,7 +214,7 @@ public class ObjTreeLevel {
     }
 
     private void customizeItem(pair p) {
-        Object[] possibilities = {"Rename", "Delete"};
+        Object[] possibilities = {"Rename", "Delete", "Re-Locate"};
 
         String s = askChoice(possibilities, "What do you want to do with the item " + p.name + "?",
                 "Customize item");
@@ -223,11 +226,12 @@ public class ObjTreeLevel {
             return;
         } else if (s == "Rename") {
             renameInMemory(p);
-        }
+        } else if (s == "Re-Locate")
+            relocate(Editor.world.worldObjects.getInWorldObj().get(p.index));
     }
 
     private void customizePlayer(pair p) {
-        Object[] possibilities = {"Rename", "Delete"};
+        Object[] possibilities = {"Rename", "Delete", "Re-Locate"};
 
         String s = askChoice(possibilities, "What do you want to do with the player " + p.name + "?",
                 "Customize player");
@@ -240,7 +244,14 @@ public class ObjTreeLevel {
             return;
         } else if (s == "Rename") {
             renameInMemory(p);
-        }
+        } else if (s == "Re-Locate")
+            relocate(Editor.world.worldObjects.getInWorldObj().get(p.index));
+    }
+
+    private void relocate(ObjectInstantiation obj){
+        JOptionPane.showMessageDialog(Editor.editFrame, "Please click a place to relocate you object",
+                "Re-Locate", JOptionPane.INFORMATION_MESSAGE);
+        Editor.setBrush(new ObjectMove(Editor.getBrush(), obj));
     }
 
     private String askChoice(Object[] possibilities, String message, String title){
@@ -251,6 +262,7 @@ public class ObjTreeLevel {
                 null,
                 possibilities, possibilities[0]);
     }
+
 
     private void deleteFromMemory(pair p, DefaultMutableTreeNode node){
         Editor.world.worldObjects.getInWorldObj().set(p.index, null);

@@ -39,6 +39,7 @@ public class askDialog extends AbstractAction {
         ObjectInstantiation cur = (ObjectInstantiation) npcs[0];
 
         Engine.getEngineFrame().getDisplay().stop();
+        Engine.getEngineFrame().getNpcCalculus().stop();
         JOptionPane.showOptionDialog(Engine.getEngineFrame(), cur.getDialog(), cur.getName(), JOptionPane.YES_OPTION,
                 JOptionPane.PLAIN_MESSAGE, new ImageIcon(cur.getCurrentSprite().getImage()), answers, null);
         Engine.getEngineFrame().getDisplay().start();
