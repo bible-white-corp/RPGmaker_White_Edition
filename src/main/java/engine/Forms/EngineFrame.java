@@ -11,14 +11,16 @@ import javax.swing.*;
 public class EngineFrame extends JFrame {
 
     private GameDisplay display = new GameDisplay();
+    private NpcCalculus npcCalculus;
 
     public GameDisplay getDisplay() {
         return display;
     }
 
-    public EngineFrame()
+    public EngineFrame(long elasped_time, int npcSpeed)
     {
         add(display);
+        npcCalculus = new NpcCalculus(elasped_time, npcSpeed);
     }
 
     public void setLevel(int index)
@@ -46,5 +48,6 @@ public class EngineFrame extends JFrame {
         }
 
         display.start();
+        npcCalculus.start();
     }
 }

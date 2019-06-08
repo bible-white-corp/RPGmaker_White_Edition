@@ -23,6 +23,7 @@ public class ObjectInstantiation {
     protected boolean randomMove = false;
     private String dialog;
     transient private int nextDest = 0;
+    transient animationType curAnimType = animationType.IDLE;
 
     transient int current_animation = 0;
     PathSettings path;
@@ -135,9 +136,13 @@ public class ObjectInstantiation {
         this.position.y = coords.y;
     }
 
-    public void setAnimation(int i) {
+    public void setAnimation(animationType type) {
+        current_animation = type.getValue();
+        curAnimType = type;
+    }
 
-        current_animation = i;
+    public animationType getCurAnimType() {
+        return curAnimType;
     }
 
     public Animation getCurrentAnimation() {

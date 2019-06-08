@@ -19,10 +19,13 @@ public class Animation {
      * @return the next frame for the animation
      */
     public Sprite getNext(){
-        Sprite res = Editor.world.worldObjects.spriteList.get(sprites.get(cur++));
-        if (cur == sprites.size())
-            cur = 0;
+        Sprite res = Editor.world.worldObjects.spriteList.get(sprites.get(cur));
         return res;
+    }
+
+    public void setNext(){
+        if (++cur == sprites.size())
+            cur = 0;
     }
 
     public Sprite getSprite()

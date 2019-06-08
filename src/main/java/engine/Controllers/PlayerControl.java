@@ -2,6 +2,7 @@ package engine.Controllers;
 
 import editor.Editor;
 import editor.Object.ObjectInstantiation;
+import editor.Object.animationType;
 import editor.Tiles.TilePair;
 import engine.Controllers.KeyBoardInput.PlayerInputListener;
 import engine.Engine;
@@ -56,22 +57,22 @@ public class PlayerControl extends PlayerInputListener {
             if (input.IsPressed(GameKey.Up)) {
 
                 coords.y -= player_speed;
-                player.setAnimation(2);
+                player.setAnimation(animationType.BACKWARD);
             }
             else if (input.IsPressed(GameKey.Down))
             {
                 coords.y += player_speed;
-                player.setAnimation(1);
+                player.setAnimation(animationType.FORWARD);
             }
             else if (input.IsPressed(GameKey.Left))
             {
                 coords.x -= player_speed;
-                player.setAnimation(3);
+                player.setAnimation(animationType.LEFT);
             }
             else if (input.IsPressed(GameKey.Right))
             {
                 coords.x += player_speed;
-                player.setAnimation(4);
+                player.setAnimation(animationType.RIGHT);
             }
 
             player.getCurrentAnimation().getNext();
