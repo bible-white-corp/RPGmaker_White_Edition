@@ -43,7 +43,7 @@ public class ObjectInstantiation {
 
     public PathSettings getPath() {
         if (path == null)
-            path = new PathSettings(MoveType.idle, position, levelIndex);
+            path = new PathSettings(MoveType.idle, position, levelIndex, index);
         return path;
     }
 
@@ -110,7 +110,7 @@ public class ObjectInstantiation {
         }
         Editor.world.objTree.addObj(this, Editor.world.worldObjects.getInWorldObj().size(), type);
         Editor.world.worldObjects.addObjInstance(this);
-        path = new PathSettings(MoveType.idle, position, levelIndex);
+        path = new PathSettings(MoveType.idle, position, levelIndex, index);
     }
 
     public void setSibling(int sibling_index, int sibling_map_index) {

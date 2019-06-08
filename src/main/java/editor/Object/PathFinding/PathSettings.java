@@ -3,6 +3,7 @@ package editor.Object.PathFinding;
 import editor.Editor;
 import editor.Maps.Level;
 import engine.Controllers.PlayerControl;
+import engine.Engine;
 
 
 import java.awt.*;
@@ -19,12 +20,13 @@ public class PathSettings {
     int levelIndex;
     int parentObj;
 
-    public PathSettings(MoveType type, Point coord, int levelIndex){
+    public PathSettings(MoveType type, Point coord, int levelIndex, int objIndex){
         this.type = type;
         paths = new Vector<>();
         paths.add(coord);
         this.levelIndex = levelIndex;
         random = new Random();
+        parentObj = objIndex;
     }
 
     public MoveType getType() {
@@ -79,7 +81,7 @@ public class PathSettings {
                 y = random.nextInt(l.getHeight());
                 p = new Point(x * l.getTileWidth() - l.getTileWidth()/2,
                         y * l.getTileHeight() - l.getTileHeight() / 2);
-            } while (!PlayerControl.canMove(p, levelIndex, null));
+            } while (!PlayerControl.canMove(p, levelIndex, Engine.world.worldObjects.getInWorldObj().get(parentObj)));
             paths.set(0, p);
             return paths.get(0);
         }

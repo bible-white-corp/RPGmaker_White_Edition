@@ -125,7 +125,7 @@ public class PlayerControl extends PlayerInputListener {
                 player.setAnimation(animationType.RIGHT);
             }
 
-            player.getCurrentAnimation().getNext();
+            player.getCurrentAnimation().setNext();
 
             move(coords, player.getPosition());
 

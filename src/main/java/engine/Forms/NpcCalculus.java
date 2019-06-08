@@ -109,7 +109,7 @@ public class NpcCalculus implements Runnable {
             else
             {
                 Point dest = calculMov(cur);
-                if (PlayerControl.canMove(dest, level))
+                if (PlayerControl.canMove(dest, level, cur))
                     cur.setPosition(dest);
                 changeAnimation(cur, dest);
             }
