@@ -155,12 +155,27 @@ public class MenuFrame extends JMenuBar{
         Action quick_lauch = new AbstractAction("Launch") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Engine.launchWorld(Editor.world);
+                Engine.launchWorld((World) Editor.world.clone());
             }
         };
+
         quick_lauch.putValue(Action.ACCELERATOR_KEY,
                 KeyStroke.getKeyStroke(KeyEvent.VK_F10, KeyEvent.SHIFT_DOWN_MASK));
         menuItem.setAction(quick_lauch);
+        menu.add(menuItem);
+
+        menuItem = new JMenuItem("Debug");
+
+        Action quick_debug = new AbstractAction("Debug") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Engine.launchWorld(Editor.world);
+            }
+        };
+
+        quick_debug.putValue(Action.ACCELERATOR_KEY,
+                KeyStroke.getKeyStroke(KeyEvent.VK_F9, KeyEvent.SHIFT_DOWN_MASK));
+        menuItem.setAction(quick_debug);
         menu.add(menuItem);
     }
 }

@@ -39,6 +39,19 @@ public class World {
         this.objTree = new ObjTreeLevel();
     }
 
+    public World clone() {
+
+        World world = new World(this.projectName + "_Launch");
+
+        world.levelList = levelList;
+        world.tileSetList = tileSetList;
+        world.tsNames = tsNames;
+
+        world.worldObjects = worldObjects.duplicate();
+
+        return world;
+    }
+
     public List<String> getTsNames() {
         return tsNames;
     }

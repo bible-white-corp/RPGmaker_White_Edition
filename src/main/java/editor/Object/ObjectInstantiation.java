@@ -153,4 +153,22 @@ public class ObjectInstantiation {
     public Animation getCurrentAnimation() {
         return getIntel().getAnimation(current_animation);
     }
+
+    public ObjectInstantiation duplicate() {
+
+        ObjectInstantiation oi = new ObjectInstantiation(objIntelIndex, name, type);
+
+        oi.position = (Point) position.clone();
+        oi.levelIndex = levelIndex;
+        oi.layer = layer;
+        oi.index = index;
+        oi.sibling_index = sibling_index;
+        oi.sibling_map_index = sibling_map_index;
+        oi.dialog = dialog;
+        oi.nextDest = nextDest;
+        oi.curAnimType = curAnimType;
+        oi.current_animation = current_animation;
+
+        return oi;
+    }
 }

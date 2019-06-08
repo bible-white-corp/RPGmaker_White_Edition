@@ -145,4 +145,23 @@ public class GameObjects {
 
     public void addObjInstance(ObjectInstantiation instantiation){
         this.inWorldObj.add(instantiation); }
+
+    public GameObjects duplicate() {
+
+        GameObjects gameObjects = new GameObjects();
+
+        gameObjects.objs = objs;
+        gameObjects.spriteList = spriteList;
+        gameObjects.instantiations = instantiations;
+        gameObjects.animations = animations;
+        gameObjects.spriteSheetList = spriteSheetList;
+        gameObjects.spritesSheetNames = spritesSheetNames;
+
+        gameObjects.inWorldObj = new Vector<>();
+
+        for (ObjectInstantiation oi : inWorldObj)
+            gameObjects.inWorldObj.add(oi != null ? oi.duplicate() : null);
+
+        return gameObjects;
+    }
 }
