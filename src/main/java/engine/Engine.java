@@ -18,7 +18,7 @@ public class Engine {
 
         try
         {
-            world = World.importWorld("BestSoutenance/");
+            world = World.importWorld("exemple/");
 
             launchWorld(world);
         }
