@@ -328,8 +328,10 @@ public class PTree {
         if (s == null)
             return;
         if (s == "Delete") {
+            Editor.world.worldObjects.removeObject(p.index);
             objects.remove((MutableTreeNode) myTree.getLastSelectedPathComponent());
             myTree.updateUI();
+            Editor.world.objTree.reload();
             return;
         }
         if (s == "Rename") {

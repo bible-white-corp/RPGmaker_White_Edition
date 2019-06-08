@@ -100,13 +100,11 @@ public class GameObjects {
     }
 
     public void removeObject(int objectIntelIndex) {
-        //remove all instantiations of this obj
-        for (int i = 0; i < instantiations.size(); i++) {
-            if (instantiations.get(i).getObjIntelIndex() == objectIntelIndex)
-                instantiations.remove(i);
+        for (int i = 0; i < inWorldObj.size(); i++) {
+            if (inWorldObj.get(i).getObjIntelIndex() == objectIntelIndex)
+                inWorldObj.remove(i);
         }
-        //in objTree too
-        
+
         objs.remove(objectIntelIndex);
     }
 
@@ -135,6 +133,5 @@ public class GameObjects {
     }
 
     public void addObjInstance(ObjectInstantiation instantiation){
-        this.inWorldObj.add(instantiation);
-    }
+        this.inWorldObj.add(instantiation); }
 }
