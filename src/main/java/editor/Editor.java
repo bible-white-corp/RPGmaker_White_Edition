@@ -9,7 +9,12 @@ import editor.Tools.Brushes.BucketFill;
 import editor.Tools.Brushes.LineBrush;
 import editor.Tools.Brushes.PaintBrush;
 import editor.Tools.Brushes.Pencil;
+import editor.Tools.CreateGame.ProduceJar;
 import editor.Tools.Selection;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Editor {
 
@@ -78,7 +83,9 @@ public class Editor {
         editFrame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         initEditor();
+        ProduceJar produceJar = new ProduceJar();
+        produceJar.produce("test/");
     }
 }
