@@ -22,7 +22,7 @@ public class ObjectInstantiation {
     objType type;
     private String dialog;
     transient private int nextDest = 0;
-    transient animationType curAnimType = animationType.IDLE;
+    animationType curAnimType;
 
     transient int current_animation = 0;
     PathSettings path;

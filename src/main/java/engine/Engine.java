@@ -33,7 +33,7 @@ public class Engine {
     {
         Engine.world = world;
 
-        engineFrame = new EngineFrame(50,4);
+        engineFrame = new EngineFrame(50,2);
         engineFrame.setVisible(true);
         engineFrame.start();
     }

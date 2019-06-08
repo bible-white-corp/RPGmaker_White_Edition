@@ -7,12 +7,11 @@ import engine.Engine;
 
 
 import java.awt.*;
-import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
 public class PathSettings {
-    List<Point> paths;
+    Vector<Point> paths;
     transient int curPath = 0;
     transient int curIt = 0;
     MoveType type;
@@ -56,7 +55,7 @@ public class PathSettings {
             type = MoveType.idle;
         }
         else if (type == MoveType.infinite){
-            if (curIt == 1){
+            if (curIt >= 1){
                 if (--curPath < 0) {
                     curIt = 0;
                     curPath += 2;
@@ -64,7 +63,7 @@ public class PathSettings {
                 return getCur();
             }
             else {
-                if (++curPath == paths.size()){
+                if (++curPath >= paths.size()){
                     curIt = 1;
                     curPath -= 2;
                 }
@@ -90,6 +89,6 @@ public class PathSettings {
 
     public void addPoint(Point p){
         if (paths.size() < 2)
-            paths.add(p);
+            paths.insertElementAt(p, 0);
     }
 }

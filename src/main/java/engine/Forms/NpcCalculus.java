@@ -66,7 +66,7 @@ public class NpcCalculus implements Runnable {
     private Point calculMov(ObjectInstantiation instantiation) {
         Point dest = instantiation.getPath().getCur();
         Point curPos = instantiation.getPosition();
-        if (instantiation.getPath().getCur() == curPos) {
+        if (instantiation.getPath().getCur().equals(curPos)) {
             if (instantiation.getPath().setNext() == null) {
                 instantiation.getPath().setType(MoveType.idle);
             }
@@ -80,11 +80,11 @@ public class NpcCalculus implements Runnable {
         if (Math.abs(x_mov) > Math.abs(y_mov)) {
             sign = x_mov >= 0 ? 1 : -1;
             x_mov = x_mov / speed == 0 ? x_mov : speed * sign;
-            newPosition = new Point(x_mov, curPos.y);
+            newPosition = new Point(curPos.x + x_mov, curPos.y);
         } else {
             sign = y_mov >= 0 ? 1 : -1;
             y_mov = y_mov / speed == 0 ? y_mov : speed * sign;
-            newPosition = new Point(curPos.x, y_mov);
+            newPosition = new Point(curPos.x, curPos.y + y_mov);
         }
         return newPosition;
     }
