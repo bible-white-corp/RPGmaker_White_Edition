@@ -22,41 +22,41 @@ public class NpcCalculus implements Runnable {
     }
 
     private void changeAnimation(ObjectInstantiation instantiation, Point newPosition) {
-        int orientation = -1;//0: north, 1: east, 2: south, 3: west, -1: no change
+        int orientation = -1;
         Point prevPos = instantiation.getPosition();
 
         if (newPosition.x > prevPos.x)
-            orientation = 0;//north
+            orientation = 0;//right
         else if (newPosition.x < prevPos.x)
-            orientation = 2;//south
+            orientation = 2;//left
         else if (newPosition.y > prevPos.y)
-            orientation = 1;//east
+            orientation = 1;//down
         else if (newPosition.y < prevPos.y)
-            orientation = 3;//west
+            orientation = 3;//up
         switch (orientation) {
             case 0:
-                if (instantiation.getCurAnimType() == animationType.BACKWARD)
+                if (instantiation.getCurAnimType() == animationType.RIGHT)
                     instantiation.getCurrentAnimation().setNext();
                 else
-                    instantiation.setAnimation(animationType.BACKWARD);
+                    instantiation.setAnimation(animationType.RIGHT);
                 break;
             case 1:
-                if (instantiation.getCurAnimType() == animationType.LEFT)
-                    instantiation.getCurrentAnimation().setNext();
-                else
-                    instantiation.setAnimation(animationType.LEFT);
-                break;
-            case 2:
                 if (instantiation.getCurAnimType() == animationType.FORWARD)
                     instantiation.getCurrentAnimation().setNext();
                 else
                     instantiation.setAnimation(animationType.FORWARD);
                 break;
-            case 3:
-                if (instantiation.getCurAnimType() == animationType.RIGHT)
+            case 2:
+                if (instantiation.getCurAnimType() == animationType.LEFT)
                     instantiation.getCurrentAnimation().setNext();
                 else
-                    instantiation.setAnimation(animationType.RIGHT);
+                    instantiation.setAnimation(animationType.LEFT);
+                break;
+            case 3:
+                if (instantiation.getCurAnimType() == animationType.BACKWARD)
+                    instantiation.getCurrentAnimation().setNext();
+                else
+                    instantiation.setAnimation(animationType.BACKWARD);
                 break;
             default:
                 instantiation.getCurrentAnimation().setNext();
@@ -77,7 +77,7 @@ public class NpcCalculus implements Runnable {
 
         Point newPosition;
         int sign;
-        if (Math.abs(x_mov) > Math.abs(y_mov)) {
+        if (x_mov != 0) {
             sign = x_mov >= 0 ? 1 : -1;
             x_mov = x_mov / speed == 0 ? x_mov : speed * sign;
             newPosition = new Point(curPos.x + x_mov, curPos.y);
@@ -109,9 +109,9 @@ public class NpcCalculus implements Runnable {
             else
             {
                 Point dest = calculMov(cur);
+                changeAnimation(cur, dest);
                 if (PlayerControl.canMove(dest, level, cur))
                     cur.setPosition(dest);
-                changeAnimation(cur, dest);
             }
         }
     }
