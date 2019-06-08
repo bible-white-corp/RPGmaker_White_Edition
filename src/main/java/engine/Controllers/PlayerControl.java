@@ -1,5 +1,6 @@
 package engine.Controllers;
 
+import editor.Editor;
 import editor.Object.ObjectInstantiation;
 import editor.Tiles.TilePair;
 import engine.Controllers.KeyBoardInput.PlayerInputListener;
@@ -22,13 +23,13 @@ public class PlayerControl extends PlayerInputListener {
         camera.setFocus(player.getPosition());
     }
 
-    private boolean canMove(Point p)
+    public static boolean canMove(Point p, int levelIndex)
     {
         for (int i = 0; i < 10; ++i) {
 
-            TilePair tilePair = Engine.world.levelList.get(0).getTilePixel(p.x, p.y, i);
+            TilePair tilePair = Editor.world.levelList.get(levelIndex).getTilePixel(p.x, p.y, i);
 
-            if (tilePair != null && tilePair.getTile().isWalkable() == false)
+            if (tilePair != null && !tilePair.getTile().isWalkable())
                 return false;
         }
 
@@ -75,7 +76,7 @@ public class PlayerControl extends PlayerInputListener {
 
             player.getCurrentAnimation().getNext();
 
-            if (canMove(coords)) {
+            if (canMove(coords, Engine.getEngineFrame().getDisplay().getLevel())) {
                 player.setPosition(coords);
                 camera.setFocus(coords);
             }

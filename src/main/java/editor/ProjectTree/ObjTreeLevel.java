@@ -2,6 +2,9 @@ package editor.ProjectTree;
 
 import editor.Editor;
 import editor.Object.*;
+import editor.Object.PathFinding.MoveType;
+import editor.Object.PathFinding.PathSettings;
+import editor.Tools.Brushes.PathEdit;
 
 import javax.swing.*;
 import javax.swing.tree.*;
@@ -165,6 +168,7 @@ public class ObjTreeLevel {
         ObjectInstantiation cur = Editor.world.worldObjects.getInWorldObj().get(p.index);
         ObjectInstantiation linked = cur.getSibling();
         Object[] possibilities = {"Moves", "Rename", "Customize dialog", "Delete"};
+        Object[] movePossibilities = MoveType.values();
 
         String s = askChoice(possibilities, "What do you want to do with the NPC " + p.name + "?",
         "Customize NPC");
@@ -172,11 +176,19 @@ public class ObjTreeLevel {
         if (s == null)
             return;
         if (s == "Moves") {
-            int res = JOptionPane.showConfirmDialog(Editor.editFrame, "Is the NPC moving?", "Moves",
-                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-            if (res == JOptionPane.CANCEL_OPTION)
+            MoveType type = (MoveType) JOptionPane.showInputDialog(Editor.editFrame,
+                    "Which is the type of wished movements?", "Movements",
+                    JOptionPane.INFORMATION_MESSAGE, null, movePossibilities, movePossibilities[0]);
+            if (type == null)
                 return;
-            cur.setRandomMove(res == JOptionPane.YES_OPTION);
+            else
+                cur.getPath().setType(type);
+            if (type.needMov()){
+                JOptionPane.showMessageDialog(Editor.editFrame,
+                        "Please, click on the destination", "Movements",
+                        JOptionPane.INFORMATION_MESSAGE);
+                Editor.setBrush(new PathEdit(Editor.getBrush(), cur));
+            }
         } else if (s == "Delete") {
             deleteFromMemory(p, npc);
             return;

@@ -70,12 +70,15 @@ public class Editor {
         Editor.brush_size = brush_size;
     }
 
-    public static void main(String[] args) {
-
+    public static void initEditor(){
         world = new World("exemple");
         world.addMap(100,100,32,32, "MyMap");
         world.createTileSet("src/main/resources/images/tileset_rpg.png", 32, 32);
         editFrame = new EditFrame();
         editFrame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        initEditor();
     }
 }

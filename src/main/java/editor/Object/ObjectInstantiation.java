@@ -2,8 +2,13 @@ package editor.Object;
 
 import editor.Editor;
 import editor.Maps.Level;
+import editor.Object.PathFinding.MoveType;
+import editor.Object.PathFinding.PathSettings;
 import editor.ProjectTree.objType;
+import editor.Tiles.TilePair;
+
 import java.awt.*;
+import java.util.List;
 
 public class ObjectInstantiation {
     protected int objIntelIndex;
@@ -17,8 +22,11 @@ public class ObjectInstantiation {
     objType type;
     protected boolean randomMove = false;
     private String dialog;
+    transient private int nextDest = 0;
 
     transient int current_animation = 0;
+    PathSettings path;
+
 
     public objType getType() {
         return type;
@@ -28,9 +36,17 @@ public class ObjectInstantiation {
         this.objIntelIndex = objIntelIndex;
         this.name = name;
         this.type = type;
-        if (type == objType.NPC)
-            this.dialog="Hello!";
+        if (type == objType.NPC) {
+            this.dialog = "Hello!";
+        }
     }
+
+    public PathSettings getPath() {
+        if (path == null)
+            path = new PathSettings(MoveType.idle, position, levelIndex);
+        return path;
+    }
+
 
     @Override
     public String toString() {
@@ -64,14 +80,6 @@ public class ObjectInstantiation {
         this.levelIndex = levelIndex;
     }
 
-    public void setRandomMove(boolean randomMove) {
-        this.randomMove = randomMove;
-    }
-
-    public boolean hasRandomMove() {
-        return randomMove;
-    }
-
     public int getIndex() {
         return index;
     }
@@ -102,6 +110,7 @@ public class ObjectInstantiation {
         }
         Editor.world.objTree.addObj(this, Editor.world.worldObjects.getInWorldObj().size(), type);
         Editor.world.worldObjects.addObjInstance(this);
+        path = new PathSettings(MoveType.idle, position, levelIndex);
     }
 
     public void setSibling(int sibling_index, int sibling_map_index) {
