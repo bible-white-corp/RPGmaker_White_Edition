@@ -68,10 +68,11 @@ public class Level {
         return getIndex(x_pixel / tileWidth, y_pixel / tileHeight);
     }
 
-    private TilePair getFromIndex(int index, int layer)
+    public TilePair getFromIndex(int index, int layer)
     {
         return layers.get(layer).getFromIndex(index);
     }
+
 
     private void setFromIndex(TilePair t, int index) {
 
@@ -85,6 +86,20 @@ public class Level {
         for (MapsListener listener : listeners.getListeners(MapsListener.class))
             listener.mapsChangee();
     }
+
+    public void setFromIndex(TilePair t, int index, int index_layer) {
+
+        if (t == null)
+            layers.get(index_layer).setFromIndex(null, index);
+        else
+        {
+            layers.get(index_layer).setFromIndex(t, index);
+        }
+
+        for (MapsListener listener : listeners.getListeners(MapsListener.class))
+            listener.mapsChangee();
+    }
+
 
     public TilePair getTile(int x, int y){
 
