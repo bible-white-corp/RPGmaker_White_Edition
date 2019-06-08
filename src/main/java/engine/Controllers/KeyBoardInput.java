@@ -11,20 +11,6 @@ public class KeyBoardInput implements KeyListener {
 
     private EventListenerList listenerList = new EventListenerList();
 
-    private int key_to_enum[] = {
-            KeyEvent.VK_LEFT,
-            KeyEvent.VK_RIGHT,
-            KeyEvent.VK_UP,
-            KeyEvent.VK_DOWN,
-            KeyEvent.VK_A,
-            KeyEvent.VK_D,
-            KeyEvent.VK_S,
-            KeyEvent.VK_W,
-            KeyEvent.VK_1,
-            KeyEvent.VK_2,
-            KeyEvent.VK_ESCAPE,
-    };
-
     public void tick()
     {
         for (KeyBoardListener listener : listenerList.getListeners(KeyBoardListener.class))
@@ -38,36 +24,30 @@ public class KeyBoardInput implements KeyListener {
 
     }
 
-    private int index_keyEvent(KeyEvent keyEvent)
-    {
-        for (int i = 0; i < GameKey.Count; ++i)
-            if (key_to_enum[i] == keyEvent.getKeyCode())
-                return  i;
-
-        return -1;
+    private void updateKey(KeyEvent keyEvent, boolean status){
+        GameKey k = GameKey.getGameKey(keyEvent);
+        if (k == null)
+            return;
+        isPressed[k.getIndex()] = status;
+        if (keyEvent.isShiftDown())
+            isPressed[GameKey.Shift.getIndex()] = true;
+        else
+            isPressed[GameKey.Shift.getIndex()] = false;
     }
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-
-        int v = index_keyEvent(keyEvent);
-
-        if (v >= 0)
-            isPressed[v] = true;
+        updateKey(keyEvent, true);
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-
-        int v = index_keyEvent(keyEvent);
-
-        if (v >= 0)
-            isPressed[v] = false;
+        updateKey(keyEvent, false);
     }
 
     public boolean IsPressed(GameKey key)
     {
-        return isPressed[key.ordinal()];
+        return isPressed[key.getIndex()];
     }
 
     public void addKeyBoardListener(KeyBoardListener listener)
