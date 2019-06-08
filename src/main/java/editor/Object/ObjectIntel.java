@@ -29,15 +29,6 @@ public class ObjectIntel {
         return false;
     }
 
-    public void removeAnimation(int animNb){
-        while (is_anim(animNb)) {
-            for (int i = 0; i < animations.size(); i++) {
-                if (animations.get(i) == animNb)
-                    animations.remove(i);
-            }
-        }
-    }
-
     public List<Integer> getAnimations() {
         return animations;
     }

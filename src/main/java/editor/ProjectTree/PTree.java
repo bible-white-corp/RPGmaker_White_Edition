@@ -298,10 +298,10 @@ public class PTree {
         int res = JOptionPane.NO_OPTION;
         boolean asked = false;
 
-        for (int i = 0; i < objs.size(); i++) { //for each obj
-            if (objs.get(i).is_anim(p.index)) { //if anim used
+        for (int i = 0; i < objs.size(); i++) {
+            if (objs.get(i).is_anim(p.index)) {
                 if (noSprite)
-                    objs.get(i).removeAnimation(p.index);
+                    Editor.world.worldObjects.removeAnimation(p.index);
                 else {
                     if (!asked) {
                         res = JOptionPane.showConfirmDialog(Editor.editFrame, "This animation is " +
@@ -309,7 +309,7 @@ public class PTree {
                         asked = true;
                     }
                     if (res == JOptionPane.YES_OPTION)
-                        objs.get(i).removeAnimation(p.index);
+                        Editor.world.worldObjects.removeAnimation(p.index);
                     else
                         JOptionPane.showMessageDialog(Editor.editFrame,
                                 "Supression cancelled", "Cancelled",

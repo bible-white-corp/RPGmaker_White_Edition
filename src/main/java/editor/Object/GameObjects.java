@@ -108,6 +108,17 @@ public class GameObjects {
         objs.remove(objectIntelIndex);
     }
 
+    public void removeAnimation(int animIndex) {
+        for (int i = 0; i < inWorldObj.size(); i++) {
+            for (int j = 0; j < inWorldObj.get(i).getIntel().getAnimations().size(); j++) {
+                if (inWorldObj.get(i).getIntel().getAnimations().get(j) == animIndex)
+                    inWorldObj.get(i).getIntel().getAnimations().remove(j);
+            }
+        }
+
+        animations.remove(animIndex);
+    }
+
     public void addSpriteSheet(String path) throws IOException {
         SpriteSheet sheet = SpriteSheet.importSpriteSheet(path);
         Editor.world.projectTree.addNewSpritesSheet(sheet, spriteSheetList.size());
