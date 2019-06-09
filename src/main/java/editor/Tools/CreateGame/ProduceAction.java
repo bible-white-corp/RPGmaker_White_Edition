@@ -4,8 +4,6 @@ import editor.Editor;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class ProduceAction extends AbstractAction {
     public ProduceAction() {

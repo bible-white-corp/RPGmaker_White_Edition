@@ -1,6 +1,5 @@
 package engine.Forms.Dialogs;
 
-import editor.Editor;
 import editor.Maps.Level;
 import editor.Object.ObjectInstantiation;
 import editor.ProjectTree.objType;

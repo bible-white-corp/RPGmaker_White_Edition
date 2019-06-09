@@ -1,6 +1,5 @@
 package engine.Forms.Pause;
 
-import editor.Editor;
 import engine.Engine;
 
 import javax.swing.*;

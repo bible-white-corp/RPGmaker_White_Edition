@@ -3,7 +3,6 @@ package editor.Forms;
 import editor.Editor;
 import editor.Object.Sprite;
 import editor.Object.SpriteSheet;
-import editor.Tiles.TilePair;
 
 import javax.swing.*;
 import java.awt.*;

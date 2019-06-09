@@ -6,7 +6,6 @@ import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tools.Brush;
 import editor.Tools.Selection;
-import editor.Tools.Undo.UndoContainer;
 
 import java.awt.*;
 import java.util.HashSet;

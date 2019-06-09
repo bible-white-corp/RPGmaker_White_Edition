@@ -5,10 +5,8 @@ import editor.Maps.Level;
 import editor.Object.PathFinding.MoveType;
 import editor.Object.PathFinding.PathSettings;
 import editor.ProjectTree.objType;
-import editor.Tiles.TilePair;
 
 import java.awt.*;
-import java.util.List;
 
 public class ObjectInstantiation {
     protected int objIntelIndex;

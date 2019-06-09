@@ -3,7 +3,6 @@ package editor.Tiles;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import editor.Editor;
 import editor.Tools.Selection;
 
 import javax.imageio.ImageIO;
@@ -11,7 +10,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.InvalidPathException;
-import java.util.List;
 import java.util.Vector;
 
 

@@ -1,7 +1,6 @@
 package editor.Object.actions;
 
 import editor.Editor;
-import editor.Object.GameObjects;
 import editor.Object.Sprite;
 
 import javax.swing.*;

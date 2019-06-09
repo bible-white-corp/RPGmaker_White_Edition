@@ -2,9 +2,7 @@ package editor.Forms;
 
 import editor.Editor;
 import editor.Maps.Level;
-import editor.Maps.World;
 import editor.Object.ObjectInstantiation;
-import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tools.Selection;
 

@@ -1,8 +1,6 @@
 package editor.Object;
 
 import editor.Editor;
-import editor.Tiles.Tile;
-import editor.Tiles.TilePair;
 
 import java.util.List;
 import java.util.Vector;

@@ -1,22 +1,13 @@
 package editor.Maps;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import editor.Editor;
-import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
-import editor.Tiles.TileSet;
 import editor.Tools.Selection;
 
-import javax.imageio.ImageIO;
 import javax.swing.event.EventListenerList;
-import java.awt.*;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
-import java.util.Vector;
 
 public class Level {
 

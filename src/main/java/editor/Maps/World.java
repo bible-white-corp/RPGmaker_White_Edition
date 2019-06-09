@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import editor.Editor;
-import editor.Forms.GameFrame;
 import editor.Object.GameObjects;
 import editor.ProjectTree.ObjTreeLevel;
 import editor.ProjectTree.PTree;
@@ -13,8 +12,10 @@ import editor.Tiles.TilePair;
 import editor.Tiles.TileSet;
 import editor.Tools.Undo.UndoContainer;
 
-import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 

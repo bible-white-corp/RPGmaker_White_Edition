@@ -1,9 +1,8 @@
 package editor.ProjectTree;
 
 import editor.Editor;
-import editor.Object.*;
+import editor.Object.ObjectInstantiation;
 import editor.Object.PathFinding.MoveType;
-import editor.Object.PathFinding.PathSettings;
 import editor.Tools.Brushes.ObjectMove;
 import editor.Tools.Brushes.PathEdit;
 

@@ -2,7 +2,6 @@ package editor.Tools.Brushes;
 
 import editor.Editor;
 import editor.Maps.Level;
-import editor.Tiles.Tile;
 import editor.Tiles.TilePair;
 import editor.Tools.Brush;
 import editor.Tools.Selection;

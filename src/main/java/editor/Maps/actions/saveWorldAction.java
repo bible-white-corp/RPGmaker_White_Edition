@@ -1,10 +1,9 @@
 package editor.Maps.actions;
 
-import javax.swing.*;
-import javax.swing.text.StyledEditorKit;
-import java.awt.event.ActionEvent;
-
 import editor.Editor;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class saveWorldAction extends AbstractAction {
 

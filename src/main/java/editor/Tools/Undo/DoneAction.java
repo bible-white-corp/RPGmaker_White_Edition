@@ -1,12 +1,9 @@
 package editor.Tools.Undo;
 
 import editor.Editor;
-import editor.Maps.Layer;
 import editor.Maps.Level;
 import editor.Tiles.TilePair;
 
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.Vector;
 
 public class DoneAction {

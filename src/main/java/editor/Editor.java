@@ -3,16 +3,10 @@ package editor;
 import editor.Forms.EditFrame;
 import editor.Forms.GameFrame;
 import editor.Maps.World;
-import editor.ProjectTree.PTree;
 import editor.Tools.Brush;
-import editor.Tools.Brushes.BucketFill;
-import editor.Tools.Brushes.LineBrush;
-import editor.Tools.Brushes.PaintBrush;
 import editor.Tools.Brushes.Pencil;
-import editor.Tools.CreateGame.ProduceJar;
 import editor.Tools.Selection;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 

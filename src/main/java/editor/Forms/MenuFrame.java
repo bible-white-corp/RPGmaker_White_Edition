@@ -1,7 +1,7 @@
 package editor.Forms;
 
 import editor.Editor;
-import editor.Maps.*;
+import editor.Maps.World;
 import editor.Maps.actions.loadWorldAction;
 import editor.Maps.actions.newMapAction;
 import editor.Maps.actions.newWorldAction;
@@ -22,7 +22,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import static engine.Engine.*;
 import static java.lang.System.exit;
 
 public class MenuFrame extends JMenuBar{

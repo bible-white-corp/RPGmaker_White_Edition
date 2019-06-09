@@ -4,7 +4,6 @@ import editor.Editor;
 import editor.Object.Animation;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Vector;

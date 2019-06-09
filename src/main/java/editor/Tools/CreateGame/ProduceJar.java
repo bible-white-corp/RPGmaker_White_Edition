@@ -3,18 +3,14 @@ package editor.Tools.CreateGame;
 import com.google.gson.Gson;
 import editor.Editor;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.DirectoryStream;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.jar.*;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 public class ProduceJar {
     public void produce(String path) throws IOException, URISyntaxException {

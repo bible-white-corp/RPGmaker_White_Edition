@@ -1,6 +1,5 @@
 package engine.Forms;
 
-import editor.Editor;
 import editor.Object.ObjectInstantiation;
 import editor.Object.PathFinding.MoveType;
 import editor.Object.animationType;

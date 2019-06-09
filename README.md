@@ -27,9 +27,9 @@ java -jar yourGame_BWC.jar
 
 The game commands are not modulable and are the following:
 
-- WASD: to move your player in the standard video-game conventions.
+- KeyBoard arrows: to move your player in the standard video-game conventions.
 
-- Up-arrow, left-arrow... : to move the camera to explore the level.
+- WASD: to move the camera to explore the level.
 
 - SpaceBar: interact with NPCs when you are in range.
 

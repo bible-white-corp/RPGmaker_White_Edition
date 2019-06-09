@@ -2,14 +2,15 @@ package editor.ProjectTree;
 
 import editor.Editor;
 import editor.Maps.Level;
-import editor.Object.*;
+import editor.Object.Animation;
+import editor.Object.ObjectIntel;
+import editor.Object.Sprite;
+import editor.Object.SpriteSheet;
 import editor.Object.actions.instantiateObject;
 import editor.Tiles.TileSet;
-import editor.Tools.Brushes.ObjectEdit;
 
 import javax.swing.*;
 import javax.swing.tree.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;

@@ -2,15 +2,10 @@ package editor.Object;
 
 import editor.Editor;
 import editor.ProjectTree.objType;
-import editor.Tiles.Tile;
-import editor.Tiles.TilePair;
-import editor.Tiles.TileSet;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.Vector;
 
 /**
