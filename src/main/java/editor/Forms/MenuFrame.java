@@ -13,6 +13,7 @@ import editor.Object.actions.newSpritesSheet;
 import editor.Tiles.actions.createTileSetAction;
 import editor.Tiles.actions.loadTileSetAction;
 import editor.Tiles.actions.saveTileSetAction;
+import editor.Tools.CreateGame.ProduceAction;
 import editor.Tools.Undo.action.redoAction;
 import editor.Tools.Undo.action.undoAction;
 import engine.Engine;
@@ -164,6 +165,8 @@ public class MenuFrame extends JMenuBar{
         menuItem.setAction(quick_lauch);
         menu.add(menuItem);
 
+        menu.addSeparator();
+
         menuItem = new JMenuItem("Debug");
 
         Action quick_debug = new AbstractAction("Debug") {
@@ -177,5 +180,13 @@ public class MenuFrame extends JMenuBar{
                 KeyStroke.getKeyStroke(KeyEvent.VK_F9, KeyEvent.SHIFT_DOWN_MASK));
         menuItem.setAction(quick_debug);
         menu.add(menuItem);
+
+        menu.addSeparator();
+
+        Action quick_produce = new ProduceAction();
+        menuItem = new JMenuItem();
+        menuItem.setAction(quick_produce);
+        menu.add(menuItem);
+
     }
 }

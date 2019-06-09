@@ -15,6 +15,9 @@ public class PauseQuitAction extends AbstractAction{
                 "Are you sur you want to quit the game?",
                 "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)) {
             Engine.getEngineFrame().dispose();
+            if (Engine.gamemode){
+                exit(0);
+            }
         }
     }
 

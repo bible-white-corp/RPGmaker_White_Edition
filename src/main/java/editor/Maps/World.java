@@ -157,9 +157,11 @@ public class World {
         } catch (IOException e) { }
         res.undo = new UndoContainer();
         res.redo = new UndoContainer();
-        res.savePath = path.split(res.projectName)[0];
-        res.projectTree = Editor.world.projectTree;
-        res.objTree = Editor.world.objTree;
+        try {
+            res.savePath = path.split(res.projectName)[0];
+            res.projectTree = Editor.world.projectTree;
+            res.objTree = Editor.world.objTree;
+        } catch (Exception e) {}
         res.worldObjects.importSprites(path);
         return res;
     }
