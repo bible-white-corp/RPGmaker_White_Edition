@@ -85,7 +85,5 @@ public class Editor {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
         initEditor();
-        ProduceJar produceJar = new ProduceJar();
-        produceJar.produce("test/");
     }
 }

@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -105,7 +106,7 @@ public class ProduceJar {
         //copying the save
         add("", jarOutputStream, world);
 
-        world.delete();
+        rDelete(world);
 
         try
         {
@@ -125,5 +126,15 @@ public class ProduceJar {
         } else {
             jarOutputStream.write((new FileInputStream(file).readAllBytes()));
         }
+    }
+
+    private void rDelete(File file) throws IOException {
+        if (file.isDirectory()){
+            for (File file1 : file.listFiles()){
+                rDelete(file1);
+            }
+
+        }
+        file.delete();
     }
 }
