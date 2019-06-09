@@ -106,8 +106,6 @@ public class ProduceJar {
         //copying the save
         add("", jarOutputStream, world);
 
-        rDelete(world);
-
         try
         {
             jarOutputStream.close();
